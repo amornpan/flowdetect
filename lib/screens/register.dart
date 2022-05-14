@@ -11,6 +11,7 @@ class _RegisterState extends State<Register> {
   // Explicit
   final _formKey = GlobalKey<FormState>();
   bool _isObscure = true;
+  late String nameString, emailString, passwordString;
 
   // Method
   Widget menuButton() {
@@ -44,6 +45,9 @@ class _RegisterState extends State<Register> {
           return null;
         }
       },
+      onSaved: (value) {
+        nameString = value!.trim();
+      },
     );
   }
 
@@ -73,6 +77,9 @@ class _RegisterState extends State<Register> {
           return null;
         }
       },
+      onSaved: (value) {
+        emailString = value!.trim();
+      },
     );
   }
 
@@ -81,7 +88,7 @@ class _RegisterState extends State<Register> {
       autofocus: false,
       obscureText: _isObscure,
       style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontSize: 17.0),
-      decoration:  InputDecoration(
+      decoration: InputDecoration(
           suffixIcon: IconButton(
               onPressed: () {
                 setState(() {
@@ -110,15 +117,20 @@ class _RegisterState extends State<Register> {
           return null;
         }
       },
+      onSaved: (value) {
+        passwordString = value!.trim();
+      },
     );
   }
 
   Widget submitButton() {
     return ElevatedButton(
       onPressed: () {
-        // debugPrint('You click Sign in botton');
+        //debugPrint('You click Sign in botton');
         if (_formKey.currentState!.validate()) {
           _formKey.currentState!.save();
+          debugPrint(
+              'name = $nameString, email = $emailString, password = $passwordString');
         }
       },
       child: const Text("ตกลง"),
