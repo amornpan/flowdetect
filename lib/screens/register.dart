@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -22,21 +23,25 @@ class _RegisterState extends State<Register> {
     return TextFormField(
       keyboardType: TextInputType.name,
       style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontSize: 17.0),
-      decoration: const InputDecoration(
-        icon: Icon(
+      decoration: InputDecoration(
+        prefixIcon: const Icon(
           Icons.person,
           color: Color.fromARGB(255, 69, 68, 68),
-          size: 35.0,
+          size: 20.0,
         ),
+        enabledBorder:
+            OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+        focusedBorder:
+            OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
         labelText: 'ชื่อ - นามสกุล:',
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
             color: Color.fromARGB(255, 156, 146, 146),
             fontSize: 17.0,
             fontWeight: FontWeight.normal),
-        helperText: 'กรอกข้อมูลเป็นตัวอักษรเท่านั้น!',
-        helperStyle: TextStyle(
-            color: Color.fromRGBO(41, 168, 223, 1),
-            fontStyle: FontStyle.italic),
+        // helperText: 'กรอกข้อมูลเป็นตัวอักษรเท่านั้น!',
+        // helperStyle: const TextStyle(
+        //     color: Color.fromRGBO(41, 168, 223, 1),
+        //     fontStyle: FontStyle.italic),
       ),
       validator: (value) {
         if (value == null || value.isEmpty) {
@@ -55,21 +60,26 @@ class _RegisterState extends State<Register> {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
       style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontSize: 17.0),
-      decoration: const InputDecoration(
-          icon: Icon(
+      decoration: InputDecoration(
+          enabledBorder:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+          focusedBorder:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+          prefixIcon: const Icon(
             Icons.email,
             color: Color.fromARGB(255, 69, 68, 68),
-            size: 35.0,
+            size: 20.0,
           ),
           labelText: 'อีเมลแอดเดรส:',
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
               color: Color.fromARGB(255, 156, 146, 146),
               fontSize: 17.0,
               fontWeight: FontWeight.normal),
-          helperText: 'กรอกข้อมูลอีเมลของคุณ',
-          helperStyle: TextStyle(
-              color: Color.fromRGBO(41, 168, 223, 1),
-              fontStyle: FontStyle.italic)),
+          // helperText: 'กรอกข้อมูลอีเมลของคุณ',
+          // helperStyle: const TextStyle(
+          //     color: Color.fromRGBO(41, 168, 223, 1),
+          //     fontStyle: FontStyle.italic)
+              ),
       validator: (value) {
         if (!((value!.contains('@')) && (value.contains('.')))) {
           return 'กรุณากรอกรูปแบบอีเมลให้ถูกต้อง';
@@ -89,6 +99,10 @@ class _RegisterState extends State<Register> {
       obscureText: _isObscure,
       style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontSize: 17.0),
       decoration: InputDecoration(
+          enabledBorder:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
+          focusedBorder:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
           suffixIcon: IconButton(
               onPressed: () {
                 setState(() {
@@ -96,20 +110,21 @@ class _RegisterState extends State<Register> {
                 });
               },
               icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off)),
-          icon: const Icon(
+          prefixIcon: const Icon(
             Icons.lock,
             color: Color.fromARGB(255, 69, 68, 68),
-            size: 35.0,
+            size: 20.0,
           ),
           labelText: 'กำหนดรหัสผ่านมากกว่า 8 ตัวอักษร:',
           labelStyle: const TextStyle(
               color: Color.fromARGB(255, 156, 146, 146),
               fontSize: 17.0,
               fontWeight: FontWeight.normal),
-          helperText: 'กรอกข้อมูลรหัสผ่านของคุณ',
-          helperStyle: const TextStyle(
-              color: Color.fromRGBO(41, 168, 223, 1),
-              fontStyle: FontStyle.italic)),
+          // helperText: 'กรอกข้อมูลรหัสผ่านของคุณ',
+          // helperStyle: const TextStyle(
+          //     color: Color.fromRGBO(41, 168, 223, 1),
+          //     fontStyle: FontStyle.italic)
+              ),
       validator: (value) {
         if (value!.length < 8) {
           return 'กรุณากรอกรหัสผ่านอย่างน้อย 8 ตัวอักษร';
@@ -131,6 +146,7 @@ class _RegisterState extends State<Register> {
           _formKey.currentState!.save();
           debugPrint(
               'name = $nameString, email = $emailString, password = $passwordString');
+          registerThread();
         }
       },
       child: const Text("ตกลง"),
@@ -149,6 +165,12 @@ class _RegisterState extends State<Register> {
     );
   }
 
+  Future<void> registerThread() async {
+    await Firebase.initializeApp().then((value) {
+      debugPrint('############# connection to firebae success #############');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,7 +185,9 @@ class _RegisterState extends State<Register> {
               padding: const EdgeInsets.all(40.0),
               children: [
                 nameText(),
+                const SizedBox(height: 10),
                 emailText(),
+                const SizedBox(height: 10),
                 passwordText(),
                 const SizedBox(height: 30),
                 submitButton()

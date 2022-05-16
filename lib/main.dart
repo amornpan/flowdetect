@@ -1,17 +1,21 @@
-import 'package:flowdetect/screens/home.dart';
+import 'package:flowdetect/router.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MainApp());
 }
 
+String initRoute = '/authen';
+
 class MainApp extends StatelessWidget {
   const MainApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Home(),
+    return MaterialApp(
+      // home: Authen(),
+      routes: map,
+      initialRoute: initRoute,
     );
   }
 }
