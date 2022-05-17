@@ -37,6 +37,8 @@ dependencies:
 
   firebase_core: ^1.17.0
 
+  flutter_signin_button: ^2.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

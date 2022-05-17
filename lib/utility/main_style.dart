@@ -5,34 +5,29 @@ class MainStyle {
   Color promaryColor = const Color(0xff0091ea);
   Color lightColor = const Color(0xff64c1ff);
 
+  Widget showLogo() => const SizedBox(
+      width: 120,
+      height: 120,
+      child: Image(
+        image: AssetImage('images/logo.png'),
+      ));
+
+  Scaffold buildBackground(double screenWidth, double screenHigh) {
+    return Scaffold(
+      body: ClipPath(
+        clipper: CustomClipPath(),
+        child: Container(
+          color: Colors.blue.shade500,
+          child: const ClipPath(),
+          height: screenHigh,
+          width: screenWidth,
+        ),
+      ),
+    );
+  }
 
   MainStyle();
 }
-
-Scaffold buildBackground(screenWidth, screenHigh) {
-  return Scaffold(
-    body: ClipPath(
-      clipper: CustomClipPath(),
-      child: Container(
-        color: Colors.blue.shade500,
-        child: ClipPath(
-          child: SafeArea(
-              child: Stack(
-            children: [
-              SizedBox(
-                  width: screenWidth,
-                  height: screenHigh,
-                  child: const Text('Clip path')),
-            ],
-          )),
-        ),
-        height: screenHigh,
-        width: screenWidth,
-      ),
-    ),
-  );
-}
-
 
 class CustomClipPath extends CustomClipper<Path> {
   @override
@@ -78,6 +73,3 @@ class CustomClipPath extends CustomClipper<Path> {
     return false;
   }
 }
-
-
-
