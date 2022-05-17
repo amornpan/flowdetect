@@ -151,8 +151,6 @@ class _AuthenState extends State<Authen> {
                 buildSignInFacebook(),
                 const SizedBox(height: 10),
                 buildSignInApple(),
-                
-                
               ],
             ),
           )
@@ -162,8 +160,8 @@ class _AuthenState extends State<Authen> {
   }
 
   SizedBox buildSignInEmail() => SizedBox(
-    width: screenWidth * 0.8,
-    height: 45.0,
+        width: screenWidth * 0.8,
+        height: 45.0,
         child: SignInButton(
           Buttons.Email,
           onPressed: () {},
