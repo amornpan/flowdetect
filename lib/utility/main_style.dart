@@ -5,6 +5,9 @@ class MainStyle {
   Color promaryColor = const Color(0xff0091ea);
   Color lightColor = const Color(0xff64c1ff);
 
+  TextStyle whiteStyle() => const TextStyle(color: Colors.white);
+  TextStyle darkStyle() => const TextStyle(color: Colors.black54);
+
   Widget showLogo() => const SizedBox(
       width: 120,
       height: 120,
