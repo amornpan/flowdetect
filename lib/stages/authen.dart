@@ -2,7 +2,6 @@ import 'package:flowdetect/utility/main_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 
-
 class Authen extends StatefulWidget {
   const Authen({Key? key}) : super(key: key);
 
@@ -153,21 +152,27 @@ class _AuthenState extends State<Authen> {
                 const SizedBox(height: 10),
                 buildSignInApple(),
                 const SizedBox(height: 10),
-                Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Non Account?',
-            style: MainStyle().darkStyle(),
-          ),
-          TextButton(onPressed: () {}, child: const Text('Create Account'))
-        ],
-      ),
+                buildNewAccount(),
               ],
             ),
           )
         ],
       ),
+    );
+  }
+
+  Row buildNewAccount() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Non Account?',
+          style: MainStyle().darkStyle(),
+        ),
+        TextButton(
+            onPressed: () => Navigator.pushNamed(context, '/newAccount'),
+            child: const Text('Create Account'))
+      ],
     );
   }
 
