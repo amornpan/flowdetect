@@ -137,10 +137,12 @@ class _AuthenState extends State<Authen> {
             ),
             Center(
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(height: screenHigh * 0.18),
                   MainStyle().showLogo(),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   emailText(),
                   const SizedBox(height: 10),
                   passwordText(),
