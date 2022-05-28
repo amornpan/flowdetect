@@ -13,44 +13,49 @@ class _NewAccountState extends State<NewAccount> {
   late double screenWidth;
   late double screenHigh;
 
-  final _formKey = GlobalKey<FormState>();
-  var _isObscure = true;
+  bool _isObscure = true;
   late String nameString, emailString, passwordString;
 
   Widget nameText() {
-    return TextFormField(
-      keyboardType: TextInputType.name,
-      style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontSize: 17.0),
-      decoration: InputDecoration(
-        prefixIcon: const Icon(
-          Icons.person,
-          color: Color.fromARGB(255, 69, 68, 68),
-          size: 20.0,
+    return SizedBox(
+      width: screenWidth * 0.8,
+      child: TextFormField(
+        keyboardType: TextInputType.name,
+        style:
+            const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontSize: 16.0),
+        decoration: InputDecoration(
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 14.0, horizontal: 10.0),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(color: Colors.blue.shade400, width: 4.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(color: Colors.blue.shade400, width: 4.0),
+          ),
+          prefixIcon: const Icon(
+            Icons.person,
+            color: Color.fromARGB(255, 69, 68, 68),
+            size: 20.0,
+          ),
+          labelText: 'ชื่อ-นามสกุล:',
+          labelStyle: const TextStyle(
+              color: Color.fromARGB(255, 156, 146, 146),
+              fontSize: 14.0,
+              fontWeight: FontWeight.normal),
         ),
-        enabledBorder:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-        focusedBorder:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-        labelText: 'ชื่อ - นามสกุล:',
-        labelStyle: const TextStyle(
-            color: Color.fromARGB(255, 156, 146, 146),
-            fontSize: 17.0,
-            fontWeight: FontWeight.normal),
-        // helperText: 'กรอกข้อมูลเป็นตัวอักษรเท่านั้น!',
-        // helperStyle: const TextStyle(
-        //     color: Color.fromRGBO(41, 168, 223, 1),
-        //     fontStyle: FontStyle.italic),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'กรุณาป้อนชื่อ-นามสกุล';
+          } else {
+            return null;
+          }
+        },
+        onSaved: (value) {
+          nameString = value!.trim();
+        },
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'กรุณาป้อนชื่อ-นามสกุล';
-        } else {
-          return null;
-        }
-      },
-      onSaved: (value) {
-        nameString = value!.trim();
-      },
     );
   }
 
@@ -82,10 +87,6 @@ class _NewAccountState extends State<NewAccount> {
               color: Color.fromARGB(255, 156, 146, 146),
               fontSize: 14.0,
               fontWeight: FontWeight.normal),
-          // helperText: 'กรอกข้อมูลอีเมลของคุณ',
-          // helperStyle: const TextStyle(
-          //     color: Color.fromRGBO(41, 168, 223, 1),
-          //     fontStyle: FontStyle.italic)
         ),
         validator: (value) {
           if (!((value!.contains('@')) && (value.contains('.')))) {
@@ -102,47 +103,57 @@ class _NewAccountState extends State<NewAccount> {
   }
 
   Widget passwordText() {
-    return TextFormField(
-      autofocus: false,
-      obscureText: _isObscure,
-      style: const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontSize: 17.0),
-      decoration: InputDecoration(
-        enabledBorder:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-        focusedBorder:
-            OutlineInputBorder(borderRadius: BorderRadius.circular(30)),
-        suffixIcon: IconButton(
-            onPressed: () {
-              setState(() {
-                _isObscure = !_isObscure;
-              });
-            },
-            icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off)),
-        prefixIcon: const Icon(
-          Icons.lock,
-          color: Color.fromARGB(255, 69, 68, 68),
-          size: 20.0,
+    return SizedBox(
+      width: screenWidth * 0.8,
+      child: TextFormField(
+        autofocus: false,
+        obscureText: _isObscure,
+        style:
+            const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontSize: 16.0),
+        decoration: InputDecoration(
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 14.0, horizontal: 10.0),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(color: Colors.blue.shade400, width: 4.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(color: Colors.blue.shade400, width: 4.0),
+          ),
+          suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  _isObscure = !_isObscure;
+                });
+              },
+              icon: Icon(_isObscure ? Icons.visibility : Icons.visibility_off)),
+          prefixIcon: const Icon(
+            Icons.lock,
+            color: Color.fromARGB(255, 69, 68, 68),
+            size: 20.0,
+          ),
+          labelText: 'รหัสผ่านอย่างน้อย 8 ตัวอักษร:',
+          labelStyle: const TextStyle(
+              color: Color.fromARGB(255, 156, 146, 146),
+              fontSize: 14.0,
+              fontWeight: FontWeight.normal),
+          // helperText: 'กรอกข้อมูลรหัสผ่านของคุณ',
+          // helperStyle: const TextStyle(
+          //     color: Color.fromRGBO(41, 168, 223, 1),
+          //     fontStyle: FontStyle.italic)
         ),
-        labelText: 'กำหนดรหัสผ่านมากกว่า 8 ตัวอักษร:',
-        labelStyle: const TextStyle(
-            color: Color.fromARGB(255, 156, 146, 146),
-            fontSize: 17.0,
-            fontWeight: FontWeight.normal),
-        // helperText: 'กรอกข้อมูลรหัสผ่านของคุณ',
-        // helperStyle: const TextStyle(
-        //     color: Color.fromRGBO(41, 168, 223, 1),
-        //     fontStyle: FontStyle.italic)
+        validator: (value) {
+          if (value!.length < 8) {
+            return 'กรุณากรอกรหัสผ่านอย่างน้อย 8 ตัวอักษร';
+          } else {
+            return null;
+          }
+        },
+        onSaved: (value) {
+          passwordString = value!.trim();
+        },
       ),
-      validator: (value) {
-        if (value!.length < 8) {
-          return 'กรุณากรอกรหัสผ่านอย่างน้อย 8 ตัวอักษร';
-        } else {
-          return null;
-        }
-      },
-      onSaved: (value) {
-        passwordString = value!.trim();
-      },
     );
   }
 
@@ -150,12 +161,14 @@ class _NewAccountState extends State<NewAccount> {
     return ElevatedButton(
       onPressed: () {
         //debugPrint('You click Sign in botton');
-        if (_formKey.currentState!.validate()) {
-          _formKey.currentState!.save();
-          debugPrint(
-              'name = $nameString, email = $emailString, password = $passwordString');
-          //registerThread();
-        }
+        // if (_formKey.currentState!.validate()) {
+        //   _formKey.currentState!.save();
+        //   debugPrint(
+        //       'name = $nameString, email = $emailString, password = $passwordString');
+        //   //registerThread();
+        // }
+        debugPrint(
+            'name = $nameString!.lenght, email = $emailString!.lenght, password = $passwordString!.lenght');
       },
       child: const Text("ตกลง"),
       style: ElevatedButton.styleFrom(

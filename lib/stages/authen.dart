@@ -93,7 +93,7 @@ class _AuthenState extends State<Authen> {
             color: Color.fromARGB(255, 69, 68, 68),
             size: 20.0,
           ),
-          labelText: 'กำหนดรหัสผ่านมากกว่า 8 ตัวอักษร:',
+          labelText: 'รหัสผ่าน:',
           labelStyle: const TextStyle(
               color: Color.fromARGB(255, 156, 146, 146),
               fontSize: 14.0,
@@ -123,24 +123,24 @@ class _AuthenState extends State<Authen> {
     screenHigh = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            ClipPath(
-              clipper: CustomClipPath(),
-              child: Container(
-                color: Colors.blue.shade500,
-                child: const ClipPath(),
-                height: screenHigh,
-                width: screenWidth,
-              ),
+      body: Stack(
+        children: [
+          ClipPath(
+            clipper: CustomClipPath(),
+            child: Container(
+              color: Colors.blue.shade500,
+              child: const ClipPath(),
+              height: screenHigh,
+              width: screenWidth,
             ),
-            Center(
+          ),
+          Center(
+            child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: screenHigh * 0.18),
+                  SizedBox(height: screenHigh * 0.10),
                   MainStyle().showLogo(),
                   const SizedBox(height: 20),
                   emailText(),
@@ -158,9 +158,9 @@ class _AuthenState extends State<Authen> {
                   buildNewAccount(),
                 ],
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -175,7 +175,13 @@ class _AuthenState extends State<Authen> {
         ),
         TextButton(
             onPressed: () => Navigator.pushNamed(context, '/newAccount'),
-            child: const Text('Create Account'))
+            child: const Text(
+              'Create Account',
+              style: TextStyle(color: Color.fromARGB(255, 150, 70, 8),
+              fontWeight: FontWeight.bold,
+              ),
+              
+            ))
       ],
     );
   }
