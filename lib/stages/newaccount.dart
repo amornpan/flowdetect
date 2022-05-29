@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utility/dialog.dart';
+
 class NewAccount extends StatefulWidget {
   const NewAccount({Key? key}) : super(key: key);
 
@@ -15,9 +17,9 @@ class _NewAccountState extends State<NewAccount> {
 
   bool _isObscure = true;
 
-  late String nameString;
-  late String emailString;
-  late String passwordString;
+  String nameString = "";
+  String emailString = "";
+  String passwordString = "";
 
   Widget nameText() {
     return SizedBox(
@@ -48,15 +50,8 @@ class _NewAccountState extends State<NewAccount> {
               fontSize: 14.0,
               fontWeight: FontWeight.normal),
         ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'กรุณาป้อนชื่อ-นามสกุล';
-          } else {
-            return null;
-          }
-        },
-        onSaved: (value) {
-          nameString = value!.trim();
+        onChanged: (value) {
+          nameString = value.trim();
         },
       ),
     );
@@ -91,15 +86,8 @@ class _NewAccountState extends State<NewAccount> {
               fontSize: 14.0,
               fontWeight: FontWeight.normal),
         ),
-        validator: (value) {
-          if (!((value!.contains('@')) && (value.contains('.')))) {
-            return 'กรุณากรอกรูปแบบอีเมลให้ถูกต้อง';
-          } else {
-            return null;
-          }
-        },
-        onSaved: (value) {
-          emailString = value!.trim();
+        onChanged: (value) {
+          emailString = value.trim();
         },
       ),
     );
@@ -141,20 +129,9 @@ class _NewAccountState extends State<NewAccount> {
               color: Color.fromARGB(255, 156, 146, 146),
               fontSize: 14.0,
               fontWeight: FontWeight.normal),
-          // helperText: 'กรอกข้อมูลรหัสผ่านของคุณ',
-          // helperStyle: const TextStyle(
-          //     color: Color.fromRGBO(41, 168, 223, 1),
-          //     fontStyle: FontStyle.italic)
         ),
-        validator: (value) {
-          if (value!.length < 8) {
-            return 'กรุณากรอกรหัสผ่านอย่างน้อย 8 ตัวอักษร';
-          } else {
-            return null;
-          }
-        },
-        onSaved: (value) {
-          passwordString = value!.trim();
+        onChanged: (value) {
+          passwordString = value.trim();
         },
       ),
     );
@@ -163,15 +140,10 @@ class _NewAccountState extends State<NewAccount> {
   Widget submitButton() {
     return ElevatedButton(
       onPressed: () {
-        //debugPrint('You click Sign in botton');
-        // if (_formKey.currentState!.validate()) {
-        //   _formKey.currentState!.save();
-        //   debugPrint(
-        //       'name = $nameString, email = $emailString, password = $passwordString');
-        //   //registerThread();
-        // }
-        debugPrint(
-            'name = $nameString!.lenght, email = $emailString!.lenght, password = $passwordString!.lenght');
+        if ((nameString.isEmpty) || (passwordString.isEmpty) ||
+            (passwordString.isEmpty)) {
+          normalDialog(context, "พบค่าว่าง", "กรุณากรอกข้อมูลให้ครบ");
+        }
       },
       child: const Text("ตกลง"),
       style: ElevatedButton.styleFrom(

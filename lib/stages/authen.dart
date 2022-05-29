@@ -176,8 +176,6 @@ class _AuthenState extends State<Authen> {
           onPressed: () {
             if ((emailString.isEmpty) || (passwordString.isEmpty)) {
               normalDialog(context, "พบค่าว่าง", "กรุณากรอกข้อมูลให้ครบ");
-              //debugPrint('ว่าง');
-
             }
           },
           shape:
