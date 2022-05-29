@@ -1,3 +1,4 @@
+import 'package:flowdetect/utility/dialog.dart';
 import 'package:flowdetect/utility/main_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -12,7 +13,10 @@ class Authen extends StatefulWidget {
 class _AuthenState extends State<Authen> {
   late double screenWidth;
   late double screenHigh;
-  late String nameString, emailString, passwordString;
+
+  String emailString = "";
+  String passwordString = "";
+
   bool _isObscure = true;
 
   Widget emailText() {
@@ -43,20 +47,9 @@ class _AuthenState extends State<Authen> {
               color: Color.fromARGB(255, 156, 146, 146),
               fontSize: 14.0,
               fontWeight: FontWeight.normal),
-          // helperText: 'กรอกข้อมูลอีเมลของคุณ',
-          // helperStyle: const TextStyle(
-          //     color: Color.fromRGBO(41, 168, 223, 1),
-          //     fontStyle: FontStyle.italic)
         ),
-        validator: (value) {
-          if (!((value!.contains('@')) && (value.contains('.')))) {
-            return 'กรุณากรอกรูปแบบอีเมลให้ถูกต้อง';
-          } else {
-            return null;
-          }
-        },
-        onSaved: (value) {
-          emailString = value!.trim();
+        onChanged: (value) {
+          emailString = value.trim();
         },
       ),
     );
@@ -98,20 +91,9 @@ class _AuthenState extends State<Authen> {
               color: Color.fromARGB(255, 156, 146, 146),
               fontSize: 14.0,
               fontWeight: FontWeight.normal),
-          // helperText: 'กรอกข้อมูลรหัสผ่านของคุณ',
-          // helperStyle: const TextStyle(
-          //     color: Color.fromRGBO(41, 168, 223, 1),
-          //     fontStyle: FontStyle.italic)
         ),
-        validator: (value) {
-          if (value!.length < 8) {
-            return 'กรุณากรอกรหัสผ่านอย่างน้อย 8 ตัวอักษร';
-          } else {
-            return null;
-          }
-        },
-        onSaved: (value) {
-          passwordString = value!.trim();
+        onChanged: (value) {
+          passwordString = value.trim();
         },
       ),
     );
@@ -177,10 +159,10 @@ class _AuthenState extends State<Authen> {
             onPressed: () => Navigator.pushNamed(context, '/newAccount'),
             child: const Text(
               'Create Account',
-              style: TextStyle(color: Color.fromARGB(255, 150, 70, 8),
-              fontWeight: FontWeight.bold,
+              style: TextStyle(
+                color: Color.fromARGB(255, 150, 70, 8),
+                fontWeight: FontWeight.bold,
               ),
-              
             ))
       ],
     );
@@ -191,7 +173,13 @@ class _AuthenState extends State<Authen> {
         height: 45.0,
         child: SignInButton(
           Buttons.Email,
-          onPressed: () {},
+          onPressed: () {
+            if ((emailString.isEmpty) || (passwordString.isEmpty)) {
+              normalDialog(context, "พบค่าว่าง", "กรุณากรอกข้อมูลให้ครบ");
+              //debugPrint('ว่าง');
+
+            }
+          },
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         ),

@@ -14,7 +14,10 @@ class _NewAccountState extends State<NewAccount> {
   late double screenHigh;
 
   bool _isObscure = true;
-  late String nameString, emailString, passwordString;
+
+  late String nameString;
+  late String emailString;
+  late String passwordString;
 
   Widget nameText() {
     return SizedBox(
