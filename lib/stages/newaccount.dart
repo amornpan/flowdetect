@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import '../utility/dialog.dart';
@@ -140,9 +141,12 @@ class _NewAccountState extends State<NewAccount> {
   Widget submitButton() {
     return ElevatedButton(
       onPressed: () {
-        if ((nameString.isEmpty) || (passwordString.isEmpty) ||
+        if ((nameString.isEmpty) ||
+            (passwordString.isEmpty) ||
             (passwordString.isEmpty)) {
           normalDialog(context, "พบค่าว่าง", "กรุณากรอกข้อมูลให้ครบ");
+        } else {
+          createAccounttoFirebase();
         }
       },
       child: const Text("ตกลง"),
@@ -158,6 +162,12 @@ class _NewAccountState extends State<NewAccount> {
             fontSize: 21.0,
             fontFamily: "Orbitron",
           )),
+    );
+  }
+
+  Future<void> createAccounttoFirebase() async {
+    await Firebase.initializeApp().then(
+      (value) => debugPrint('Firebase initial success'),
     );
   }
 
