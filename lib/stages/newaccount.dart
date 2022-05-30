@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -146,6 +147,7 @@ class _NewAccountState extends State<NewAccount> {
             (passwordString.isEmpty)) {
           normalDialog(context, "พบค่าว่าง", "กรุณากรอกข้อมูลให้ครบ");
         } else {
+          debugPrint('email1: $emailString, password1: $passwordString');
           createAccounttoFirebase();
         }
       },
@@ -165,9 +167,20 @@ class _NewAccountState extends State<NewAccount> {
     );
   }
 
-  Future<void> createAccounttoFirebase() async {
+  Future<Null> createAccounttoFirebase() async {
     await Firebase.initializeApp().then(
-      (value) => debugPrint('Firebase initial success'),
+      (value) async {
+        debugPrint('Firebase initial success');
+        debugPrint('email2: $emailString, password2: $passwordString');
+        await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: emailString, password: passwordString)
+            .then((value) => debugPrint('create user sucess'))
+            .catchError(
+              //(onError) => debugPrint(onError.message),
+              (onError) => normalDialog(context, onError.code, onError.message),
+            );
+      },
     );
   }
 

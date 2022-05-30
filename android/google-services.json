@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:566599169730:android:bc595baca21dc2c004ad5b",
+        "mobilesdk_app_id": "1:566599169730:android:425f3d40a55f3b4804ad5b",
         "android_client_info": {
           "package_name": "th.or.hii.flowdetect"
         }
@@ -29,6 +29,13 @@
             {
               "client_id": "566599169730-516lj0lajhg6ih7ipr7rohvffoeffekb.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "566599169730-p16cqrhun5cqn4ufnocp7eeiqm9go65t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "th.or.hii.flowdetect"
+              }
             }
           ]
         }
