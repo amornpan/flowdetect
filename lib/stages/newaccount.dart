@@ -167,7 +167,7 @@ class _NewAccountState extends State<NewAccount> {
     );
   }
 
-  Future<Null> createAccounttoFirebase() async {
+  Future<void> createAccounttoFirebase() async {
     await Firebase.initializeApp().then(
       (value) async {
         debugPrint('Firebase initial success');
@@ -177,7 +177,6 @@ class _NewAccountState extends State<NewAccount> {
                 email: emailString, password: passwordString)
             .then((value) => debugPrint('create user sucess'))
             .catchError(
-              //(onError) => debugPrint(onError.message),
               (onError) => normalDialog(context, onError.code, onError.message),
             );
       },
