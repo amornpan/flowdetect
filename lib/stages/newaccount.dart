@@ -177,6 +177,7 @@ class _NewAccountState extends State<NewAccount> {
                 email: emailString, password: passwordString)
             .then((value) => debugPrint('create user sucess'))
             .catchError(
+              
               (onError) => normalDialog(context, onError.code, onError.message),
             );
       },
