@@ -149,7 +149,7 @@ class _NewAccountState extends State<NewAccount> {
             (passwordString.isEmpty)) {
           normalDialog(context, "พบค่าว่าง", "กรุณากรอกข้อมูลให้ครบ");
         } else {
-          debugPrint('email1: $emailString, password1: $passwordString');
+          // debugPrint('email1: $emailString, password1: $passwordString');
           createAccounttoFirebase();
         }
       },
@@ -195,8 +195,21 @@ class _NewAccountState extends State<NewAccount> {
                 .doc(uid)
                 .set(data)
                 .then(
-                  (value) => debugPrint('Insert value to firestore sucess'),
-                );
+              (value) {
+                debugPrint('Insert value to firestore sucess');
+                switch (userModel.usertype) {
+                  case 'client':
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/userService', (route) => false);
+                    break;
+                  case 'admin':
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/adminService', (route) => false);
+                    break;
+                  default:
+                }
+              },
+            );
           });
         }).catchError(
           (onError) => normalDialog(context, onError.code, onError.message),
