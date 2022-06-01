@@ -212,7 +212,11 @@ class _NewAccountState extends State<NewAccount> {
             );
           });
         }).catchError(
-          (onError) => normalDialog(context, onError.code, onError.message),
+          (onError) => normalDialog(
+            context,
+            onError.code,
+            onError.message,
+          ),
         );
       },
     );

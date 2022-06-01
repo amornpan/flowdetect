@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flowdetect/utility/dialog.dart';
 import 'package:flowdetect/utility/main_style.dart';
 import 'package:flutter/material.dart';
@@ -176,6 +178,8 @@ class _AuthenState extends State<Authen> {
           onPressed: () {
             if ((emailString.isEmpty) || (passwordString.isEmpty)) {
               normalDialog(context, "พบค่าว่าง", "กรุณากรอกข้อมูลให้ครบ");
+            } else {
+              checkAuthen();
             }
           },
           shape:
@@ -215,6 +219,27 @@ class _AuthenState extends State<Authen> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         ),
       );
+
+  Future<void> checkAuthen() async {
+    await Firebase.initializeApp().then((value) async {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+            email: emailString,
+            password: passwordString,
+          )
+          .then(
+            (value) => Navigator.pushNamedAndRemoveUntil(
+                context, '/userService', (route) => false),
+          )
+          .catchError(
+            (value) => normalDialog(
+              context,
+              value.code,
+              value.message,
+            ),
+          );
+    });
+  }
 }
 
 class CustomClipPath extends CustomClipper<Path> {
