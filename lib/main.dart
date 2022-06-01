@@ -1,19 +1,36 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flowdetect/models/user_model.dart';
 import 'package:flowdetect/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
+String initRoute = '/authen';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]).then((value) => runApp(const MainApp()));
+  await Firebase.initializeApp().then((value) async {
+    await FirebaseAuth.instance.authStateChanges().listen((event) async {
+      if (event != null) {
+         
+        initRoute = '/userService';
+        runApp(const MainApp());
+      }
+      else{
+        runApp(const MainApp());
+      }
+    });
+  });
 
-  runApp(const MainApp());
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]).then((value) {
+  //   runApp(const MainApp());
+  // });
 }
-
-String initRoute = '/authen';
 
 class MainApp extends StatelessWidget {
   const MainApp({Key? key}) : super(key: key);

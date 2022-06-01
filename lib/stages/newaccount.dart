@@ -242,17 +242,19 @@ class _NewAccountState extends State<NewAccount> {
             ),
           ),
           Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                nameText(),
-                const SizedBox(height: 10),
-                emailText(),
-                const SizedBox(height: 10),
-                passwordText(),
-                const SizedBox(height: 30),
-                submitButton()
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  nameText(),
+                  const SizedBox(height: 10),
+                  emailText(),
+                  const SizedBox(height: 10),
+                  passwordText(),
+                  const SizedBox(height: 30),
+                  submitButton()
+                ],
+              ),
             ),
           )
         ],
