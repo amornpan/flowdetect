@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flowdetect/models/user_model.dart';
 import 'package:flutter/material.dart';
 
 import '../utility/dialog.dart';
@@ -171,15 +173,34 @@ class _NewAccountState extends State<NewAccount> {
     await Firebase.initializeApp().then(
       (value) async {
         debugPrint('Firebase initial success');
-        debugPrint('email2: $emailString, password2: $passwordString');
+        //debugPrint('email2: $emailString, password2: $passwordString');
         await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
                 email: emailString, password: passwordString)
-            .then((value) => debugPrint('create user sucess'))
-            .catchError(
-              
-              (onError) => normalDialog(context, onError.code, onError.message),
+            .then((value) async {
+          await value.user!
+              .updateDisplayName(nameString)
+              .then((value_updateDisplayName) async {
+            debugPrint('Update Displayname Sucess');
+            String uid = value.user!.uid;
+            //debugPrint('create user sucess $uid');
+            UserModel userModel = UserModel(
+              email: emailString,
+              name: nameString,
+              usertype: 'client',
             );
+            Map<String, dynamic> data = userModel.toMap();
+            await FirebaseFirestore.instance
+                .collection('user_collection')
+                .doc(uid)
+                .set(data)
+                .then(
+                  (value) => debugPrint('Insert value to firestore sucess'),
+                );
+          });
+        }).catchError(
+          (onError) => normalDialog(context, onError.code, onError.message),
+        );
       },
     );
   }
