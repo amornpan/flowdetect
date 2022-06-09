@@ -1,16 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flowdetect/utility/main_style.dart';
 import 'package:flutter/material.dart';
 
-class UserService extends StatefulWidget {
-  const UserService({Key? key}) : super(key: key);
+class HiiStations extends StatefulWidget {
+  const HiiStations({Key? key}) : super(key: key);
 
   @override
-  State<UserService> createState() => _UserServiceState();
+  State<HiiStations> createState() => _HiiStationsState();
 }
 
-class _UserServiceState extends State<UserService> {
+class _HiiStationsState extends State<HiiStations> {
   late double screenWidth;
   late double screenHigh;
 
@@ -22,20 +19,17 @@ class _UserServiceState extends State<UserService> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "River Flow Detect",
+          "สมัครสมาชิกใหม่",
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
-
         //backgroundColor: Colors.transparent,
         backgroundColor: Colors.blue.shade500,
         elevation: 0.0,
       ),
-      drawer: Drawer(child: buildSignOut()),
       body: Stack(
         children: [
-          buildImageButtion(),
           ClipPath(
             clipper: CustomClipPath(),
             child: Container(
@@ -49,72 +43,20 @@ class _UserServiceState extends State<UserService> {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [buildImageButtion()],
+                children: const [
+                  Text("Hii Stations"),
+                  SizedBox(height: 10),
+                  Text("Hii Stations"),
+                  SizedBox(height: 10),
+                  Text("Hii Stations"),
+                  SizedBox(height: 30),
+                  Text("Hii Stations"),
+                ],
               ),
             ),
           )
         ],
       ),
-    );
-
-  }
-
-  Column buildSignOut() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ListTile(
-          onTap: () async {
-            await Firebase.initializeApp().then((value) async {
-              await FirebaseAuth.instance.signOut().then((value) =>
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/authen', (route) => false));
-            });
-          },
-          tileColor: Colors.blue.shade600,
-          leading: const Icon(
-            Icons.exit_to_app,
-            color: Colors.white,
-            size: 36,
-          ),
-          title: const Text(
-            'ออกจากระบบ',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          subtitle: const Text(
-            'ออกจากระบบและกลับสู่หน้าแรก',
-            style: TextStyle(
-              color: Colors.white54,
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  buildImageButtion() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          'กรุณาเลือกเมนูที่ต้องการทำรายการ',
-          style: TextStyle(
-            fontSize: 20.0,
-            color: Color(0xff0064b7),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 30),
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          MainStyle().showHiiImage(),
-          const SizedBox(width: 30),
-          MainStyle().showOtherRiverImage(),
-        ]),
-      ],
     );
   }
 }

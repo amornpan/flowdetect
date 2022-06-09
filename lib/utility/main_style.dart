@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MainStyle {
-  Color darkColor = const Color(0xff0064b7);
+  Color darkColor =  Color(0xff0064b7);
   Color promaryColor = const Color(0xff0091ea);
   Color lightColor = const Color(0xff64c1ff);
 
@@ -13,6 +13,20 @@ class MainStyle {
       height: 120,
       child: Image(
         image: AssetImage('images/logo.png'),
+      ));
+
+   Widget showHiiImage() => const SizedBox(
+      width: 120,
+      height: 120,
+      child: Image(
+        image: AssetImage('images/hii.png'),
+      ));
+
+  Widget showOtherRiverImage() => const SizedBox(
+      width: 120,
+      height: 120,
+      child: Image(
+        image: AssetImage('images/other_river.png'),
       ));
 
   Scaffold buildBackground(double screenWidth, double screenHigh) {

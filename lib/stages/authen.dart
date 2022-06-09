@@ -4,6 +4,7 @@ import 'package:flowdetect/utility/dialog.dart';
 import 'package:flowdetect/utility/main_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Authen extends StatefulWidget {
   const Authen({Key? key}) : super(key: key);
@@ -126,6 +127,15 @@ class _AuthenState extends State<Authen> {
                 children: [
                   SizedBox(height: screenHigh * 0.10),
                   MainStyle().showLogo(),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "River Flow Detect",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25.0,
+                      color: Color(0xff0064b7),
+                    ),
+                  ),
                   const SizedBox(height: 20),
                   emailText(),
                   const SizedBox(height: 10),
@@ -192,11 +202,50 @@ class _AuthenState extends State<Authen> {
         height: 45.0,
         child: SignInButton(
           Buttons.GoogleDark,
-          onPressed: () {},
+          onPressed: () => processSignInWithGoogle(),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         ),
       );
+
+  Future<void> processSignInWithGoogle() async {
+    GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
+
+    await Firebase.initializeApp().then((value) async {
+      await _googleSignIn.signIn().then((value) async {
+        String? name = value!.displayName;
+        String? email = value.email;
+        debugPrint('Signin with Google success name = $name email=$email');
+        await value.authentication.then((value2) async {
+          AuthCredential authCredential = GoogleAuthProvider.credential(
+            idToken: value2.idToken,
+            accessToken: value2.accessToken,
+          );
+          await FirebaseAuth.instance
+              .signInWithCredential(authCredential)
+              .then((value3) {
+            String uid = value3.user!.uid;
+            debugPrint(
+                'Signin with Google success name = $name email=$email uid=$uid');
+            (value) => Navigator.pushNamedAndRemoveUntil(
+                context, '/userService', (route) => false);
+          });
+        });
+      }).catchError(
+        (value) => normalDialog(
+          context,
+          value.code,
+          value.message,
+        ),
+      );
+      ;
+    });
+  }
 
   SizedBox buildSignInFacebook() => SizedBox(
         width: screenWidth * 0.8,

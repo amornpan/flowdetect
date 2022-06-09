@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flowdetect/models/user_model.dart';
 import 'package:flowdetect/router.dart';
+import 'package:flowdetect/stages/authen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -38,7 +39,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // home: Authen(),
+      //home: Authen(),
       routes: map,
       initialRoute: initRoute,
     );

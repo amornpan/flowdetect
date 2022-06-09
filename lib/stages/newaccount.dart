@@ -229,7 +229,12 @@ class _NewAccountState extends State<NewAccount> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Register"),
+        title: const Text(
+          "สมัครสมาชิกใหม่",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         //backgroundColor: Colors.transparent,
         backgroundColor: Colors.blue.shade500,
         elevation: 0.0,
