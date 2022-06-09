@@ -110,9 +110,50 @@ class _UserServiceState extends State<UserService> {
         ),
         const SizedBox(height: 30),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-          MainStyle().showHiiImage(),
+
+          Column(
+            children: [
+              InkWell(
+                onTap: (){},
+                child: MainStyle().showHiiImage(),
+
+              ),
+              const SizedBox(height: 5),
+              const Center(
+                child: Text(
+                  'สถานีโทรมาตร\nวัดระดับน้ำ สสน.',
+                  style: TextStyle(
+                    fontSize:  16.0,
+                    color: Color(0xff0064b7),
+                    fontWeight: FontWeight.normal,               
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+          
           const SizedBox(width: 30),
-          MainStyle().showOtherRiverImage(),
+          Column(
+            children: [
+              InkWell(
+                onTap: () {},
+                child: MainStyle().showOtherRiverImage(),
+              ),
+              const SizedBox(height: 5),
+              const Center(
+                child: Text(
+                  'ตำแหน่งใดๆ\nบนลำน้ำ',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Color(0xff0064b7),
+                    fontWeight: FontWeight.normal,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
         ]),
       ],
     );
