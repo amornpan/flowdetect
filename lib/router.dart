@@ -1,3 +1,5 @@
+import 'package:flowdetect/screens/hii_stations.dart';
+import 'package:flowdetect/screens/other_river.dart';
 import 'package:flowdetect/stages/admin_service.dart';
 import 'package:flowdetect/stages/authen.dart';
 import 'package:flowdetect/stages/newaccount.dart';
@@ -9,4 +11,6 @@ final Map<String, WidgetBuilder> map = {
   '/newAccount':(BuildContext context) => const NewAccount(),
   '/adminService':(BuildContext context) => const AdminService(),
   '/userService':(BuildContext context) => const UserService(),
+  '/hiiStation': (BuildContext context) => const HiiStations(),
+  '/otherRiver': (BuildContext context) => const OtherRiver(),
 };

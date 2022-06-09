@@ -114,7 +114,7 @@ class _UserServiceState extends State<UserService> {
           Column(
             children: [
               InkWell(
-                onTap: (){},
+                onTap: () => Navigator.pushNamed(context, '/hiiStation'),
                 child: MainStyle().showHiiImage(),
 
               ),
@@ -137,7 +137,7 @@ class _UserServiceState extends State<UserService> {
           Column(
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(context, '/otherRiver'),
                 child: MainStyle().showOtherRiverImage(),
               ),
               const SizedBox(height: 5),

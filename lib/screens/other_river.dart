@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HiiStations extends StatefulWidget {
-  const HiiStations({Key? key}) : super(key: key);
+class OtherRiver extends StatefulWidget {
+  const OtherRiver({Key? key}) : super(key: key);
 
   @override
-  State<HiiStations> createState() => _HiiStationsState();
+  State<OtherRiver> createState() => _OtherRiverState();
 }
 
-class _HiiStationsState extends State<HiiStations> {
+class _OtherRiverState extends State<OtherRiver> {
   late double screenWidth;
   late double screenHigh;
 
@@ -15,11 +15,10 @@ class _HiiStationsState extends State<HiiStations> {
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHigh = MediaQuery.of(context).size.height;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-         'สถานีโทรมาตรวัดระดับน้ำ สสน.',
+          'ตำแหน่งใดๆ บนลำน้ำ',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -44,13 +43,8 @@ class _HiiStationsState extends State<HiiStations> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Text("Hii Stations"),
+                  Text("other River"),
                   SizedBox(height: 10),
-                  Text("Hii Stations"),
-                  SizedBox(height: 10),
-                  Text("Hii Stations"),
-                  SizedBox(height: 30),
-                  Text("Hii Stations"),
                 ],
               ),
             ),
