@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class HiiStations extends StatefulWidget {
   const HiiStations({Key? key}) : super(key: key);
@@ -11,15 +13,68 @@ class _HiiStationsState extends State<HiiStations> {
   late double screenWidth;
   late double screenHigh;
 
+  Future<void> getDataWLNortheastLasted(
+    String user,
+    String pass,
+  ) async {
+    String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
+    var uri = Uri.parse(url);
+
+    Map<dynamic, dynamic> body = {'user': user, 'password': pass};
+
+    debugPrint("User " + user + " password " + pass + " " + body.toString());
+
+    final response = await http.post(uri,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        encoding: Encoding.getByName("utf-8"));
+
+    if (response.statusCode == 200) {
+      // If the call to the server was successful, parse the JSON
+      debugPrint(response.body.toString());
+      //return Login.fromJson(json.decode(response.body));
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
+    }
+  }
+
+  // Future<void> getHiiData(user, pass) async {
+  //   String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
+  //   var uri = Uri.parse(url);
+  //   Response response = await post(uri);
+  //   var result = json.decode(response.body);
+  //   debugPrint('result = $result');
+  // }
+
+  // Future<void> getHiiData(user, pass) async {
+  //   String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
+  //   //var header = "Content-Type": "application/x-www-form-urlencoded";
+  //   var uri = Uri.parse(url);
+  //   //Response response = await post(uri, headers: Map<String> header);
+  //   var result = json.decode(response.body);
+  //   debugPrint('result = $result');
+  // }
+
+  @override
+  void initState() {
+    getDataWLNortheastLasted('WLNortheast', 'ce0301505244265d13b8d53eb63126e1');
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHigh = MediaQuery.of(context).size.height;
 
+    //Method
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-         'สถานีโทรมาตรวัดระดับน้ำ สสน.',
+          'สถานีโทรมาตรวัดระดับน้ำ สสน.',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -50,7 +105,12 @@ class _HiiStationsState extends State<HiiStations> {
                   SizedBox(height: 10),
                   Text("Hii Stations"),
                   SizedBox(height: 30),
-                  Text("Hii Stations"),
+                  // ElevatedButton(
+                  //   onPressed: () => {
+                  //      getDataWLNortheastLasted("WLNortheast", "ce0301505244265d13b8d53eb63126e1");
+                  //   },
+                  //   child: Text('Click me'),
+                  // ),
                 ],
               ),
             ),

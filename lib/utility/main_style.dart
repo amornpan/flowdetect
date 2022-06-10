@@ -9,8 +9,8 @@ class MainStyle {
   TextStyle darkStyle() => const TextStyle(color: Colors.black54);
 
   Widget showLogo() => const SizedBox(
-      width: 120,
-      height: 120,
+      width: 150,
+      height: 150,
       child: Image(
         image: AssetImage('images/logo.png'),
       ));
