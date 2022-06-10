@@ -20,7 +20,7 @@ class _HiiStationsState extends State<HiiStations> {
     String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
     var uri = Uri.parse(url);
 
-    Map<dynamic, dynamic> body = {'user': user, 'password': pass};
+    Map<dynamic, dynamic> body = {'user': user, 'pass': pass};
 
     debugPrint("User " + user + " password " + pass + " " + body.toString());
 
@@ -42,26 +42,9 @@ class _HiiStationsState extends State<HiiStations> {
     }
   }
 
-  // Future<void> getHiiData(user, pass) async {
-  //   String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
-  //   var uri = Uri.parse(url);
-  //   Response response = await post(uri);
-  //   var result = json.decode(response.body);
-  //   debugPrint('result = $result');
-  // }
-
-  // Future<void> getHiiData(user, pass) async {
-  //   String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
-  //   //var header = "Content-Type": "application/x-www-form-urlencoded";
-  //   var uri = Uri.parse(url);
-  //   //Response response = await post(uri, headers: Map<String> header);
-  //   var result = json.decode(response.body);
-  //   debugPrint('result = $result');
-  // }
-
   @override
   void initState() {
-    getDataWLNortheastLasted('WLNortheast', 'ce0301505244265d13b8d53eb63126e1');
+    getDataWLNortheastLasted('WLNortheast', 'ce0301505244265d13b');
     super.initState();
   }
 
