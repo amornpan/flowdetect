@@ -56,7 +56,6 @@ class _UserServiceState extends State<UserService> {
         ],
       ),
     );
-
   }
 
   Column buildSignOut() {
@@ -110,29 +109,26 @@ class _UserServiceState extends State<UserService> {
         ),
         const SizedBox(height: 30),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-
           Column(
             children: [
               InkWell(
-                onTap: () => Navigator.pushNamed(context, '/hiiStation'),
+                onTap: () => Navigator.pushNamed(context, '/hiiStatSelectSite'),
                 child: MainStyle().showHiiImage(),
-
               ),
               const SizedBox(height: 5),
               const Center(
                 child: Text(
                   'สถานีโทรมาตร\nวัดระดับน้ำ สสน.',
                   style: TextStyle(
-                    fontSize:  16.0,
+                    fontSize: 16.0,
                     color: Color(0xff0064b7),
-                    fontWeight: FontWeight.normal,               
+                    fontWeight: FontWeight.normal,
                   ),
                   textAlign: TextAlign.center,
                 ),
               ),
             ],
           ),
-          
           const SizedBox(width: 30),
           Column(
             children: [
