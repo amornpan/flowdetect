@@ -2,6 +2,7 @@ import 'package:flowdetect/utility/main_style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import '../utility/map_dialog.dart';
 
 class HiiStationMap extends StatefulWidget {
   const HiiStationMap({Key? key}) : super(key: key);
@@ -33,6 +34,11 @@ class _HiiStationMapState extends State<HiiStationMap> {
       debugPrint('location opened');
     } else {
       debugPrint('location closed');
+      mapDialog(
+        context,
+        "ตำแหน่งถูกปิด",
+        "กรุณาเปิดการเข้าถึงตำแหน่งก่อนใช่งาน",
+      );
     }
   }
 
