@@ -243,7 +243,6 @@ class _AuthenState extends State<Authen> {
           value.message,
         ),
       );
-      ;
     });
   }
 

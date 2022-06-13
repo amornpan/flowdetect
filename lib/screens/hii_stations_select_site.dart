@@ -46,8 +46,10 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
       items: items_list.map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
-          child: Text(value,style: const TextStyle(fontSize: 20.0),),
-          
+          child: Text(
+            value,
+            style: const TextStyle(fontSize: 20.0),
+          ),
         );
       }).toList(),
     );
@@ -56,7 +58,7 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
   Widget nextButton() {
     return ElevatedButton(
       onPressed: () {
-        debugPrint('You click Sign in botton');
+        Navigator.pushNamed(context, '/hiiStationMap');
       },
       child: const Text("ต่อไป"),
       style: ElevatedButton.styleFrom(

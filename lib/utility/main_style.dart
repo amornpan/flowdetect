@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
 class MainStyle {
-  Color darkColor =  Color(0xff0064b7);
+  Color darkColor = const Color(0xff0064b7);
   Color promaryColor = const Color(0xff0091ea);
   Color lightColor = const Color(0xff64c1ff);
 
   TextStyle whiteStyle() => const TextStyle(color: Colors.white);
   TextStyle darkStyle() => const TextStyle(color: Colors.black54);
+
+  Widget showProgressBar() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
 
   Widget showLogo() => const SizedBox(
       width: 150,
@@ -15,7 +21,7 @@ class MainStyle {
         image: AssetImage('images/logo.png'),
       ));
 
-   Widget showHiiImage() => const SizedBox(
+  Widget showHiiImage() => const SizedBox(
       width: 120,
       height: 120,
       child: Image(

@@ -6,6 +6,7 @@ import 'package:flowdetect/stages/newaccount.dart';
 import 'package:flowdetect/stages/user_service.dart';
 import 'package:flutter/material.dart';
 
+import 'screens/hii_stations_map.dart';
 import 'screens/hii_stations_select_site.dart';
 
 final Map<String, WidgetBuilder> map = {
@@ -16,4 +17,5 @@ final Map<String, WidgetBuilder> map = {
   '/hiiStation': (BuildContext context) => const HiiStations(),
   '/otherRiver': (BuildContext context) => const OtherRiver(),
   '/hiiStatSelectSite': (BuildContext context) => const HiiStatSelectSite(),
+  '/hiiStationMap': (BuildContext context) => const HiiStationMap(),
 };

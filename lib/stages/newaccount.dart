@@ -180,7 +180,7 @@ class _NewAccountState extends State<NewAccount> {
             .then((value) async {
           await value.user!
               .updateDisplayName(nameString)
-              .then((value_updateDisplayName) async {
+              .then((valueUpdateDisplayName) async {
             debugPrint('Update Displayname Sucess');
             String uid = value.user!.uid;
             //debugPrint('create user sucess $uid');

@@ -12,7 +12,7 @@ class _AdminServiceState extends State<AdminService> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Page'),
+        title: const Text('Admin Page'),
       ),
     );
   }

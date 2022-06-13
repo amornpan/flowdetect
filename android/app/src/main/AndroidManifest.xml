@@ -1,9 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="th.or.hii.flowdetect">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
    <application
         android:label="flowdetect"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDajlyTxCsCQb9_k3tpLwD7akaxHZopRJw" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,9 +39,8 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-
+    
         
-
 
     </application>
 </manifest>

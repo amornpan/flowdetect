@@ -47,7 +47,7 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "th.or.hii.flowdetect"
         //minSdkVersion flutter.minSdkVersion
-        minSdkVersion 22
+        minSdkVersion 20
         //targetSdkVersion flutter.targetSdkVersion
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
