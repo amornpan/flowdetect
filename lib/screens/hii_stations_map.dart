@@ -1,6 +1,7 @@
 import 'package:flowdetect/utility/main_style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 
 class HiiStationMap extends StatefulWidget {
   const HiiStationMap({Key? key}) : super(key: key);
@@ -16,6 +17,24 @@ class _HiiStationMapState extends State<HiiStationMap> {
   late double latitude_station;
   late double longitude_station;
   late CameraPosition position;
+
+  @override
+  void initState() {
+    super.initState();
+    findLatLng();
+  }
+
+  Future<void> findLatLng() async {
+    bool locationService;
+    LocationPermission locationPermission;
+
+    locationService = await Geolocator.isLocationServiceEnabled();
+    if (locationService) {
+      debugPrint('location opened');
+    } else {
+      debugPrint('location closed');
+    }
+  }
 
   Widget nextButton() {
     return ElevatedButton(
@@ -79,7 +98,7 @@ class _HiiStationMapState extends State<HiiStationMap> {
                     title: Text('ค่าระดับน้ำ'),
                   ),
                   const SizedBox(height: 10),
-                  showMap(),
+                  //showMap(),
                   const SizedBox(height: 10),
                   nextButton(),
                 ],
@@ -90,16 +109,6 @@ class _HiiStationMapState extends State<HiiStationMap> {
       ),
     );
   }
-
-  // Marker marker_station() {
-  //   return Marker(
-  //     markerId: const MarkerId('StationsMarker'),
-  //     position: LatLng(latitude_station, latitude_station),
-  //     //icon: BitmapDescriptor.defaultMarkerWithHue(60.0),
-  //     infoWindow: const InfoWindow(
-  //         title: "สถานีเมืองขอนแก่น", snippet: "CHI006 เมืองขอนแก่น"),
-  //   );
-  // }
 
   Set<Marker> markerSet() {
     return <Marker>[
@@ -139,8 +148,6 @@ class _HiiStationMapState extends State<HiiStationMap> {
             ),
     );
   }
-
-  
 }
 
 class CustomClipPath extends CustomClipper<Path> {

@@ -6,13 +6,32 @@ Future<void> normalDialog(
   showDialog(
     context: context,
     builder: (context) => SimpleDialog(
+      // title: ListTile(
+      //   //leading: MainStyle().showLogo(),
+      //   //leading: const Text('ข้อความแจ้งให้ทราบ!'),
+      //   title: Text(
+      //     title,
+      //     style: MainStyle().darkStyle(),
+      //   ),
+      //   subtitle: Text(message),
+      // ),
       title: ListTile(
-        leading: MainStyle().showLogo(),
-        title: Text(
-          title,
-          style: MainStyle().darkStyle(),
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Color(0xff0064b7),
+            ),
+          ),
         ),
-        subtitle: Text(message),
+        subtitle: Text(message,
+          style: const TextStyle(
+            fontWeight: FontWeight.normal,
+            color: Color(0xff0064b7),
+          ),
+        ),
       ),
       children: [
         TextButton(
