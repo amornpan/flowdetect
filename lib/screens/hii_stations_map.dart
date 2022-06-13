@@ -22,21 +22,45 @@ class _HiiStationMapState extends State<HiiStationMap> {
   @override
   void initState() {
     super.initState();
-    findLatLng();
+    checkPermissionEnable();
   }
 
-  Future<void> findLatLng() async {
+  Future<void> checkPermissionEnable() async {
     bool locationService;
     LocationPermission locationPermission;
 
     locationService = await Geolocator.isLocationServiceEnabled();
     if (locationService) {
       debugPrint('location opened');
+
+      locationPermission = await Geolocator.checkPermission();
+      if (locationPermission == LocationPermission.denied) {
+        locationPermission = await Geolocator.requestPermission();
+        if (locationPermission == LocationPermission.deniedForever) {
+          mapDialog(
+            context,
+            "การอนุญาตให้แชร์ตำแหน่งถูกปิด",
+            "จำเป็นต้องแชร์ตำแหน่งก่อนใช่งาน",
+          );
+        } else {
+            //findLatLng()
+        }
+      } else {
+        if (locationPermission == LocationPermission.deniedForever) {
+          mapDialog(
+            context,
+            "การอนุญาตให้แชร์ตำแหน่งถูกปิด",
+            "จำเป็นต้องแชร์ตำแหน่งก่อนใช่งาน",
+          );
+        } else {
+          //findLatLng()
+        }
+      }
     } else {
       debugPrint('location closed');
       mapDialog(
         context,
-        "ตำแหน่งถูกปิด",
+        "การเข้าถึงตำแหน่งถูกปิด",
         "กรุณาเปิดการเข้าถึงตำแหน่งก่อนใช่งาน",
       );
     }
