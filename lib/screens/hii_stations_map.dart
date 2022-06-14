@@ -43,7 +43,7 @@ class _HiiStationMapState extends State<HiiStationMap> {
             "จำเป็นต้องแชร์ตำแหน่งก่อนใช่งาน",
           );
         } else {
-            //findLatLng()
+          findLatLng();
         }
       } else {
         if (locationPermission == LocationPermission.deniedForever) {
@@ -53,7 +53,7 @@ class _HiiStationMapState extends State<HiiStationMap> {
             "จำเป็นต้องแชร์ตำแหน่งก่อนใช่งาน",
           );
         } else {
-          //findLatLng()
+          findLatLng();
         }
       }
     } else {
@@ -64,6 +64,10 @@ class _HiiStationMapState extends State<HiiStationMap> {
         "กรุณาเปิดการเข้าถึงตำแหน่งก่อนใช่งาน",
       );
     }
+  }
+
+  Future<void> findLatLng() async {
+    debugPrint('findLatLng() work');
   }
 
   Widget nextButton() {
