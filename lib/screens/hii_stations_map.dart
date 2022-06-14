@@ -164,54 +164,40 @@ class _HiiStationMapState extends State<HiiStationMap> {
     );
   }
 
+  Set<Marker> setDeviceMarker() => <Marker>[
+        Marker(
+          draggable: false,
+          markerId: const MarkerId('deviceID'),
+          position: LatLng(latitude_device!, longitude_device!),
+         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+          infoWindow: InfoWindow(
+              title: 'คุณอยู่ที่นี่',
+              snippet: 'lat = $latitude_device, lng = $longitude_device'),
+        )
+      ].toSet();
+
   Widget buildMap() => Container(
-    margin: const EdgeInsets.only(left: 15.0, right: 15.0),
-    // color: Colors.grey,
+        margin: const EdgeInsets.only(left: 15.0, right: 15.0),
+        // color: Colors.grey,
         width: double.infinity,
         height: 200,
-        child: latitude_device == null ? MainStyle().showProgressBar() : Text(
-                'latitude_device = $latitude_device longitude_device = $longitude_device',
-        ),
+        child: latitude_device == null
+            ? MainStyle().showProgressBar()
+            : GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(
+                    latitude_device!,
+                    longitude_device!,
+                  ),
+                  zoom: 17,
+                  bearing: 30,
+                ),
+                mapType: MapType.normal,
+                onMapCreated: (controller) {
+                },
+                markers: setDeviceMarker(),
+              ),
       );
-
-  Set<Marker> markerSet() {
-    return <Marker>[
-      Marker(
-        draggable: false,
-        markerId: const MarkerId('StationsMarker'),
-        position: LatLng(latitude_station, latitude_station),
-        icon: BitmapDescriptor.defaultMarkerWithHue(60.0),
-        infoWindow: const InfoWindow(
-          title: "สถานีเมืองขอนแก่น",
-          snippet: "CHI006 เมืองขอนแก่น",
-        ),
-      )
-    ].toSet();
-  }
-
-  Container showMap() {
-    latitude_station = 16.3259376;
-    longitude_station = 102.7859904;
-
-    LatLng latLngStation = LatLng(latitude_station, longitude_station);
-    position = CameraPosition(
-      target: latLngStation,
-      zoom: 17,
-    );
-
-    return Container(
-      margin: const EdgeInsets.all(15),
-      height: 300,
-      child: latitude_station == null
-          ? MainStyle().showProgressBar()
-          : GoogleMap(
-              initialCameraPosition: position,
-              mapType: MapType.normal,
-              onMapCreated: (controller) {},
-              markers: markerSet(),
-            ),
-    );
-  }
 }
 
 class CustomClipPath extends CustomClipper<Path> {
