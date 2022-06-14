@@ -19,6 +19,9 @@ class _HiiStationMapState extends State<HiiStationMap> {
   late double longitude_station;
   late CameraPosition position;
 
+  double? latitude_device;
+  double? longitude_device;
+
   @override
   void initState() {
     super.initState();
@@ -68,6 +71,22 @@ class _HiiStationMapState extends State<HiiStationMap> {
 
   Future<void> findLatLng() async {
     debugPrint('findLatLng() work');
+    Position? position = await findPosition();
+    setState(() {
+      latitude_device = position!.latitude;
+      longitude_device = position.longitude;
+      debugPrint('lat = $latitude_device lng= $longitude_device');
+    });
+  }
+
+  Future<Position?> findPosition() async {
+    Position position;
+    try {
+      position = await Geolocator.getCurrentPosition();
+      return position;
+    } catch (e) {
+      return null;
+    }
   }
 
   Widget nextButton() {
