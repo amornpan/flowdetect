@@ -152,6 +152,7 @@ class _HiiStationMapState extends State<HiiStationMap> {
                   ),
                   const SizedBox(height: 10),
                   //showMap(),
+                  buildMap(),
                   const SizedBox(height: 10),
                   nextButton(),
                 ],
@@ -162,6 +163,16 @@ class _HiiStationMapState extends State<HiiStationMap> {
       ),
     );
   }
+
+  Widget buildMap() => Container(
+    margin: const EdgeInsets.only(left: 15.0, right: 15.0),
+    // color: Colors.grey,
+        width: double.infinity,
+        height: 200,
+        child: latitude_device == null ? MainStyle().showProgressBar() : Text(
+                'latitude_device = $latitude_device longitude_device = $longitude_device',
+        ),
+      );
 
   Set<Marker> markerSet() {
     return <Marker>[
