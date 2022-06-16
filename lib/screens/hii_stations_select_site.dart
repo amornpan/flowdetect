@@ -41,7 +41,12 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
       onChanged: (String? newValue) {
         setState(() {
           dropdownValue = newValue!;
-          debugPrint('dropdownValue = $dropdownValue');
+          int idx = dropdownValue.indexOf("(");
+          String subValue = dropdownValue.substring(
+            idx + 1,
+            idx + 7,
+          );
+          debugPrint('sub_value = $subValue');
         });
       },
       items: items_list.map<DropdownMenuItem<String>>((
