@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import '../utility/map_dialog.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class HiiStationMap extends StatefulWidget {
   const HiiStationMap({Key? key}) : super(key: key);
@@ -19,12 +21,42 @@ class _HiiStationMapState extends State<HiiStationMap> {
   late double longitude_station;
   late CameraPosition position;
 
-  double? latitude_device;
-  double? longitude_device;
+  double? latitudeDevice;
+  double? longitudeDevice;
+
+  Future<void> getDataWLNortheastLasted(
+    String user,
+    String pass,
+  ) async {
+    String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
+    var uri = Uri.parse(url);
+
+    Map<dynamic, dynamic> body = {'user': user, 'pass': pass};
+
+    debugPrint("User " + user + " password " + pass + " " + body.toString());
+
+    final response = await http.post(uri,
+        body: body,
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        encoding: Encoding.getByName("utf-8"));
+
+    if (response.statusCode == 200) {
+      // If the call to the server was successful, parse the JSON
+      debugPrint(response.body.toString());
+      //return Login.fromJson(json.decode(response.body));
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    getDataWLNortheastLasted('WLNortheast', 'ce0301505244265d13b8d53eb63126e1');
     checkPermissionEnable();
   }
 
@@ -73,9 +105,9 @@ class _HiiStationMapState extends State<HiiStationMap> {
     debugPrint('findLatLng() work');
     Position? position = await findPosition();
     setState(() {
-      latitude_device = position!.latitude;
-      longitude_device = position.longitude;
-      debugPrint('lat = $latitude_device lng= $longitude_device');
+      latitudeDevice = position!.latitude;
+      longitudeDevice = position.longitude;
+      debugPrint('lat = $latitudeDevice lng= $longitudeDevice');
     });
   }
 
@@ -142,16 +174,12 @@ class _HiiStationMapState extends State<HiiStationMap> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const ListTile(
-                    leading: Icon(Icons.water_sharp),
-                    title: Text('วันเวลา'),
-                  ),
-                  const ListTile(
-                    leading: Icon(Icons.water_sharp),
-                    title: Text('ค่าระดับน้ำ'),
+                  Row(mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('ค่าระดับน้ำ: xxx'),
+                    ],
                   ),
                   const SizedBox(height: 10),
-                  //showMap(),
                   buildMap(),
                   const SizedBox(height: 10),
                   nextButton(),
@@ -164,37 +192,38 @@ class _HiiStationMapState extends State<HiiStationMap> {
     );
   }
 
-  Set<Marker> setDeviceMarker() => <Marker>[
+  Set<Marker> setDeviceMarker() => <Marker>{
         Marker(
           draggable: false,
           markerId: const MarkerId('deviceID'),
-          position: LatLng(latitude_device!, longitude_device!),
-         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-          infoWindow: InfoWindow(
-              title: 'คุณอยู่ที่นี่',
-              snippet: 'lat = $latitude_device, lng = $longitude_device'),
+          position: LatLng(latitudeDevice!, longitudeDevice!),
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+          infoWindow: const InfoWindow(
+            title: 'คุณอยู่ที่นี่',
+            //snippet: 'lat = $latitude_device, lng = $longitude_device',
+          ),
         )
-      ].toSet();
+      };
 
   Widget buildMap() => Container(
         margin: const EdgeInsets.only(left: 15.0, right: 15.0),
         // color: Colors.grey,
         width: double.infinity,
-        height: 200,
-        child: latitude_device == null
+        height: 250,
+        child: latitudeDevice == null
             ? MainStyle().showProgressBar()
             : GoogleMap(
                 initialCameraPosition: CameraPosition(
                   target: LatLng(
-                    latitude_device!,
-                    longitude_device!,
+                    latitudeDevice!,
+                    longitudeDevice!,
                   ),
                   zoom: 17,
                   bearing: 30,
                 ),
                 mapType: MapType.normal,
-                onMapCreated: (controller) {
-                },
+                onMapCreated: (controller) {},
                 markers: setDeviceMarker(),
               ),
       );

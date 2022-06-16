@@ -41,14 +41,19 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
       onChanged: (String? newValue) {
         setState(() {
           dropdownValue = newValue!;
+          debugPrint('dropdownValue = $dropdownValue');
         });
       },
-      items: items_list.map<DropdownMenuItem<String>>((String value) {
+      items: items_list.map<DropdownMenuItem<String>>((
+        String value,
+      ) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(
             value,
-            style: const TextStyle(fontSize: 20.0),
+            style: const TextStyle(
+              fontSize: 20.0,
+            ),
           ),
         );
       }).toList(),
