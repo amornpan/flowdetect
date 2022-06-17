@@ -24,11 +24,12 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
     'บ้านโพธิ์ชัยทอง (TBW028)'
   ];
 
-  String dropdownValue = 'เมืองขอนแก่น (CHI006)';
+  String? stationCode, returnStatinCode;
 
   Widget dropDownStation() {
+    
     return DropdownButton<String>(
-      value: dropdownValue,
+      value: stationCode,
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
       style: const TextStyle(
@@ -38,15 +39,17 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
         height: 2,
         color: const Color(0xff0064b7),
       ),
+      hint: const Text('กรุณาเลือกสถานีที่ต้องการทำการวัดค่า'),
       onChanged: (String? newValue) {
         setState(() {
-          dropdownValue = newValue!;
-          int idx = dropdownValue.indexOf("(");
-          String subValue = dropdownValue.substring(
+          stationCode = newValue!;
+          int idx = stationCode!.indexOf("(");
+          String subValue = stationCode!.substring(
             idx + 1,
             idx + 7,
           );
-          debugPrint('sub_value = $subValue');
+          returnStatinCode = subValue;
+          debugPrint('returnStatinCode = $returnStatinCode');
         });
       },
       items: items_list.map<DropdownMenuItem<String>>((
@@ -68,7 +71,7 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
   Widget nextButton() {
     return ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/hiiStationMap');
+        Navigator.pushNamed(context, '/hiiStationMap', arguments: returnStatinCode);
       },
       child: const Text("ต่อไป"),
       style: ElevatedButton.styleFrom(
