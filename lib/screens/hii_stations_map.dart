@@ -24,6 +24,7 @@ class _HiiStationMapState extends State<HiiStationMap> {
   double? latitudeDevice;
   double? longitudeDevice;
 
+
   Future<void> getDataWLNortheastLasted(
     String user,
     String pass,
@@ -146,6 +147,11 @@ class _HiiStationMapState extends State<HiiStationMap> {
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHigh = MediaQuery.of(context).size.height;
+
+
+    final routeData = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    final stationCode = routeData['stationCode'];
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -174,8 +180,15 @@ class _HiiStationMapState extends State<HiiStationMap> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(mainAxisAlignment: MainAxisAlignment.center,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Text('รหัสสถานี: $stationCode'),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
                       Text('ค่าระดับน้ำ: xxx'),
                     ],
                   ),

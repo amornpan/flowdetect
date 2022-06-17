@@ -27,7 +27,6 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
   String? stationCode, returnStatinCode;
 
   Widget dropDownStation() {
-    
     return DropdownButton<String>(
       value: stationCode,
       icon: const Icon(Icons.arrow_downward),
@@ -71,7 +70,13 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
   Widget nextButton() {
     return ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/hiiStationMap', arguments: returnStatinCode);
+        Navigator.pushNamed(
+          context,
+          '/hiiStationMap',
+          arguments: <String, dynamic>{
+            'stationCode': returnStatinCode,
+          },
+        );
       },
       child: const Text("ต่อไป"),
       style: ElevatedButton.styleFrom(
