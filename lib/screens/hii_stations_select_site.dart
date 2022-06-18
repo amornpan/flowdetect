@@ -38,7 +38,11 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
         height: 2,
         color: const Color(0xff0064b7),
       ),
-      hint: const Text('กรุณาเลือกสถานีที่ต้องการทำการวัดค่า'),
+      hint: const Text('กรุณาเลือกสถานีที่ต้องการทำการวัดค่า',
+        style: TextStyle(
+          fontSize: 20.0,
+        ),
+      ),
       onChanged: (String? newValue) {
         setState(() {
           stationCode = newValue!;

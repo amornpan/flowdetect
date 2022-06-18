@@ -1,4 +1,3 @@
-import 'package:flowdetect/utility/main_style.dart';
 import 'package:flutter/material.dart';
 
 Future<void> normalDialog(

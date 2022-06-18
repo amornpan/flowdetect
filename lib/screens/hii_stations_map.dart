@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import '../utility/map_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class HiiStationMap extends StatefulWidget {
   const HiiStationMap({Key? key}) : super(key: key);
@@ -17,24 +18,28 @@ class _HiiStationMapState extends State<HiiStationMap> {
   late double screenWidth;
   late double screenHigh;
 
-  late double latitude_station;
-  late double longitude_station;
+  DateTime? date;
+  // late DateTime time;
+  String? time;
+  double? water;
+  double? lat;
+  double? lng;
+
   late CameraPosition position;
 
   double? latitudeDevice;
   double? longitudeDevice;
 
-
   Future<void> getDataWLNortheastLasted(
     String user,
     String pass,
+
   ) async {
     String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
     var uri = Uri.parse(url);
-
+    var parsedJson;
+    var jsonData;
     Map<dynamic, dynamic> body = {'user': user, 'pass': pass};
-
-    debugPrint("User " + user + " password " + pass + " " + body.toString());
 
     final response = await http.post(uri,
         body: body,
@@ -45,9 +50,20 @@ class _HiiStationMapState extends State<HiiStationMap> {
         encoding: Encoding.getByName("utf-8"));
 
     if (response.statusCode == 200) {
-      // If the call to the server was successful, parse the JSON
-      debugPrint(response.body.toString());
-      //return Login.fromJson(json.decode(response.body));
+      jsonData = response.body;
+      parsedJson = jsonDecode(jsonData);
+      //debugPrint('${parsedJson.runtimeType} : $parsedJson');
+      var dateformat = DateFormat('yyyy-MM-dd');
+      date = dateformat.parse(parsedJson['data'][11]['date']);
+      //time = DateTime.parse(parsedJson['data'][11]['time']);
+      time = parsedJson['data'][11]['time'];
+      lat = double.parse(parsedJson['data'][11]['lat']);
+      lng = double.parse(parsedJson['data'][11]['lng']);
+      water = parsedJson['data'][11]['water'];
+
+      debugPrint(
+          'date = $date, time = $time, water = $water, lat= $lat, lng = $lng');
+
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
@@ -148,10 +164,10 @@ class _HiiStationMapState extends State<HiiStationMap> {
     screenWidth = MediaQuery.of(context).size.width;
     screenHigh = MediaQuery.of(context).size.height;
 
-
-    final routeData = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    final routeData =
+        ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>;
     final stationCode = routeData['stationCode'];
-    
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -183,13 +199,22 @@ class _HiiStationMapState extends State<HiiStationMap> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Text('วันที่: $date'),
+                      const SizedBox(width: 5),
+                      Text('เวลา: $time'),
+                      const SizedBox(width: 5),
                       Text('รหัสสถานี: $stationCode'),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Row(mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text('ค่าระดับน้ำ: xxx'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('ค่าระดับน้ำ: $water'),
+                      const SizedBox(width: 5),
+                      Text('Lat: $lat'),
+                      const SizedBox(width: 5),
+                      Text('Lng: $lng'),
                     ],
                   ),
                   const SizedBox(height: 10),
