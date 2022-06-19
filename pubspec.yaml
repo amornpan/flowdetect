@@ -50,6 +50,10 @@ dependencies:
 
   geolocator: ^8.2.1
 
+  camera: ^0.9.7+1
+
+  video_player: ^2.4.4
+
   # flutter_facebook_login: ^3.0.0
 
 dev_dependencies:

@@ -33,7 +33,6 @@ class _HiiStationMapState extends State<HiiStationMap> {
   Future<void> getDataWLNortheastLasted(
     String user,
     String pass,
-
   ) async {
     String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
     var uri = Uri.parse(url);
@@ -54,16 +53,31 @@ class _HiiStationMapState extends State<HiiStationMap> {
       parsedJson = jsonDecode(jsonData);
       //debugPrint('${parsedJson.runtimeType} : $parsedJson');
       var dateformat = DateFormat('yyyy-MM-dd');
-      date = dateformat.parse(parsedJson['data'][11]['date']);
+
+      date != null
+          ? dateformat.parse(parsedJson['data'][11]['date'])
+          : dateformat.parse(parsedJson['data'][11]['date']);
+      //date = dateformat.parse(parsedJson['data'][11]['date']);
       //time = DateTime.parse(parsedJson['data'][11]['time']);
-      time = parsedJson['data'][11]['time'];
-      lat = double.parse(parsedJson['data'][11]['lat']);
-      lng = double.parse(parsedJson['data'][11]['lng']);
-      water = parsedJson['data'][11]['water'];
+      // time = parsedJson['data'][11]['time'];
+      time != null
+          ? parsedJson['data'][11]['time']
+          : parsedJson['data'][11]['time'];
+      // lat = double.parse(parsedJson['data'][11]['lat']);
+      lat != null
+          ? double.parse(parsedJson['data'][11]['lat'])
+          : double.parse(parsedJson['data'][11]['lat']);
+      // lng = double.parse(parsedJson['data'][11]['lng']);
+      lng != null
+          ? double.parse(parsedJson['data'][11]['lng'])
+          : double.parse(parsedJson['data'][11]['lng']);
+      // water = parsedJson['data'][11]['water'];
+      water != null
+          ? parsedJson['data'][11]['water']
+          : parsedJson['data'][11]['water'];
 
       debugPrint(
           'date = $date, time = $time, water = $water, lat= $lat, lng = $lng');
-
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
@@ -167,6 +181,8 @@ class _HiiStationMapState extends State<HiiStationMap> {
     final routeData =
         ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>;
     final stationCode = routeData['stationCode'];
+
+    //getDataWLNortheastLasted('WLNortheast', 'ce0301505244265d13b8d53eb63126e1');
 
     return Scaffold(
       appBar: AppBar(
