@@ -78,24 +78,24 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
 
   Widget nextButton() {
     return ElevatedButton(
-      // onPressed: () {
-      //   Navigator.pushNamed(
-      //     context,
-      //     '/hiiStationMap',
-      //     arguments: <String, dynamic>{
-      //       'stationCode': returnStatinCode,
-      //     },
-      //   );
-      // },
+      onPressed: () {
+        Navigator.pushNamed(
+          context,
+          '/hiiStationMap',
+          arguments: <String, dynamic>{
+            'stationCode': returnStatinCode,
+          },
+        );
+      },
 
       // onPressed: () {
       //   Navigator.pushNamed(context, '/CameraScreen');
       // },
       
-      onPressed: () async{
-        await availableCameras().then((value) => Navigator.push(context,
-            MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
-      },
+      // onPressed: () async{
+      //   await availableCameras().then((value) => Navigator.push(context,
+      //       MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
+      // },
 
       child: const Text("ต่อไป"),
       style: ElevatedButton.styleFrom(

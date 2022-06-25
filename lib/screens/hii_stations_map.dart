@@ -7,6 +7,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
 
+import 'package:camera/camera.dart';
+import 'package:flowdetect/screens/camera_page.dart';
+
 class HiiStationMap extends StatefulWidget {
   const HiiStationMap({Key? key}) : super(key: key);
 
@@ -138,8 +141,13 @@ class _HiiStationMapState extends State<HiiStationMap> {
 
   Widget nextButton() {
     return ElevatedButton(
-      onPressed: () {
-        Navigator.pushNamed(context, '/hiiStationMap');
+      // onPressed: () {
+      //   Navigator.pushNamed(context, '/hiiStationMap');
+      // },
+
+      onPressed: () async {
+        await availableCameras().then((value) => Navigator.push(context,
+            MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
       },
       child: const Text("ต่อไป"),
       style: ElevatedButton.styleFrom(
