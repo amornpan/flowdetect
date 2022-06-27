@@ -21,10 +21,16 @@ class _HiiStationMapState extends State<HiiStationMap> {
   late double screenWidth;
   late double screenHigh;
 
-  DateTime? date;
+  String? name;
+  String? date;
   // late DateTime time;
   String? time;
+
   double? water;
+  double? left_bank;
+  double? right_bank;
+  double? ground_level;
+
   double? lat;
   double? lng;
 
@@ -36,12 +42,14 @@ class _HiiStationMapState extends State<HiiStationMap> {
   Future<void> getDataWLNortheastLasted(
     String user,
     String pass,
+    String stationcode,
   ) async {
     String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
     var uri = Uri.parse(url);
-    var parsedJson;
-    var jsonData;
+    late var parsedJson;
+    late var jsonData;
     Map<dynamic, dynamic> body = {'user': user, 'pass': pass};
+    var intLastIndex;
 
     final response = await http.post(uri,
         body: body,
@@ -54,17 +62,30 @@ class _HiiStationMapState extends State<HiiStationMap> {
     if (response.statusCode == 200) {
       jsonData = response.body;
       parsedJson = jsonDecode(jsonData);
-      //debugPrint('${parsedJson.runtimeType} : $parsedJson');
-      var dateformat = DateFormat('yyyy-MM-dd');
-      date = dateformat.parse(parsedJson['data'][11]['date']);
-      //time = DateTime.parse(parsedJson['data'][11]['time']);
-      time = parsedJson['data'][11]['time'];
-      lat = double.parse(parsedJson['data'][11]['lat']);
-      lng = double.parse(parsedJson['data'][11]['lng']);
-      water = parsedJson['data'][11]['water'];
+
+      for (var i = 0; i < parsedJson['data'].length; i++) {
+        var obj = parsedJson['data'][i];
+        for (var key in obj.keys) {
+          var value = obj[key];
+          //debugPrint('key = $key, value = $value');
+          if (value == stationcode) {
+            intLastIndex = i;
+            break;
+          }
+        }
+      }
+      date = parsedJson['data'][intLastIndex]['date'];
+      name = parsedJson['data'][intLastIndex]['name'];
+      time = parsedJson['data'][intLastIndex]['time'];
+      lat = double.parse(parsedJson['data'][intLastIndex]['lat']);
+      lng = double.parse(parsedJson['data'][intLastIndex]['lng']);
+      left_bank = parsedJson['data'][intLastIndex]['left_bank'];
+      right_bank = parsedJson['data'][intLastIndex]['right_bank'];
+      ground_level = parsedJson['data'][intLastIndex]['ground_level'];
+      water = parsedJson['data'][intLastIndex]['water'];
 
       debugPrint(
-          'date = $date, time = $time, water = $water, lat= $lat, lng = $lng');
+          'name = $name, \ndate = $date, \ntime = $time, \nwater = $water, \nlat= $lat, \nlng = $lng');
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
@@ -75,7 +96,7 @@ class _HiiStationMapState extends State<HiiStationMap> {
   void initState() {
     super.initState();
     checkPermissionEnable();
-    getDataWLNortheastLasted('WLNortheast', 'ce0301505244265d13b8d53eb63126e1');
+    // getDataWLNortheastLasted('WLNortheast', 'ce0301505244265d13b8d53eb63126e1');
   }
 
   Future<void> checkPermissionEnable() async {
@@ -149,6 +170,7 @@ class _HiiStationMapState extends State<HiiStationMap> {
         await availableCameras().then((value) => Navigator.push(context,
             MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
       },
+
       child: const Text("ต่อไป"),
       style: ElevatedButton.styleFrom(
           fixedSize: const Size(250, 50),
@@ -173,6 +195,9 @@ class _HiiStationMapState extends State<HiiStationMap> {
     final routeData =
         ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>;
     final stationCode = routeData['stationCode'];
+
+    getDataWLNortheastLasted(
+        'WLNortheast', 'ce0301505244265d13b8d53eb63126e1', stationCode);
 
     return Scaffold(
       appBar: AppBar(
@@ -205,31 +230,69 @@ class _HiiStationMapState extends State<HiiStationMap> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('วันที่: $date'),
+                      stationCode == null
+                          ? MainStyle().showProgressBar()
+                          : Text('รหัสสถานี: $stationCode'),
                       const SizedBox(width: 5),
-                      Text('เวลา: $time'),
+                      name == null
+                          ? MainStyle().showProgressBar()
+                          : Text('ชื่อสถานี: $name'),
                       const SizedBox(height: 10),
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('รหัสสถานี: $stationCode'),
+                      date == null
+                          ? MainStyle().showProgressBar()
+                          : Text('วันที่: $date'),
                       const SizedBox(width: 5),
-                      Text('ค่าระดับน้ำ: $water'),
-                      const SizedBox(height: 10),
-                    ],
-                  ),   
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Lat: $lat'),
-                      const SizedBox(width: 5),
-                      Text('Lng: $lng'),
+                      time == null
+                          ? MainStyle().showProgressBar()
+                          : Text('เวลา: $time'),
                       const SizedBox(height: 10),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      lat == null
+                          ? MainStyle().showProgressBar()
+                          : Text('Lat: $lat'),
+                      const SizedBox(width: 5),
+                      lng == null
+                          ? MainStyle().showProgressBar()
+                          : Text('Lng: $lng'),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      left_bank == null
+                          ? MainStyle().showProgressBar()
+                          : Text('ตลิ่งซ้าย: $left_bank'),
+                      const SizedBox(width: 5),
+                      right_bank == null
+                          ? MainStyle().showProgressBar()
+                          : Text('ตลิ่งขวา: $right_bank'),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ground_level == null
+                          ? MainStyle().showProgressBar()
+                          : Text('ท้องน้ำ: $ground_level'),
+                      const SizedBox(width: 5),
+                      water == null
+                          ? MainStyle().showProgressBar()
+                          : Text('ระดับน้ำ: $water'),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
                   buildMap(),
                   const SizedBox(height: 10),
                   nextButton(),

@@ -50,12 +50,12 @@ dependencies:
 
   geolocator: ^8.2.1
 
-  #camera: ^0.9.8+1
-  camera:
-    git:
-      url: https://github.com/camsim99/plugins.git
-      path: packages/camera/camera
-      ref: master
+  camera: ^0.9.8+1
+  # camera:
+  #   git:
+  #     url: https://github.com/camsim99/plugins.git
+  #     path: packages/camera/camera
+  #     ref: master
 
   video_player: ^2.4.5
 
