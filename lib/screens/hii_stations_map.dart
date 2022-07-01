@@ -166,10 +166,19 @@ class _HiiStationMapState extends State<HiiStationMap> {
       //   Navigator.pushNamed(context, '/hiiStationMap');
       // },
 
+      // onPressed: () async {
+      //   await availableCameras().then((value) => Navigator.push(context,
+      //       MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
+      // },
+
       onPressed: () async {
         await availableCameras().then((value) => Navigator.push(context,
             MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
       },
+
+      // onPressed: () {
+      //   Navigator.pushNamed(context, '/cameraPage');
+      // },
 
       child: const Text("ต่อไป"),
       style: ElevatedButton.styleFrom(

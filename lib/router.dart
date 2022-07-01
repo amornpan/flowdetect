@@ -20,7 +20,7 @@ final Map<String, WidgetBuilder> map = {
   '/otherRiver': (BuildContext context) => const OtherRiver(),
   '/hiiStatSelectSite': (BuildContext context) => const HiiStatSelectSite(),
   '/hiiStationMap': (BuildContext context) => const HiiStationMap(),
-  '/moduleCameraPage': (BuildContext context) => const CameraPage(),
-  '/CameraScreen': (BuildContext context) => const CameraScreen(),
+  '/cameraPage': (BuildContext context) => const CameraPage(),
+
 
 };

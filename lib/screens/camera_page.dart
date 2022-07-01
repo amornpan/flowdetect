@@ -1,8 +1,6 @@
 import 'package:camera/camera.dart';
-import 'package:flowdetect/screens/preview_page.dart';
+import 'package:flowdetect/screens/video_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-
 
 class CameraPage extends StatefulWidget {
   const CameraPage({Key? key, required this.cameras}) : super(key: key);
@@ -10,12 +8,19 @@ class CameraPage extends StatefulWidget {
   final List<CameraDescription>? cameras;
 
   @override
-  State<CameraPage> createState() => _CameraPageState();
+  _CameraPageState createState() => _CameraPageState();
 }
 
 class _CameraPageState extends State<CameraPage> {
+  bool _isLoading = true;
+  bool _isRecording = false;
   late CameraController _cameraController;
-  bool _isRearCameraSelected = true;
+
+  @override
+  void initState() {
+    _initCamera(widget.cameras![0]);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -23,93 +28,59 @@ class _CameraPageState extends State<CameraPage> {
     super.dispose();
   }
 
-  @override
-  void initState() {
-    super.initState();
-    initCamera(widget.cameras![0]);
+  _initCamera(CameraDescription cameraDescription) async {
+    final cameras = await availableCameras();
+    //final back = cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.back);
+    _cameraController = CameraController(
+      cameraDescription,
+      ResolutionPreset.medium,
+    );
+    await _cameraController.initialize();
+    setState(() => _isLoading = false);
   }
 
-  Future takePicture() async {
-    if (!_cameraController.value.isInitialized) {
-      return null;
-    }
-    if (_cameraController.value.isTakingPicture) {
-      return null;
-    }
-    try {
-      await _cameraController.setFlashMode(FlashMode.off);
-      XFile picture = await _cameraController.takePicture();
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => PreviewPage(
-                    picture: picture,
-                  )));
-    } on CameraException catch (e) {
-      debugPrint('Error occured while taking picture: $e');
-      return null;
-    }
-  }
-
-  Future initCamera(CameraDescription cameraDescription) async {
-    _cameraController =
-        CameraController(cameraDescription, ResolutionPreset.high);
-    try {
-      await _cameraController.initialize().then((_) {
-        if (!mounted) return;
-        setState(() {});
-      });
-    } on CameraException catch (e) {
-      debugPrint("camera error $e");
+  _recordVideo() async {
+    if (_isRecording) {
+      final file = await _cameraController.stopVideoRecording();
+      setState(() => _isRecording = false);
+      final route = MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (_) => VideoPage(filePath: file.path),
+      );
+      Navigator.push(context, route);
+    } else {
+      await _cameraController.prepareForVideoRecording();
+      await _cameraController.startVideoRecording();
+      setState(() => _isRecording = true);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: Stack(children: [
-        (_cameraController.value.isInitialized)
-            ? CameraPreview(_cameraController)
-            : Container(
-                color: Colors.black,
-                child: const Center(child: CircularProgressIndicator())),
-        Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.20,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                  color: Colors.black),
-              child:
-                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                Expanded(
-                    child: IconButton(
-                  padding: EdgeInsets.zero,
-                  iconSize: 30,
-                  icon: Icon(
-                      _isRearCameraSelected
-                          ? CupertinoIcons.switch_camera
-                          : CupertinoIcons.switch_camera_solid,
-                      color: Colors.white),
-                  onPressed: () {
-                    setState(
-                        () => _isRearCameraSelected = !_isRearCameraSelected);
-                    initCamera(widget.cameras![_isRearCameraSelected ? 0 : 1]);
-                  },
-                )),
-                Expanded(
-                    child: IconButton(
-                  onPressed: takePicture,
-                  iconSize: 50,
-                  padding: EdgeInsets.zero,
-                  constraints: const BoxConstraints(),
-                  icon: const Icon(Icons.circle, color: Colors.white),
-                )),
-                const Spacer(),
-              ]),
-            )),
-      ]),
-    ));
+    if (_isLoading) {
+      return Container(
+        color: Colors.white,
+        child: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    } else {
+      return Center(
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            CameraPreview(_cameraController),
+            Padding(
+              padding: const EdgeInsets.all(25),
+              child: FloatingActionButton(
+                backgroundColor: Colors.red,
+                child: Icon(_isRecording ? Icons.stop : Icons.circle),
+                onPressed: () => _recordVideo(),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }

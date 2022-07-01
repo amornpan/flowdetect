@@ -9,24 +9,8 @@ import 'package:camera/camera.dart';
 
 String initRoute = '/authen';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-
-
-  //cameras = await availableCameras();
-
-  //final firstCamera = cameras.first;
-
-  // try {
-  //   cameras = await availableCameras();
-  // } on CameraException catch (e) {
-  //   debugPrint(e.code +" "+e.description.toString());
-  // }
-
-  // Obtain a list of the available cameras on the device.
-  //final cameras = await availableCameras();
 
   await Firebase.initializeApp().then((value) async {
     FirebaseAuth.instance.authStateChanges().listen((event) async {
@@ -56,6 +40,7 @@ class MainApp extends StatelessWidget {
       //home: Authen(),
       routes: map,
       initialRoute: initRoute,
+      //debugShowCheckedModeBanner: false,
     );
   }
 }
