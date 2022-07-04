@@ -1,8 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flowdetect/screens/camera_page.dart';
+import 'package:flowdetect/utility/dialog.dart';
+import 'package:flowdetect/utility/main_style.dart';
 import 'package:flutter/material.dart';
-
-
 
 class HiiStatSelectSite extends StatefulWidget {
   const HiiStatSelectSite({Key? key}) : super(key: key);
@@ -50,7 +50,7 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
       ),
       onChanged: (String? newValue) {
         setState(() {
-          stationCode = newValue!;
+          stationCode = newValue;
           int idx = stationCode!.indexOf("(");
           String subValue = stationCode!.substring(
             idx + 1,
@@ -79,19 +79,24 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
   Widget nextButton() {
     return ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(
-          context,
-          '/hiiStationMap',
-          arguments: <String, dynamic>{
-            'stationCode': returnStatinCode,
-          },
-        );
+        if (returnStatinCode == null) {
+          normalDialog(
+              context, "ยังไม่ได้เลือกสถานี", "กรุณาเลือกสถานีที่ต้องการวัด");
+        } else {
+          Navigator.pushNamed(
+            context,
+            '/hiiStationMap',
+            arguments: <String, dynamic>{
+              'stationCode': returnStatinCode,
+            },
+          );
+        }
       },
 
       // onPressed: () {
       //   Navigator.pushNamed(context, '/CameraScreen');
       // },
-      
+
       // onPressed: () async{
       //   await availableCameras().then((value) => Navigator.push(context,
       //       MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));

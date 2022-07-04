@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:video_player/video_player.dart';
+
+String? videoPath;
 
 class VideoPage extends StatefulWidget {
   final String filePath;
@@ -22,6 +25,7 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   Future _initVideoPlayer() async {
+    videoPath = widget.filePath;
     _videoPlayerController = VideoPlayerController.file(File(widget.filePath));
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
@@ -38,8 +42,10 @@ class _VideoPageState extends State<VideoPage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.check),
-            onPressed: () {
+            onPressed: () async {
               debugPrint('do something with the file');
+              await GallerySaver.saveVideo(videoPath.toString());
+              File(videoPath.toString()).deleteSync();
             },
           )
         ],
@@ -60,6 +66,14 @@ class _VideoPageState extends State<VideoPage> {
                     AspectRatio(
                       child: VideoPlayer(_videoPlayerController),
                       aspectRatio: _videoPlayerController.value.aspectRatio,
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Video Path:'+ videoPath.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10.0,
+                      ),
                     ),
                   ],
                 ),

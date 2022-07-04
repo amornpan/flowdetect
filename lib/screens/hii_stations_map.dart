@@ -21,16 +21,15 @@ class _HiiStationMapState extends State<HiiStationMap> {
   late double screenWidth;
   late double screenHigh;
 
+  late dynamic returnStationCode;
+
   String? name;
   String? date;
-  // late DateTime time;
   String? time;
-
   double? water;
   double? left_bank;
   double? right_bank;
   double? ground_level;
-
   double? lat;
   double? lng;
 
@@ -171,13 +170,29 @@ class _HiiStationMapState extends State<HiiStationMap> {
       //       MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
       // },
 
-      onPressed: () async {
-        await availableCameras().then((value) => Navigator.push(context,
-            MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
+      onPressed: () {
+        Navigator.pushNamed(
+          context,
+          '/particleSizeSelect',
+          arguments: <String, dynamic>{
+            'stationCode': returnStationCode,
+            'name': name,
+            'date': date,
+            'time': time,
+            'water': water,
+            'left_bank': left_bank,
+            'right_bank': right_bank,
+            'ground_level': ground_level,
+            'lat': lat,
+            'lng': lng,
+          },
+        );
       },
 
-      // onPressed: () {
-      //   Navigator.pushNamed(context, '/cameraPage');
+      // Open camera
+      // onPressed: () async {
+      //   await availableCameras().then((value) => Navigator.push(context,
+      //       MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
       // },
 
       child: const Text("ต่อไป"),
@@ -203,10 +218,11 @@ class _HiiStationMapState extends State<HiiStationMap> {
 
     final routeData =
         ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>;
-    final stationCode = routeData['stationCode'];
+    //final stationCode = routeData['stationCode'];
+    returnStationCode = routeData['stationCode'];
 
     getDataWLNortheastLasted(
-        'WLNortheast', 'ce0301505244265d13b8d53eb63126e1', stationCode);
+        'WLNortheast', 'ce0301505244265d13b8d53eb63126e1', returnStationCode);
 
     return Scaffold(
       appBar: AppBar(
@@ -239,9 +255,9 @@ class _HiiStationMapState extends State<HiiStationMap> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      stationCode == null
+                      returnStationCode == null
                           ? MainStyle().showProgressBar()
-                          : Text('รหัสสถานี: $stationCode'),
+                          : Text('รหัสสถานี: $returnStationCode'),
                       const SizedBox(width: 5),
                       name == null
                           ? MainStyle().showProgressBar()
@@ -302,9 +318,20 @@ class _HiiStationMapState extends State<HiiStationMap> {
                     ],
                   ),
                   const SizedBox(height: 20),
+                  const Text(
+                    'ตรวจสอบตำแหน่งของท่านกับสถานีที่เลือก?',
+                    style: TextStyle(
+                      fontSize: 17.0,
+                      color: Color(0xff0064b7),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
                   buildMap(),
                   const SizedBox(height: 10),
                   nextButton(),
+                  const SizedBox(height: 15),
+                  const Text('* ให้แน่ใจว่าตำแหน่งของท่านอยู่ตรงกับสถานี')
                 ],
               ),
             ),
