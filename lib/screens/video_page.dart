@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flowdetect/screens/hii_video_upload.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:video_player/video_player.dart';
@@ -36,21 +37,17 @@ class _VideoPageState extends State<VideoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Preview'),
-        elevation: 0,
-        backgroundColor: Colors.black26,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.check),
-            onPressed: () async {
-              debugPrint('do something with the file');
-              await GallerySaver.saveVideo(videoPath.toString());
-              File(videoPath.toString()).deleteSync();
-            },
-          )
-        ],
-      ),
-      extendBodyBehindAppBar: true,
+          title: const Text(
+          'สถานีโทรมาตรวัดระดับน้ำ สสน.',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+          elevation: 0,
+          backgroundColor: Colors.blue.shade500,
+          //actions: [IconButton(icon: const Icon(Icons.check), onPressed: () {})]
+          ),
+      //extendBodyBehindAppBar: true,
       body: Container(
         color: Colors.black,
         child: FutureBuilder(
@@ -69,11 +66,56 @@ class _VideoPageState extends State<VideoPage> {
                     ),
                     const SizedBox(height: 20),
                     Text(
-                      'Video Path:'+ videoPath.toString(),
+                      'Video Path:' + videoPath.toString(),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 10.0,
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: FloatingActionButton.extended(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(Icons.undo),
+                            label: const Text('Undo'),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: FloatingActionButton.extended(
+                            onPressed: () async {
+                              debugPrint('save file to local device');
+                              await GallerySaver.saveVideo(
+                                  videoPath.toString());
+                              File(videoPath.toString()).deleteSync();
+                              Navigator.pushNamed(
+                                context,
+                                '/videoUpload',
+                                arguments: <String, dynamic>{
+                                  'videoPath': videoPath,
+                                },
+                              );
+                            },
+                            icon: const Icon(Icons.save),
+                            label: const Text('Save'),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: FloatingActionButton.extended(
+                            onPressed: () {},
+                            icon: const Icon(Icons.cloud),
+                            label: const Text('Cloud'),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

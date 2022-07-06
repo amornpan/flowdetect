@@ -19,13 +19,13 @@ class _CameraPageState extends State<CameraPage> {
   @override
   void initState() {
     CustomPaint(
-              child: Container(
-                width: 300,
-                height: 200,
-                color: Colors.amberAccent,
-              ),
-              foregroundPainter: LinePainter(),
-            );
+      child: Container(
+        width: 300,
+        height: 200,
+        color: Colors.amberAccent,
+      ),
+      foregroundPainter: LinePainter(),
+    );
     _initCamera(widget.cameras![0]);
     super.initState();
   }
@@ -73,28 +73,43 @@ class _CameraPageState extends State<CameraPage> {
         ),
       );
     } else {
-      return Center(
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            CustomPaint(
-              child: Container(
-                width: 300,
-                height: 200,
-                color: Colors.amberAccent,
-              ),
-              foregroundPainter: LinePainter(),
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'สถานีโทรมาตรวัดระดับน้ำ สสน.',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
             ),
-            CameraPreview(_cameraController),
-            Padding(
-              padding: const EdgeInsets.all(25),
-              child: FloatingActionButton(
-                backgroundColor: Colors.red,
-                child: Icon(_isRecording ? Icons.stop : Icons.circle),
-                onPressed: () => _recordVideo(),
-              ),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.blue.shade500,
+        ),
+        body: Container(
+          color: Colors.black,
+          child: Center(
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                CustomPaint(
+                  child: Container(
+                    width: 300,
+                    height: 200,
+                    color: Colors.amberAccent,
+                  ),
+                  foregroundPainter: LinePainter(),
+                ),
+                CameraPreview(_cameraController),
+                Padding(
+                  padding: const EdgeInsets.all(25),
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.red,
+                    child: Icon(_isRecording ? Icons.stop : Icons.circle),
+                    onPressed: () => _recordVideo(),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       );
     }
