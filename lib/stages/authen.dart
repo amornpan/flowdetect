@@ -127,15 +127,7 @@ class _AuthenState extends State<Authen> {
                 children: [
                   SizedBox(height: screenHigh * 0.10),
                   MainStyle().showLogo(),
-                  // const SizedBox(height: 10),
-                  // const Text(
-                  //   "River Flow Detect",
-                  //   style: TextStyle(
-                  //     fontWeight: FontWeight.bold,
-                  //     fontSize: 25.0,
-                  //     color: Color(0xff0064b7),
-                  //   ),
-                  // ),
+                  
                   const SizedBox(height: 20),
                   emailText(),
                   const SizedBox(height: 10),

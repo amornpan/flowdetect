@@ -59,8 +59,11 @@ class _HiiStationMapState extends State<HiiStationMap> {
         encoding: Encoding.getByName("utf-8"));
 
     if (response.statusCode == 200) {
-      jsonData = response.body;
-      parsedJson = jsonDecode(jsonData);
+
+      setState(() {
+        jsonData = response.body;
+        parsedJson = jsonDecode(jsonData);
+      });
 
       for (var i = 0; i < parsedJson['data'].length; i++) {
         var obj = parsedJson['data'][i];
