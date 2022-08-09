@@ -6,7 +6,6 @@ import '../utility/map_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:intl/intl.dart';
-
 import 'package:camera/camera.dart';
 import 'package:flowdetect/screens/camera_page.dart';
 
@@ -59,7 +58,6 @@ class _HiiStationMapState extends State<HiiStationMap> {
         encoding: Encoding.getByName("utf-8"));
 
     if (response.statusCode == 200) {
-
       setState(() {
         jsonData = response.body;
         parsedJson = jsonDecode(jsonData);
@@ -376,7 +374,8 @@ class _HiiStationMapState extends State<HiiStationMap> {
                 ),
                 mapType: MapType.normal,
                 onMapCreated: (controller) {},
-                markers: setDeviceMarker(),
+                myLocationEnabled: true,
+                //markers: setDeviceMarker(),
               ),
       );
 }

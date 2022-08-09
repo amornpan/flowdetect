@@ -54,6 +54,8 @@ class VideoUpload extends StatefulWidget {
 class _VideoUploadState extends State<VideoUpload> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(title: const Text('Video Upload')),
+    );
   }
 }

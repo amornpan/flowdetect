@@ -57,7 +57,7 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
             idx + 7,
           );
           returnStatinCode = subValue;
-          debugPrint('returnStatinCode = $returnStatinCode');
+          // debugPrint('returnStatinCode = $returnStatinCode');
         });
       },
       items: items_list.map<DropdownMenuItem<String>>((

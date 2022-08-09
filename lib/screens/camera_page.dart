@@ -45,6 +45,7 @@ class _CameraPageState extends State<CameraPage> {
     if (_isRecording) {
       final file = await _cameraController.stopVideoRecording();
       setState(() => _isRecording = false);
+
       final route = MaterialPageRoute(
         fullscreenDialog: true,
         builder: (_) => VideoPage(filePath: file.path),
