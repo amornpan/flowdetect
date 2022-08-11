@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flowdetect/screens/hii_video_upload.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
@@ -21,8 +22,8 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   void dispose() {
-    _videoPlayerController.dispose();
     super.dispose();
+    _videoPlayerController.dispose();
   }
 
   Future _initVideoPlayer() async {
@@ -37,16 +38,16 @@ class _VideoPageState extends State<VideoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text(
+        title: const Text(
           'สถานีโทรมาตรวัดระดับน้ำ สสน.',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
-          elevation: 0,
-          backgroundColor: Colors.blue.shade500,
-          //actions: [IconButton(icon: const Icon(Icons.check), onPressed: () {})]
-          ),
+        elevation: 0,
+        backgroundColor: Colors.blue.shade500,
+        //actions: [IconButton(icon: const Icon(Icons.check), onPressed: () {})]
+      ),
       //extendBodyBehindAppBar: true,
       body: Container(
         color: Colors.black,
@@ -90,9 +91,13 @@ class _VideoPageState extends State<VideoPage> {
                           alignment: Alignment.bottomCenter,
                           child: FloatingActionButton.extended(
                             onPressed: () async {
-                              debugPrint('save file to local device');
-                              await GallerySaver.saveVideo(
-                                  videoPath.toString());
+                              debugPrint('##10aug save Video at $videoPath');
+                              await GallerySaver.saveVideo(videoPath.toString())
+                                  .then((value) {
+                                debugPrint(
+                                    '##10aug value.tostring ${value.toString()}');
+                                dispose();
+                              });
                               File(videoPath.toString()).deleteSync();
                               Navigator.pushNamed(
                                 context,
@@ -110,7 +115,26 @@ class _VideoPageState extends State<VideoPage> {
                         Align(
                           alignment: Alignment.bottomRight,
                           child: FloatingActionButton.extended(
-                            onPressed: () {},
+                            onPressed: () async {
+                              print('##10aug Click Cloud');
+                              _videoPlayerController.pause();
+
+                              File file = File(widget.filePath);
+                              Map<String, dynamic> map = {};
+                              map['file'] = await MultipartFile.fromFile(file.path,
+                                  filename: 'testUPload.mp4');
+                              map['particle_diamiter'] = 1;
+                              FormData formData = FormData.fromMap(map);
+                              String path =
+                                  'http://113.53.253.55:5001/upload_test_api';
+                              await Dio()
+                                  .post(path, data: formData)
+                                  .then((value) {
+                                print('##10aug value from api =.=> $value');
+                              }).catchError((error) {
+                                print('##10aug error $error');
+                              });
+                            },
                             icon: const Icon(Icons.cloud),
                             label: const Text('Cloud'),
                           ),

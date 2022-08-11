@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flowdetect/screens/camera_page.dart';
 import 'package:flowdetect/utility/dialog.dart';
+import 'package:flowdetect/utility/main_style.dart';
 import 'package:flutter/material.dart';
 
 class ParticleSizeSelect extends StatefulWidget {
@@ -36,6 +37,15 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
     final routeData =
         ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>;
     stationCode = routeData['stationCode'];
+    name = routeData['name'];
+    date = routeData['date'];
+    time = routeData['time'];
+    water = routeData['water'];
+    left_bank = routeData['left_bank'];
+    right_bank = routeData['right_bank'];
+    ground_level = routeData['ground_level'];
+    lat = routeData['lat'];
+    lng = routeData['lng'];
 
     return Scaffold(
       appBar: AppBar(
@@ -81,6 +91,72 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
                       particle50(),
                       const SizedBox(height: 10),
                       particle20(),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          stationCode == null
+                              ? MainStyle().showProgressBar()
+                              : Text('รหัสสถานี: $stationCode'),
+                          const SizedBox(width: 5),
+                          name == null
+                              ? MainStyle().showProgressBar()
+                              : Text('ชื่อสถานี: $name'),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          date == null
+                              ? MainStyle().showProgressBar()
+                              : Text('วันที่: $date'),
+                          const SizedBox(width: 5),
+                          time == null
+                              ? MainStyle().showProgressBar()
+                              : Text('เวลา: $time'),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          lat == null
+                              ? MainStyle().showProgressBar()
+                              : Text('Lat: $lat'),
+                          const SizedBox(width: 5),
+                          lng == null
+                              ? MainStyle().showProgressBar()
+                              : Text('Lng: $lng'),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          left_bank == null
+                              ? MainStyle().showProgressBar()
+                              : Text('ตลิ่งซ้าย: $left_bank'),
+                          const SizedBox(width: 5),
+                          right_bank == null
+                              ? MainStyle().showProgressBar()
+                              : Text('ตลิ่งขวา: $right_bank'),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ground_level == null
+                              ? MainStyle().showProgressBar()
+                              : Text('ท้องน้ำ: $ground_level'),
+                          const SizedBox(width: 5),
+                          water == null
+                              ? MainStyle().showProgressBar()
+                              : Text('ระดับน้ำ: $water'),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
                     ],
                   ),
                   const SizedBox(height: 10),
@@ -289,7 +365,6 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
           await availableCameras().then((value) => Navigator.push(context,
               MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
         }
-        
       },
       child: const Text("ต่อไป"),
       style: ElevatedButton.styleFrom(

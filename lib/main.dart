@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,6 +10,8 @@ import 'package:camera/camera.dart';
 String initRoute = '/authen';
 
 Future<void> main() async {
+  HttpOverrides.global = MyHttpOverides();
+
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp().then((value) async {
@@ -41,5 +44,14 @@ class MainApp extends StatelessWidget {
       initialRoute: initRoute,
       //debugShowCheckedModeBanner: false,
     );
+  }
+}
+
+class MyHttpOverides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    // TODO: implement createHttpClient
+    return super.createHttpClient(context)
+      ..badCertificateCallback = ((cert, host, port) => true);
   }
 }
