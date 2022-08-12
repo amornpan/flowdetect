@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:external_path/external_path.dart';
 import 'package:flowdetect/screens/hii_video_upload.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
@@ -19,6 +20,7 @@ class VideoPage extends StatefulWidget {
 
 class _VideoPageState extends State<VideoPage> {
   late VideoPlayerController _videoPlayerController;
+  String? pathStorage;
 
   @override
   void dispose() {
@@ -32,6 +34,13 @@ class _VideoPageState extends State<VideoPage> {
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
     await _videoPlayerController.play();
+    findPathStorage();
+  }
+
+  Future<void> findPathStorage() async {
+    pathStorage = await ExternalPath.getExternalStoragePublicDirectory(
+        ExternalPath.DIRECTORY_MOVIES);
+    debugPrint('###11aug $pathStorage');
   }
 
   @override
@@ -99,13 +108,22 @@ class _VideoPageState extends State<VideoPage> {
                                 dispose();
                               });
                               File(videoPath.toString()).deleteSync();
-                              Navigator.pushNamed(
-                                context,
-                                '/videoUpload',
-                                arguments: <String, dynamic>{
-                                  'videoPath': videoPath,
-                                },
-                              );
+                              // Navigator.pushNamed(
+                              //   context,
+                              //   '/videoUpload',
+                              //   arguments: <String, dynamic>{
+                              //     'videoPath': videoPath,
+                              //     'pathStorage' : pathStorage,
+                              //   },
+                              // );
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => VideoUpload(
+                                      videoPath: videoPath,
+                                      pathStorage: pathStorage,
+                                    ),
+                                  ));
                             },
                             icon: const Icon(Icons.save),
                             label: const Text('Save'),
@@ -118,11 +136,15 @@ class _VideoPageState extends State<VideoPage> {
                             onPressed: () async {
                               print('##10aug Click Cloud');
                               _videoPlayerController.pause();
-
                               File file = File(widget.filePath);
+
+                              var strings = file.path.split('/');
+                              String nameVideo = strings.last;
+
                               Map<String, dynamic> map = {};
-                              map['file'] = await MultipartFile.fromFile(file.path,
-                                  filename: 'testUPload.mp4');
+                              map['file'] = await MultipartFile.fromFile(
+                                  file.path,
+                                  filename: nameVideo);
                               map['particle_diamiter'] = 1;
                               FormData formData = FormData.fromMap(map);
                               String path =

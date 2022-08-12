@@ -31,6 +31,7 @@ class _CameraPageState extends State<CameraPage> {
   }
 
   _initCamera(CameraDescription cameraDescription) async {
+    dynamic stationCode;
     final cameras = await availableCameras();
     //final back = cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.back);
     _cameraController = CameraController(

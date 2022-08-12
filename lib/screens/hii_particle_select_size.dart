@@ -363,7 +363,10 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
               context, "ยังไม่ได้เลือกขนาดวัตถุ", "กรุณาเลือกเลือกขนาดวัตถุ");
         } else {
           await availableCameras().then((value) => Navigator.push(context,
-              MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
+              //MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
+              MaterialPageRoute(builder: (_) {
+                return CameraPage(cameras: value,);
+              })));
         }
       },
       child: const Text("ต่อไป"),

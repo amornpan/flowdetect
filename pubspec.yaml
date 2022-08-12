@@ -57,7 +57,7 @@ dependencies:
   #     path: packages/camera/camera
   #     ref: master
 
-  video_player: ^2.4.5
+  video_player: ^2.4.6
 
   path_provider: ^2.0.11
 
