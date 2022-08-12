@@ -57,16 +57,14 @@ class _ShowVideoPlayerState extends State<ShowVideoPlayer> {
         title: const Text('Show Video Player'),
       ),
       body: 
-      // LayoutBuilder(
-      //   builder: (context, constraints) => Container(
-      //     width: constraints.maxWidth,
-      //     height: constraints.maxHeight,
-      //     child: Chewie(controller: chewieController!),
-      //   ),
-      // ),
-      
-      Text(urlVideo!)
-
+      LayoutBuilder(
+        builder: (context, constraints) => Container(
+          width: constraints.maxWidth,
+          height: constraints.maxHeight,
+          child: Chewie(controller: chewieController!),
+        ),
+      ),
+      // Text(urlVideo!)
     );
   }
 }
