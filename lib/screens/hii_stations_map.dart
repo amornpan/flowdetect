@@ -5,9 +5,9 @@ import 'package:geolocator/geolocator.dart';
 import '../utility/map_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:intl/intl.dart';
-import 'package:camera/camera.dart';
-import 'package:flowdetect/screens/camera_page.dart';
+// import 'package:intl/intl.dart';
+// import 'package:camera/camera.dart';
+// import 'package:flowdetect/screens/camera_page.dart';
 
 class HiiStationMap extends StatefulWidget {
   const HiiStationMap({Key? key}) : super(key: key);
@@ -45,7 +45,7 @@ class _HiiStationMapState extends State<HiiStationMap> {
     String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
     var uri = Uri.parse(url);
     late var parsedJson;
-    late var jsonData;
+    late String jsonData;
     Map<dynamic, dynamic> body = {'user': user, 'pass': pass};
     var intLastIndex;
 

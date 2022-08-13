@@ -253,7 +253,6 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
         child: InkWell(
           splashColor: Colors.red,
           onTap: () {
-            color:
             Colors.blue.shade800;
           },
           child: Padding(

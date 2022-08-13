@@ -22,11 +22,7 @@ class _ShowVideoPlayerState extends State<ShowVideoPlayer> {
   @override
   void initState() {
     super.initState();
-
-    urlVideo = widget.urlVideo;
-
-    videoPlayerController = VideoPlayerController.network(urlVideo!);
-    videoPlayerController!.initialize();
+    fetchData();
 
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController!,
@@ -34,6 +30,13 @@ class _ShowVideoPlayerState extends State<ShowVideoPlayer> {
       aspectRatio: 2 / 3,
       looping: false,
     );
+  }
+
+  Future fetchData() async {
+    urlVideo = widget.urlVideo;
+    debugPrint(urlVideo);
+    videoPlayerController = VideoPlayerController.network(urlVideo!);
+    await videoPlayerController!.initialize();
   }
 
   @override
@@ -58,7 +61,7 @@ class _ShowVideoPlayerState extends State<ShowVideoPlayer> {
         title: const Text('Show Video Player'),
       ),
       body: LayoutBuilder(
-        builder: (context, constraints) => Container(
+        builder: (context, constraints) => SizedBox(
           width: constraints.maxWidth,
           height: constraints.maxHeight,
           child: Chewie(controller: chewieController!),

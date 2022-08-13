@@ -1,7 +1,7 @@
-import 'package:camera/camera.dart';
-import 'package:flowdetect/screens/camera_page.dart';
+//import 'package:camera/camera.dart';
+//import 'package:flowdetect/screens/camera_page.dart';
 import 'package:flowdetect/utility/dialog.dart';
-import 'package:flowdetect/utility/main_style.dart';
+//import 'package:flowdetect/utility/main_style.dart';
 import 'package:flutter/material.dart';
 
 class HiiStatSelectSite extends StatefulWidget {

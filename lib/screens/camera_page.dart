@@ -31,7 +31,7 @@ class _CameraPageState extends State<CameraPage> {
   }
 
   _initCamera(CameraDescription cameraDescription) async {
-    dynamic stationCode;
+    //dynamic stationCode;
     final cameras = await availableCameras();
     //final back = cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.back);
     _cameraController = CameraController(
@@ -197,7 +197,7 @@ class Line extends CustomPainter {
 
     // Green Reference
     Paint paint2 = Paint();
-    paint2.color = Color.fromARGB(255, 13, 132, 29);
+    paint2.color = const Color.fromARGB(255, 13, 132, 29);
     paint2.strokeWidth = 5;
     paint2.strokeCap = StrokeCap.round;
     Offset startingOffset2 = Offset(size.width * 0.20, size.height * 0.25);
@@ -206,7 +206,7 @@ class Line extends CustomPainter {
 
     // Yellow_left Reference
     Paint paint3 = Paint();
-    paint3.color = Color.fromARGB(255, 223, 194, 7);
+    paint3.color = const Color.fromARGB(255, 223, 194, 7);
     paint3.strokeWidth = 5;
     paint3.strokeCap = StrokeCap.round;
     Offset startingOffset3 = Offset(size.width * 0.19, size.height * 0.20);
@@ -215,7 +215,7 @@ class Line extends CustomPainter {
 
     // Yellow_Right Reference
     Paint paint4 = Paint();
-    paint4.color = Color.fromARGB(255, 223, 194, 7);
+    paint4.color = const Color.fromARGB(255, 223, 194, 7);
     paint4.strokeWidth = 5;
     paint4.strokeCap = StrokeCap.round;
     Offset startingOffset4 = Offset(size.width * 0.81, size.height * 0.2);

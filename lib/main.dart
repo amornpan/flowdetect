@@ -1,11 +1,11 @@
 import 'dart:io';
-import 'package:camera/camera.dart';
+//import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flowdetect/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:camera/camera.dart';
+//import 'package:camera/camera.dart';
 
 String initRoute = '/authen';
 
