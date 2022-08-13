@@ -25,13 +25,14 @@ class _ShowVideoPlayerState extends State<ShowVideoPlayer> {
 
     urlVideo = widget.urlVideo;
 
-    videoPlayerController = VideoPlayerController.network(urlVideo!)
-      ..initialize();
+    videoPlayerController = VideoPlayerController.network(urlVideo!);
+    videoPlayerController!.initialize();
+
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController!,
       autoPlay: true,
       aspectRatio: 2 / 3,
-      // looping: true,
+      looping: false,
     );
   }
 
@@ -56,8 +57,7 @@ class _ShowVideoPlayerState extends State<ShowVideoPlayer> {
         ],
         title: const Text('Show Video Player'),
       ),
-      body: 
-      LayoutBuilder(
+      body: LayoutBuilder(
         builder: (context, constraints) => Container(
           width: constraints.maxWidth,
           height: constraints.maxHeight,

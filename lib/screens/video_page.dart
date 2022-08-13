@@ -88,6 +88,7 @@ class _VideoPageState extends State<VideoPage> {
                         Align(
                           alignment: Alignment.bottomLeft,
                           child: FloatingActionButton.extended(
+                            heroTag: "btnUndo",
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -99,6 +100,7 @@ class _VideoPageState extends State<VideoPage> {
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: FloatingActionButton.extended(
+                            heroTag: "btnSave",
                             onPressed: () async {
                               debugPrint('##10aug save Video at $videoPath');
                               await GallerySaver.saveVideo(videoPath.toString())
@@ -133,6 +135,7 @@ class _VideoPageState extends State<VideoPage> {
                         Align(
                           alignment: Alignment.bottomRight,
                           child: FloatingActionButton.extended(
+                            heroTag: "btnCloud",
                             onPressed: () async {
                               print('##10aug Click Cloud');
                               _videoPlayerController.pause();
