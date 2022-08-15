@@ -50,14 +50,6 @@ dependencies:
 
   geolocator: ^8.2.1
 
-<<<<<<< HEAD
-  camera: ^0.9.7+1
-
-  video_player: ^2.4.4
-
-  # flutter_facebook_login: ^3.0.0
-
-=======
   camera: ^0.9.8+1
   # camera:
   #   git:
@@ -85,9 +77,6 @@ dependencies:
 
   external_path: ^1.0.1
 
-
-  
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
 dev_dependencies:
   flutter_test:
     sdk: flutter

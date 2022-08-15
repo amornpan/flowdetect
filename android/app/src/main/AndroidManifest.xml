@@ -3,19 +3,16 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<<<<<<< HEAD
-
-
-   <application
-=======
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
+   
     
 
 
     <application 
         android:usesCleartextTraffic="true"
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
+
         android:label="flowdetect"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
