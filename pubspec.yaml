@@ -50,12 +50,44 @@ dependencies:
 
   geolocator: ^8.2.1
 
+<<<<<<< HEAD
   camera: ^0.9.7+1
 
   video_player: ^2.4.4
 
   # flutter_facebook_login: ^3.0.0
 
+=======
+  camera: ^0.9.8+1
+  # camera:
+  #   git:
+  #     url: https://github.com/camsim99/plugins.git
+  #     path: packages/camera/camera
+  #     ref: master
+
+  video_player: ^2.4.6
+  # video_player: ^2.4.5
+
+  chewie: ^1.3.4
+  # chewie: ^1.3.3
+
+  path_provider: ^2.0.11
+
+  path:
+
+  # flutter_facebook_login: ^3.0.0
+
+  gallery_saver: ^2.3.2
+
+  dio: ^4.0.6
+
+  sqflite: ^2.0.3
+
+  external_path: ^1.0.1
+
+
+  
+>>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
 dev_dependencies:
   flutter_test:
     sdk: flutter

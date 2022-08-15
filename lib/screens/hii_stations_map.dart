@@ -5,7 +5,13 @@ import 'package:geolocator/geolocator.dart';
 import '../utility/map_dialog.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+<<<<<<< HEAD
 import 'package:intl/intl.dart';
+=======
+// import 'package:intl/intl.dart';
+// import 'package:camera/camera.dart';
+// import 'package:flowdetect/screens/camera_page.dart';
+>>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
 
 class HiiStationMap extends StatefulWidget {
   const HiiStationMap({Key? key}) : super(key: key);
@@ -18,10 +24,22 @@ class _HiiStationMapState extends State<HiiStationMap> {
   late double screenWidth;
   late double screenHigh;
 
+<<<<<<< HEAD
   DateTime? date;
   // late DateTime time;
   String? time;
   double? water;
+=======
+  late dynamic returnStationCode;
+
+  String? name;
+  String? date;
+  String? time;
+  double? water;
+  double? left_bank;
+  double? right_bank;
+  double? ground_level;
+>>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
   double? lat;
   double? lng;
 
@@ -33,12 +51,23 @@ class _HiiStationMapState extends State<HiiStationMap> {
   Future<void> getDataWLNortheastLasted(
     String user,
     String pass,
+<<<<<<< HEAD
   ) async {
     String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
     var uri = Uri.parse(url);
     var parsedJson;
     var jsonData;
     Map<dynamic, dynamic> body = {'user': user, 'pass': pass};
+=======
+    String stationcode,
+  ) async {
+    String url = "https://wea.hii.or.th:3005/getDataWLNortheastLasted";
+    var uri = Uri.parse(url);
+    late var parsedJson;
+    late String jsonData;
+    Map<dynamic, dynamic> body = {'user': user, 'pass': pass};
+    var intLastIndex;
+>>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
 
     final response = await http.post(uri,
         body: body,
@@ -49,6 +78,7 @@ class _HiiStationMapState extends State<HiiStationMap> {
         encoding: Encoding.getByName("utf-8"));
 
     if (response.statusCode == 200) {
+<<<<<<< HEAD
       jsonData = response.body;
       parsedJson = jsonDecode(jsonData);
       //debugPrint('${parsedJson.runtimeType} : $parsedJson');
@@ -78,6 +108,36 @@ class _HiiStationMapState extends State<HiiStationMap> {
 
       debugPrint(
           'date = $date, time = $time, water = $water, lat= $lat, lng = $lng');
+=======
+      setState(() {
+        jsonData = response.body;
+        parsedJson = jsonDecode(jsonData);
+      });
+
+      for (var i = 0; i < parsedJson['data'].length; i++) {
+        var obj = parsedJson['data'][i];
+        for (var key in obj.keys) {
+          var value = obj[key];
+          //debugPrint('key = $key, value = $value');
+          if (value == stationcode) {
+            intLastIndex = i;
+            break;
+          }
+        }
+      }
+      date = parsedJson['data'][intLastIndex]['date'];
+      name = parsedJson['data'][intLastIndex]['name'];
+      time = parsedJson['data'][intLastIndex]['time'];
+      lat = double.parse(parsedJson['data'][intLastIndex]['lat']);
+      lng = double.parse(parsedJson['data'][intLastIndex]['lng']);
+      left_bank = parsedJson['data'][intLastIndex]['left_bank'];
+      right_bank = parsedJson['data'][intLastIndex]['right_bank'];
+      ground_level = parsedJson['data'][intLastIndex]['ground_level'];
+      water = parsedJson['data'][intLastIndex]['water'];
+
+      // debugPrint(
+      //     'name = $name, \ndate = $date, \ntime = $time, \nwater = $water, \nlat= $lat, \nlng = $lng');
+>>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
@@ -87,8 +147,13 @@ class _HiiStationMapState extends State<HiiStationMap> {
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
     getDataWLNortheastLasted('WLNortheast', 'ce0301505244265d13b8d53eb63126e1');
     checkPermissionEnable();
+=======
+    checkPermissionEnable();
+    // getDataWLNortheastLasted('WLNortheast', 'ce0301505244265d13b8d53eb63126e1');
+>>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
   }
 
   Future<void> checkPermissionEnable() async {
@@ -154,9 +219,46 @@ class _HiiStationMapState extends State<HiiStationMap> {
 
   Widget nextButton() {
     return ElevatedButton(
+<<<<<<< HEAD
       onPressed: () {
         Navigator.pushNamed(context, '/hiiStationMap');
       },
+=======
+      // onPressed: () {
+      //   Navigator.pushNamed(context, '/hiiStationMap');
+      // },
+
+      // onPressed: () async {
+      //   await availableCameras().then((value) => Navigator.push(context,
+      //       MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
+      // },
+
+      onPressed: () {
+        Navigator.pushNamed(
+          context,
+          '/particleSizeSelect',
+          arguments: <String, dynamic>{
+            'stationCode': returnStationCode,
+            'name': name,
+            'date': date,
+            'time': time,
+            'water': water,
+            'left_bank': left_bank,
+            'right_bank': right_bank,
+            'ground_level': ground_level,
+            'lat': lat,
+            'lng': lng,
+          },
+        );
+      },
+
+      // Open camera
+      // onPressed: () async {
+      //   await availableCameras().then((value) => Navigator.push(context,
+      //       MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
+      // },
+
+>>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
       child: const Text("ต่อไป"),
       style: ElevatedButton.styleFrom(
           fixedSize: const Size(250, 50),
@@ -180,9 +282,17 @@ class _HiiStationMapState extends State<HiiStationMap> {
 
     final routeData =
         ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>;
+<<<<<<< HEAD
     final stationCode = routeData['stationCode'];
 
     //getDataWLNortheastLasted('WLNortheast', 'ce0301505244265d13b8d53eb63126e1');
+=======
+    //final stationCode = routeData['stationCode'];
+    returnStationCode = routeData['stationCode'];
+
+    getDataWLNortheastLasted(
+        'WLNortheast', 'ce0301505244265d13b8d53eb63126e1', returnStationCode);
+>>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
 
     return Scaffold(
       appBar: AppBar(
@@ -215,6 +325,7 @@ class _HiiStationMapState extends State<HiiStationMap> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+<<<<<<< HEAD
                       Text('วันที่: $date'),
                       const SizedBox(width: 5),
                       Text('เวลา: $time'),
@@ -233,10 +344,88 @@ class _HiiStationMapState extends State<HiiStationMap> {
                       Text('Lng: $lng'),
                     ],
                   ),
+=======
+                      returnStationCode == null
+                          ? MainStyle().showProgressBar()
+                          : Text('รหัสสถานี: $returnStationCode'),
+                      const SizedBox(width: 5),
+                      name == null
+                          ? MainStyle().showProgressBar()
+                          : Text('ชื่อสถานี: $name'),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      date == null
+                          ? MainStyle().showProgressBar()
+                          : Text('วันที่: $date'),
+                      const SizedBox(width: 5),
+                      time == null
+                          ? MainStyle().showProgressBar()
+                          : Text('เวลา: $time'),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      lat == null
+                          ? MainStyle().showProgressBar()
+                          : Text('Lat: $lat'),
+                      const SizedBox(width: 5),
+                      lng == null
+                          ? MainStyle().showProgressBar()
+                          : Text('Lng: $lng'),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      left_bank == null
+                          ? MainStyle().showProgressBar()
+                          : Text('ตลิ่งซ้าย: $left_bank'),
+                      const SizedBox(width: 5),
+                      right_bank == null
+                          ? MainStyle().showProgressBar()
+                          : Text('ตลิ่งขวา: $right_bank'),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ground_level == null
+                          ? MainStyle().showProgressBar()
+                          : Text('ท้องน้ำ: $ground_level'),
+                      const SizedBox(width: 5),
+                      water == null
+                          ? MainStyle().showProgressBar()
+                          : Text('ระดับน้ำ: $water'),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'ตรวจสอบตำแหน่งของท่านกับสถานีที่เลือก?',
+                    style: TextStyle(
+                      fontSize: 17.0,
+                      color: Color(0xff0064b7),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+>>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
                   const SizedBox(height: 10),
                   buildMap(),
                   const SizedBox(height: 10),
                   nextButton(),
+<<<<<<< HEAD
+=======
+                  const SizedBox(height: 15),
+                  const Text('* ให้แน่ใจว่าตำแหน่งของท่านอยู่ตรงกับสถานี')
+>>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
                 ],
               ),
             ),
@@ -278,7 +467,12 @@ class _HiiStationMapState extends State<HiiStationMap> {
                 ),
                 mapType: MapType.normal,
                 onMapCreated: (controller) {},
+<<<<<<< HEAD
                 markers: setDeviceMarker(),
+=======
+                myLocationEnabled: true,
+                //markers: setDeviceMarker(),
+>>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
               ),
       );
 }

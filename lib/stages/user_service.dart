@@ -27,9 +27,12 @@ class _UserServiceState extends State<UserService> {
             fontWeight: FontWeight.bold,
           ),
         ),
+<<<<<<< HEAD
         actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.exit_to_app)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
         ],
+=======
+>>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
 
         //backgroundColor: Colors.transparent,
         backgroundColor: Colors.blue.shade500,
