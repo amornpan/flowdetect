@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-=======
 //import 'package:camera/camera.dart';
 //import 'package:flowdetect/screens/camera_page.dart';
 import 'package:flowdetect/utility/dialog.dart';
 //import 'package:flowdetect/utility/main_style.dart';
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
 import 'package:flutter/material.dart';
 
 class HiiStatSelectSite extends StatefulWidget {
@@ -45,34 +42,22 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
         height: 2,
         color: const Color(0xff0064b7),
       ),
-<<<<<<< HEAD
-      hint: const Text('กรุณาเลือกสถานีที่ต้องการทำการวัดค่า',
-=======
       hint: const Text(
         'กรุณาเลือกสถานีที่ต้องการทำการวัดค่า',
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
         style: TextStyle(
           fontSize: 20.0,
         ),
       ),
       onChanged: (String? newValue) {
         setState(() {
-<<<<<<< HEAD
-          stationCode = newValue!;
-=======
           stationCode = newValue;
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
           int idx = stationCode!.indexOf("(");
           String subValue = stationCode!.substring(
             idx + 1,
             idx + 7,
           );
           returnStatinCode = subValue;
-<<<<<<< HEAD
-          debugPrint('returnStatinCode = $returnStatinCode');
-=======
           // debugPrint('returnStatinCode = $returnStatinCode');
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
         });
       },
       items: items_list.map<DropdownMenuItem<String>>((
@@ -94,16 +79,6 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
   Widget nextButton() {
     return ElevatedButton(
       onPressed: () {
-<<<<<<< HEAD
-        Navigator.pushNamed(
-          context,
-          '/hiiStationMap',
-          arguments: <String, dynamic>{
-            'stationCode': returnStatinCode,
-          },
-        );
-      },
-=======
         if (returnStatinCode == null) {
           normalDialog(
               context, "ยังไม่ได้เลือกสถานี", "กรุณาเลือกสถานีที่ต้องการวัด");
@@ -127,7 +102,6 @@ class _HiiStatSelectSiteState extends State<HiiStatSelectSite> {
       //       MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
       // },
 
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
       child: const Text("ต่อไป"),
       style: ElevatedButton.styleFrom(
           fixedSize: const Size(250, 50),

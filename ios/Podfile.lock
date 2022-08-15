@@ -608,11 +608,6 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.24):
     - BoringSSL-GRPC/Interface (= 0.0.24)
   - BoringSSL-GRPC/Interface (0.0.24)
-<<<<<<< HEAD
-  - camera_avfoundation (0.0.1):
-    - Flutter
-=======
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
   - cloud_firestore (3.1.17):
     - Firebase/Firestore (= 8.15.0)
     - firebase_core
@@ -764,16 +759,8 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - PromisesObjC (2.1.0)
-<<<<<<< HEAD
-  - video_player_avfoundation (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
-  - camera_avfoundation (from `.symlinks/plugins/camera_avfoundation/ios`)
-=======
-
-DEPENDENCIES:
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -781,10 +768,6 @@ DEPENDENCIES:
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
-<<<<<<< HEAD
-  - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/ios`)
-=======
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
 
 SPEC REPOS:
   trunk:
@@ -810,11 +793,6 @@ SPEC REPOS:
     - PromisesObjC
 
 EXTERNAL SOURCES:
-<<<<<<< HEAD
-  camera_avfoundation:
-    :path: ".symlinks/plugins/camera_avfoundation/ios"
-=======
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
   firebase_auth:
@@ -829,20 +807,11 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
   google_sign_in_ios:
     :path: ".symlinks/plugins/google_sign_in_ios/ios"
-<<<<<<< HEAD
-  video_player_avfoundation:
-    :path: ".symlinks/plugins/video_player_avfoundation/ios"
-=======
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
   AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
-<<<<<<< HEAD
-  camera_avfoundation: 07c77549ea54ad95d8581be86617c094a46280d9
-=======
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
   cloud_firestore: 936969669b510f2affd43583582d7b117c5f08d1
   Firebase: 5f8193dff4b5b7c5d5ef72ae54bb76c08e2b841d
   firebase_auth: a6470a6974d42f83117932c913aecb926182f907
@@ -867,10 +836,6 @@ SPEC CHECKSUMS:
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
-<<<<<<< HEAD
-  video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
-=======
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 

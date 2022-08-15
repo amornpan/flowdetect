@@ -127,34 +127,13 @@ class _AuthenState extends State<Authen> {
                 children: [
                   SizedBox(height: screenHigh * 0.10),
                   MainStyle().showLogo(),
-<<<<<<< HEAD
-                  // const SizedBox(height: 10),
-                  // const Text(
-                  //   "River Flow Detect",
-                  //   style: TextStyle(
-                  //     fontWeight: FontWeight.bold,
-                  //     fontSize: 25.0,
-                  //     color: Color(0xff0064b7),
-                  //   ),
-                  // ),
-=======
                   
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
                   const SizedBox(height: 20),
                   emailText(),
                   const SizedBox(height: 10),
                   passwordText(),
                   const SizedBox(height: 10),
                   buildSignInEmail(),
-<<<<<<< HEAD
-                  const SizedBox(height: 10),
-                  buildSignInGoogle(),
-                  const SizedBox(height: 10),
-                  buildSignInFacebook(),
-                  const SizedBox(height: 10),
-                  buildSignInApple(),
-                  const SizedBox(height: 10),
-=======
                   // const SizedBox(height: 10),
                   // buildSignInGoogle(),
                   // const SizedBox(height: 10),
@@ -162,7 +141,6 @@ class _AuthenState extends State<Authen> {
                   // const SizedBox(height: 10),
                   // buildSignInApple(),
                   // const SizedBox(height: 10),
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
                   buildNewAccount(),
                 ],
               ),

@@ -239,36 +239,6 @@ class _NewAccountState extends State<NewAccount> {
         backgroundColor: Colors.blue.shade500,
         elevation: 0.0,
       ),
-<<<<<<< HEAD
-      body: Stack(
-        children: [
-          ClipPath(
-            clipper: CustomClipPath(),
-            child: Container(
-              color: Colors.blue.shade500,
-              child: const ClipPath(),
-              height: screenHigh,
-              width: screenWidth,
-            ),
-          ),
-          Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  nameText(),
-                  const SizedBox(height: 10),
-                  emailText(),
-                  const SizedBox(height: 10),
-                  passwordText(),
-                  const SizedBox(height: 30),
-                  submitButton()
-                ],
-              ),
-            ),
-          )
-        ],
-=======
       body: GestureDetector(behavior: HitTestBehavior.opaque,
         onTap: () => FocusScope.of(context).requestFocus(FocusScopeNode()),
         child: Stack(
@@ -300,7 +270,6 @@ class _NewAccountState extends State<NewAccount> {
             )
           ],
         ),
->>>>>>> 1547a9325a2248aa6e1eea3ceb0f3728fcb7bbe8
       ),
     );
   }
