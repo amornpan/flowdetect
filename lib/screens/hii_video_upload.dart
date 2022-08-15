@@ -2,12 +2,11 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flowdetect/screens/show_video_player.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flowdetect/models/sqlite_model.dart';
 import 'package:flowdetect/utility/main_style.dart';
 import 'package:flowdetect/utility/sqlite_helper.dart';
+import 'package:flowdetect/screens/show_video_player.dart';
 
 late String videoPath;
 //List<Measurement> measurements = getInfo();
@@ -15,43 +14,6 @@ late String videoPath;
 class Measurement {
   late final String user;
 }
-
-// Future<List<Measurement>> getInfo() async {
-//   const data = [
-//     {
-//       "user": "amornpan@gmail.com",
-//       "code": "MUN017",
-//       "name": "เมืองอุบลราชธานี",
-//       "lat": "15.3276864",
-//       "lng": "104.6817984",
-//       "left_bank": 114.758,
-//       "right_bank": 118.692,
-//       "ground_level": 105.73,
-//       "date": "2021-09-12",
-//       "time": "00:00:00",
-//       "water": 110.94,
-//       "video_path": "",
-//       "surface_velocity": 0.0,
-//     },
-//     {
-//       "user": "amornpan@gmail.com",
-//       "code": "SKM001",
-//       "name": "อากาศอำนวย",
-//       "lat": "17.7775936",
-//       "lng": "104.0150464",
-//       "left_bank": 142.857,
-//       "right_bank": 144.219,
-//       "ground_level": 131.865,
-//       "date": "2021-09-12",
-//       "time": "00:00:00",
-//       "water": 141.93,
-//       "video_path": "",
-//       "surface_velocity": 0.0,
-//     }
-//   ];
-//   return null;
-//   //return data.map(<Meaturement>(Meaturement.fromJson)).toList();
-// }
 
 class VideoUpload extends StatefulWidget {
   final String? videoPath;
@@ -201,6 +163,7 @@ class _VideoUploadState extends State<VideoUpload> {
                                       MaterialPageRoute(
                                         builder: (context) => ShowVideoPlayer(
                                             urlVideo: value.toString()),
+                                            
                                       ));
                                 }).catchError((error) {
                                   print('##13july error from api ==> $error');

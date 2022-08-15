@@ -84,8 +84,8 @@ class _HiiStationMapState extends State<HiiStationMap> {
       ground_level = parsedJson['data'][intLastIndex]['ground_level'];
       water = parsedJson['data'][intLastIndex]['water'];
 
-      debugPrint(
-          'name = $name, \ndate = $date, \ntime = $time, \nwater = $water, \nlat= $lat, \nlng = $lng');
+      // debugPrint(
+      //     'name = $name, \ndate = $date, \ntime = $time, \nwater = $water, \nlat= $lat, \nlng = $lng');
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
