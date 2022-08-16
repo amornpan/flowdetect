@@ -1,6 +1,6 @@
 import 'package:flowdetect/screens/hii_stations.dart';
 import 'package:flowdetect/screens/hii_video_upload.dart';
-import 'package:flowdetect/stages/other_river.dart';
+import 'package:flowdetect/screens/other_river.dart';
 import 'package:flowdetect/stages/admin_service.dart';
 import 'package:flowdetect/stages/authen.dart';
 import 'package:flowdetect/stages/newaccount.dart';

@@ -35,6 +35,13 @@ class MainStyle {
         image: AssetImage('images/other_river.png'),
       ));
 
+  Widget showOtherRiverMeasurementImage() => const SizedBox(
+      width: 340,
+      height: 300,
+      child: Image(
+        image: AssetImage('images/other_river_measurement.png'),
+      ));
+
   Scaffold buildBackground(double screenWidth, double screenHigh) {
     return Scaffold(
       body: ClipPath(
