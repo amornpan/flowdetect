@@ -1,3 +1,5 @@
+import 'package:camera/camera.dart';
+import 'package:flowdetect/screens/camera_page.dart';
 import 'package:flutter/material.dart';
 
 import '../utility/dialog.dart';
@@ -93,12 +95,21 @@ class _OtherRiverState extends State<OtherRiver> {
 
   Widget submitButton() {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         if ((strBValue.isEmpty) || (strYValue.isEmpty)) {
           normalDialog(context, "พบค่าว่าง", "กรุณากรอกข้อมูลให้ครบ");
         } else {
-          // debugPrint('email1: $emailString, password1: $passwordString');
-          //createAccounttoFirebase();
+          // add strBValue, strYValue, other river tag, datetime to sqlite
+
+          // redict to camerapage
+          await availableCameras().then((value) => Navigator.push(context,
+                  //MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
+                  MaterialPageRoute(builder: (_) {
+                return CameraPage(
+                  cameras: value,
+                );
+              })));
+
         }
       },
       child: const Text("ถัดไป"),

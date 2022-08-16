@@ -74,9 +74,10 @@ class _CameraPageState extends State<CameraPage> {
       return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'สถานีโทรมาตรวัดระดับน้ำ สสน.',
+            'บันทึกวีดีโอขณะวัตถุเคลื่อนผ่าน',
             style: TextStyle(
               fontWeight: FontWeight.bold,
+              fontSize: 13,
             ),
           ),
           elevation: 0,

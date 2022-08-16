@@ -48,7 +48,7 @@ class _VideoPageState extends State<VideoPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'สถานีโทรมาตรวัดระดับน้ำ สสน.',
+          'แสดงผลการบันทึกไฟล์วีดีโอ',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
