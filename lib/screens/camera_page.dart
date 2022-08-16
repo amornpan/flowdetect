@@ -77,7 +77,7 @@ class _CameraPageState extends State<CameraPage> {
             'บันทึกวีดีโอขณะวัตถุเคลื่อนผ่าน',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 13,
+              //fontSize: 13,
             ),
           ),
           elevation: 0,
