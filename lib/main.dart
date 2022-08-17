@@ -50,7 +50,6 @@ class MainApp extends StatelessWidget {
 class MyHttpOverides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    // TODO: implement createHttpClient
     return super.createHttpClient(context)
       ..badCertificateCallback = ((cert, host, port) => true);
   }
