@@ -1,7 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flowdetect/screens/camera_page.dart';
 import 'package:flutter/material.dart';
-
 import '../utility/dialog.dart';
 import '../utility/main_style.dart';
 
