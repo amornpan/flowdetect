@@ -36,8 +36,7 @@ class MainStyle {
       ));
 
   Widget showOtherRiverMeasurementImage() => const SizedBox(
-      width: 340,
-      height: 300,
+
       child: Image(
         image: AssetImage('images/other_river_measurement.png'),
       ));
