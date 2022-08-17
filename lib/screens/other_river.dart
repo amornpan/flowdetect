@@ -184,47 +184,51 @@ class _OtherRiverState extends State<OtherRiver> {
         backgroundColor: Colors.blue.shade500,
         elevation: 0.0,
       ),
-      body: Stack(
-        children: [
-          ClipPath(
-            clipper: CustomClipPath(),
-            child: Container(
-              color: Colors.blue.shade500,
-              child: const ClipPath(),
-              height: screenHigh,
-              width: screenWidth,
-            ),
-          ),
-          Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'กรุณาระบุค่าตัวแปร B และ Y',
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      color: Color(0xff0064b7),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  MainStyle().showOtherRiverMeasurementImage(),
-                  const SizedBox(height: 10),
-                  Text('ขนาดของพื้นที่หน้าตัด (A) = ' + strAValue),
-                  const SizedBox(height: 20),
-                  txtBValue(),
-                  const SizedBox(height: 15),
-                  txtYValue(),
-                  const SizedBox(height: 15),
-                  calculateAreaButton(),
-                  const SizedBox(height: 15),
-                  submitButton(),
-                ],
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => FocusScope.of(context).requestFocus(FocusScopeNode()),
+        child: Stack(
+          children: [
+            ClipPath(
+              clipper: CustomClipPath(),
+              child: Container(
+                color: Colors.blue.shade500,
+                child: const ClipPath(),
+                height: screenHigh,
+                width: screenWidth,
               ),
             ),
-          )
-        ],
+            Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'กรุณาระบุค่าตัวแปร B และ Y',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Color(0xff0064b7),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    MainStyle().showOtherRiverMeasurementImage(),
+                    const SizedBox(height: 10),
+                    Text('ขนาดของพื้นที่หน้าตัด (A) = ' + strAValue),
+                    const SizedBox(height: 20),
+                    txtBValue(),
+                    const SizedBox(height: 15),
+                    txtYValue(),
+                    const SizedBox(height: 15),
+                    calculateAreaButton(),
+                    const SizedBox(height: 15),
+                    submitButton(),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

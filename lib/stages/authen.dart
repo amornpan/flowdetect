@@ -108,45 +108,49 @@ class _AuthenState extends State<Authen> {
     screenHigh = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      body: Stack(
-        children: [
-          ClipPath(
-            clipper: CustomClipPath(),
-            child: Container(
-              color: Colors.blue.shade500,
-              child: const ClipPath(),
-              height: screenHigh,
-              width: screenWidth,
-            ),
-          ),
-          Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: screenHigh * 0.10),
-                  MainStyle().showLogo(),
-                  
-                  const SizedBox(height: 20),
-                  emailText(),
-                  const SizedBox(height: 10),
-                  passwordText(),
-                  const SizedBox(height: 10),
-                  buildSignInEmail(),
-                  // const SizedBox(height: 10),
-                  // buildSignInGoogle(),
-                  // const SizedBox(height: 10),
-                  // buildSignInFacebook(),
-                  // const SizedBox(height: 10),
-                  // buildSignInApple(),
-                  // const SizedBox(height: 10),
-                  buildNewAccount(),
-                ],
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => FocusScope.of(context).requestFocus(FocusScopeNode()),
+        child: Stack(
+          children: [
+            ClipPath(
+              clipper: CustomClipPath(),
+              child: Container(
+                color: Colors.blue.shade500,
+                child: const ClipPath(),
+                height: screenHigh,
+                width: screenWidth,
               ),
             ),
-          )
-        ],
+            Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: screenHigh * 0.10),
+                    MainStyle().showLogo(),
+
+                    const SizedBox(height: 20),
+                    emailText(),
+                    const SizedBox(height: 10),
+                    passwordText(),
+                    const SizedBox(height: 10),
+                    buildSignInEmail(),
+                    // const SizedBox(height: 10),
+                    // buildSignInGoogle(),
+                    // const SizedBox(height: 10),
+                    // buildSignInFacebook(),
+                    // const SizedBox(height: 10),
+                    // buildSignInApple(),
+                    // const SizedBox(height: 10),
+                    buildNewAccount(),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
