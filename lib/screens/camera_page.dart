@@ -71,53 +71,67 @@ class _CameraPageState extends State<CameraPage> {
         ),
       );
     } else {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'บันทึกวีดีโอขณะวัตถุเคลื่อนผ่าน',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              //fontSize: 13,
+      return WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/userService', (route) => false);
+                  },
+                  icon: const Icon(Icons.home))
+            ],
+            title: const Text(
+              'บันทึกวีดีโอขณะวัตถุเคลื่อนผ่าน',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                //fontSize: 13,
+              ),
             ),
+            elevation: 0,
+            backgroundColor: Colors.blue.shade500,
           ),
-          elevation: 0,
-          backgroundColor: Colors.blue.shade500,
-        ),
-        body: Container(
-          color: Colors.black,
-          child: Center(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // ClipPath(
-                //   clipper: CustomClipPath(),
-                //   child: Container(
-                //     color: Colors.blue.shade500,
-                //     child: const ClipPath(),
-                //     height: screenHigh,
-                //     width: screenWidth,
-                //   ),
-                // ),
+          body: Container(
+            color: Colors.black,
+            child: Center(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // ClipPath(
+                  //   clipper: CustomClipPath(),
+                  //   child: Container(
+                  //     color: Colors.blue.shade500,
+                  //     child: const ClipPath(),
+                  //     height: screenHigh,
+                  //     width: screenWidth,
+                  //   ),
+                  // ),
 
-                CameraPreview(_cameraController),
+                  CameraPreview(_cameraController),
 
-                CustomPaint(
-                  size: Size(screenWidth, screenHigh),
-                  painter: Line(),
-                ),
-
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.all(25),
-                    child: FloatingActionButton(
-                      backgroundColor: Colors.red,
-                      child: Icon(_isRecording ? Icons.stop : Icons.circle),
-                      onPressed: () => _recordVideo(),
-                    ),
+                  CustomPaint(
+                    size: Size(screenWidth, screenHigh),
+                    painter: Line(),
                   ),
-                )
-              ],
+
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(25),
+                      child: FloatingActionButton(
+                        backgroundColor: Colors.red,
+                        child: Icon(_isRecording ? Icons.stop : Icons.circle),
+                        onPressed: () => _recordVideo(),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

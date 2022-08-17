@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:external_path/external_path.dart';
 import 'package:flowdetect/screens/hii_video_upload.dart';
+import 'package:flowdetect/screens/show_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:video_player/video_player.dart';
@@ -47,6 +48,7 @@ class _VideoPageState extends State<VideoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'แสดงผลการบันทึกไฟล์วีดีโอ',
           style: TextStyle(
@@ -156,6 +158,13 @@ class _VideoPageState extends State<VideoPage> {
                                   .post(path, data: formData)
                                   .then((value) {
                                 print('##10aug value from api =.=> $value');
+
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ShowVideoPlayer(
+                                          urlVideo: value.toString()),
+                                    ));
                               }).catchError((error) {
                                 print('##10aug error $error');
                               });

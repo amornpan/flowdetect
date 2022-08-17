@@ -44,23 +44,29 @@ class _ShowVideoPlayerState extends State<ShowVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/userService', (route) => false);
-              },
-              icon: const Icon(Icons.home))
-        ],
-        title: const Text('Show Video Player'),
-      ),
-      body: LayoutBuilder(
-        builder: (context, constraints) => SizedBox(
-          width: constraints.maxWidth,
-          height: constraints.maxHeight,
-          child: Chewie(controller: chewieController!),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/userService', (route) => false);
+                },
+                icon: const Icon(Icons.home))
+          ],
+          title: const Text('Show Video Output'),
+        ),
+        body: LayoutBuilder(
+          builder: (context, constraints) => SizedBox(
+            width: constraints.maxWidth,
+            height: constraints.maxHeight,
+            child: Chewie(controller: chewieController!),
+          ),
         ),
       ),
     );

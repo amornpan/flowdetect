@@ -50,6 +50,7 @@ class _VideoUploadState extends State<VideoUpload> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
             onPressed: () async {

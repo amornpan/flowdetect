@@ -108,7 +108,7 @@ class _OtherRiverState extends State<OtherRiver> {
           });
         }
       },
-      child: const Text("คำนวณ ขนาดของพื้นที่"),
+      child: const Text("คำนวณพื้นที่รูปตัด"),
       style: ElevatedButton.styleFrom(
           fixedSize: const Size(250, 50),
           shadowColor: Colors.black,
