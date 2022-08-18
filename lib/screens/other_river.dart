@@ -130,14 +130,12 @@ class _OtherRiverState extends State<OtherRiver> {
         if ((strBValue.isEmpty) || (strYValue.isEmpty) || (strAValue.isEmpty)) {
           normalDialog(context, "พบค่าว่าง", "กรุณากรอกข้อมูลให้ครบ");
         } else {
-          // redict to camerapage
-          await availableCameras().then((value) => Navigator.push(context,
-                  //MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
-                  MaterialPageRoute(builder: (_) {
-                return CameraPage(
-                  cameras: value,
-                );
-              })));
+          Navigator.pushNamed(context, '/otherRiverParticleSelectSize',
+              arguments: <String, dynamic>{
+                'strBValue': strBValue,
+                'strYValue': strYValue,
+                'strAValue': strAValue,
+              });
         }
       },
       child: const Text("ถัดไป"),
