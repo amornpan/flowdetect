@@ -39,6 +39,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Water Flow Detect',
       //home: Authen(),
       routes: map,
       initialRoute: initRoute,
