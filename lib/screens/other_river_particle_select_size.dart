@@ -126,8 +126,7 @@ class _OtherRiverParticleSelectSizeState
         });
       },
       style: ElevatedButton.styleFrom(
-        primary:
-            clicks[0] ? colorClick : const Color.fromARGB(255, 92, 170, 234),
+         primary: clicks[0] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(120, 120),
         shape: const CircleBorder(),
       ),
@@ -148,8 +147,7 @@ class _OtherRiverParticleSelectSizeState
         });
       },
       style: ElevatedButton.styleFrom(
-        primary:
-            clicks[1] ? colorClick : const Color.fromARGB(255, 87, 151, 204),
+        primary: clicks[1] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(100, 100),
         shape: const CircleBorder(),
       ),

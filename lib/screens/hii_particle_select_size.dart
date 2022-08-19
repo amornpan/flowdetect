@@ -29,6 +29,13 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
   bool particleSelect = false;
   double particleSize = 0.0;
 
+  var clicks = <bool>[
+    false,
+    false,
+    false,
+  ];
+  Color colorClick = const Color.fromARGB(255, 7, 72, 125);
+
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
@@ -181,6 +188,14 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
     );
   }
 
+  void changeColor({required int index}) {
+    for (var i = 0; i < clicks.length; i++) {
+      clicks[i] = false;
+    }
+    clicks[index] = true;
+    setState(() {});
+  }
+
   Widget particle100() {
     return ElevatedButton(
       child: const Text(
@@ -188,12 +203,14 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
         style: TextStyle(fontSize: 15),
       ),
       onPressed: () {
+        changeColor(index: 0);
         setState(() {
           particleSelect = true;
           particleSize = 100.0;
         });
       },
       style: ElevatedButton.styleFrom(
+        primary: clicks[0] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(120, 120),
         shape: const CircleBorder(),
       ),
@@ -207,17 +224,16 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
         style: TextStyle(fontSize: 15),
       ),
       onPressed: () {
+        changeColor(index: 1);
         setState(() {
           particleSelect = true;
           particleSize = 50.0;
         });
       },
       style: ElevatedButton.styleFrom(
+        primary: clicks[1] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(100, 100),
         shape: const CircleBorder(),
-        primary: particleSelect == false
-            ? Colors.blue.shade800
-            : Colors.blue.shade400,
       ),
     );
   }
@@ -229,131 +245,21 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
         style: TextStyle(fontSize: 15),
       ),
       onPressed: () {
+        changeColor(index: 2);
         setState(() {
           particleSelect = true;
           particleSize = 20.0;
         });
       },
       style: ElevatedButton.styleFrom(
+        primary: clicks[2] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(80, 80),
         shape: const CircleBorder(),
-        primary: particleSelect == false
-            ? Colors.blue.shade800
-            : Colors.blue.shade200,
       ),
     );
   }
 
-  Widget particleSize100() {
-    //bool setColor = false;
-    return ClipOval(
-      child: Material(
-        //color: setColor == true ? Colors.blue.shade800 : Colors.blue.shade200,
-        color: Colors.blue.shade200,
-        child: InkWell(
-          splashColor: Colors.red,
-          onTap: () {
-            Colors.blue.shade800;
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Container(
-                color: Colors.blue.shade200,
-                width: 100.0,
-                height: 100.0,
-                child: const Center(
-                  child: Text(
-                    '100 cm',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10.0,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget particleSize50() {
-    bool setColor = false;
-    return ClipOval(
-      child: Material(
-        color: setColor == true ? Colors.blue.shade800 : Colors.blue.shade200,
-        child: InkWell(
-          onTap: () {
-            setState(() {
-              setColor = true;
-            });
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: FittedBox(
-                fit: BoxFit.contain,
-                child: Container(
-                  color: setColor == true
-                      ? Colors.blue.shade800
-                      : Colors.blue.shade200,
-                  width: 60.0,
-                  height: 60.0,
-                  child: const Center(
-                    child: Text(
-                      '50 cm',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10.0,
-                      ),
-                    ),
-                  ),
-                )),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget particleSize20() {
-    bool setColor = false;
-    return ClipOval(
-      child: Material(
-        color: setColor == true ? Colors.blue.shade800 : Colors.blue.shade200,
-        child: InkWell(
-          onTap: () {
-            setState(() {
-              setColor = true;
-            });
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: FittedBox(
-                fit: BoxFit.contain,
-                child: Container(
-                  color: setColor == true
-                      ? Colors.blue.shade800
-                      : Colors.blue.shade200,
-                  width: 30.0,
-                  height: 30.0,
-                  child: const Center(
-                    child: Text(
-                      '20 cm',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10.0,
-                      ),
-                    ),
-                  ),
-                )),
-          ),
-        ),
-      ),
-    );
-  }
-
+ 
   Widget nextButton() {
     return ElevatedButton(
       onPressed: () async {
