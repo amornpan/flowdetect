@@ -199,15 +199,13 @@ class Rectangle extends CustomPainter {
 class Line extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    // Read Reference
+    // Red Reference
     Paint paint = Paint();
     paint.color = const Color.fromARGB(255, 226, 19, 64);
     paint.strokeWidth = 5;
     paint.strokeCap = StrokeCap.round;
-
-    Offset startingOffset = Offset(size.width * 0.10, size.height * 0.75);
-    Offset endingOffset = Offset(size.width * 0.90, size.height * 0.75);
-
+    Offset startingOffset = Offset(size.width * 0.20, size.height * 0.75);
+    Offset endingOffset = Offset(size.width * 0.80, size.height * 0.75);
     canvas.drawLine(startingOffset, endingOffset, paint);
 
     // Green Reference
@@ -215,8 +213,8 @@ class Line extends CustomPainter {
     paint2.color = const Color.fromARGB(255, 13, 132, 29);
     paint2.strokeWidth = 5;
     paint2.strokeCap = StrokeCap.round;
-    Offset startingOffset2 = Offset(size.width * 0.20, size.height * 0.25);
-    Offset endingOffset2 = Offset(size.width * 0.80, size.height * 0.25);
+    Offset startingOffset2 = Offset(size.width * 0.30, size.height * 0.55);
+    Offset endingOffset2 = Offset(size.width * 0.70, size.height * 0.55);
     canvas.drawLine(startingOffset2, endingOffset2, paint2);
 
     // Yellow_left Reference
@@ -224,8 +222,8 @@ class Line extends CustomPainter {
     paint3.color = const Color.fromARGB(255, 223, 194, 7);
     paint3.strokeWidth = 5;
     paint3.strokeCap = StrokeCap.round;
-    Offset startingOffset3 = Offset(size.width * 0.19, size.height * 0.20);
-    Offset endingOffset3 = Offset(size.width * 0.07, size.height * 0.80);
+    Offset startingOffset3 = Offset(size.width * 0.30, size.height * 0.55);
+    Offset endingOffset3 = Offset(size.width * 0.20, size.height * 0.75);
     canvas.drawLine(startingOffset3, endingOffset3, paint3);
 
     // Yellow_Right Reference
@@ -233,8 +231,8 @@ class Line extends CustomPainter {
     paint4.color = const Color.fromARGB(255, 223, 194, 7);
     paint4.strokeWidth = 5;
     paint4.strokeCap = StrokeCap.round;
-    Offset startingOffset4 = Offset(size.width * 0.81, size.height * 0.2);
-    Offset endingOffset4 = Offset(size.width * 0.93, size.height * 0.8);
+    Offset startingOffset4 = Offset(size.width * 0.70, size.height * 0.55);
+    Offset endingOffset4 = Offset(size.width * 0.80, size.height * 0.75);
     canvas.drawLine(startingOffset4, endingOffset4, paint4);
   }
 
