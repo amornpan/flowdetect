@@ -6,25 +6,25 @@ class OtherRiverModel {
   final double bVal;
   final double yVal;
   final double aVal;
-  final double particleSize;
-  final String recordDataTime;
-  final String devicePathStorage;
-  final double surfaceVelocity;
-  final double averageVelocyty;
-  final double flowrate;
-  final int flagStatus;
+  final double otherRiverparticleSize;
+  final String otherRiverrecordDataTime;
+  final String otherRiverdevicePathStorage;
+  final double otherRiversurfaceVelocity;
+  final double otherRiveraverageVelocyty;
+  final double otherRiverflowrate;
+  final int otherRiverflagStatus;
   OtherRiverModel({
     this.idOther,
     required this.bVal,
     required this.yVal,
     required this.aVal,
-    required this.particleSize,
-    required this.recordDataTime,
-    required this.devicePathStorage,
-    required this.surfaceVelocity,
-    required this.averageVelocyty,
-    required this.flowrate,
-    required this.flagStatus,
+    required this.otherRiverparticleSize,
+    required this.otherRiverrecordDataTime,
+    required this.otherRiverdevicePathStorage,
+    required this.otherRiversurfaceVelocity,
+    required this.otherRiveraverageVelocyty,
+    required this.otherRiverflowrate,
+    required this.otherRiverflagStatus,
   });
 
   Map<String, dynamic> toMap() {
@@ -33,13 +33,13 @@ class OtherRiverModel {
       'bVal': bVal,
       'yVal': yVal,
       'aVal': aVal,
-      'particleSize': particleSize,
-      'recordDataTime': recordDataTime,
-      'devicePathStorage': devicePathStorage,
-      'surfaceVelocity': surfaceVelocity,
-      'averageVelocyty': averageVelocyty,
-      'flowrate': flowrate,
-      'flagStatus': flagStatus,
+      'otherRiverparticleSize': otherRiverparticleSize,
+      'otherRiverrecordDataTime': otherRiverrecordDataTime,
+      'otherRiverdevicePathStorage': otherRiverdevicePathStorage,
+      'otherRiversurfaceVelocity': otherRiversurfaceVelocity,
+      'otherRiveraverageVelocyty': otherRiveraverageVelocyty,
+      'otherRiverflowrate': otherRiverflowrate,
+      'otherRiverflagStatus': otherRiverflagStatus,
     };
   }
 
@@ -49,13 +49,13 @@ class OtherRiverModel {
       bVal: map['bVal'] as double,
       yVal: map['yVal'] as double,
       aVal: map['aVal'] as double,
-      particleSize: map['particleSize'] as double,
-      recordDataTime: map['recordDataTime'] as String,
-      devicePathStorage: map['devicePathStorage'] as String,
-      surfaceVelocity: map['surfaceVelocity'] as double,
-      averageVelocyty: map['averageVelocyty'] as double,
-      flowrate: map['flowrate'] as double,
-      flagStatus: map['flagStatus'] as int,
+      otherRiverparticleSize: map['otherRiverparticleSize'] as double,
+      otherRiverrecordDataTime: map['otherRiverrecordDataTime'] as String,
+      otherRiverdevicePathStorage: map['otherRiverdevicePathStorage'] as String,
+      otherRiversurfaceVelocity: map['otherRiversurfaceVelocity'] as double,
+      otherRiveraverageVelocyty: map['otherRiveraverageVelocyty'] as double,
+      otherRiverflowrate: map['otherRiverflowrate'] as double,
+      otherRiverflagStatus: map['otherRiverflagStatus'] as int,
     );
   }
 
