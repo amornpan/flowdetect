@@ -10,7 +10,7 @@ class OtherRiverModel {
   final String otherRiverrecordDataTime;
   final String otherRiverdevicePathStorage;
   final double otherRiversurfaceVelocity;
-  final double otherRiveraverageVelocyty;
+  final double otherRiveraverageVelocity;
   final double otherRiverflowrate;
   final int otherRiverflagStatus;
   OtherRiverModel({
@@ -22,7 +22,7 @@ class OtherRiverModel {
     required this.otherRiverrecordDataTime,
     required this.otherRiverdevicePathStorage,
     required this.otherRiversurfaceVelocity,
-    required this.otherRiveraverageVelocyty,
+    required this.otherRiveraverageVelocity,
     required this.otherRiverflowrate,
     required this.otherRiverflagStatus,
   });
@@ -37,7 +37,7 @@ class OtherRiverModel {
       'otherRiverrecordDataTime': otherRiverrecordDataTime,
       'otherRiverdevicePathStorage': otherRiverdevicePathStorage,
       'otherRiversurfaceVelocity': otherRiversurfaceVelocity,
-      'otherRiveraverageVelocyty': otherRiveraverageVelocyty,
+      'otherRiveraverageVelocity': otherRiveraverageVelocity,
       'otherRiverflowrate': otherRiverflowrate,
       'otherRiverflagStatus': otherRiverflagStatus,
     };
@@ -53,7 +53,7 @@ class OtherRiverModel {
       otherRiverrecordDataTime: map['otherRiverrecordDataTime'] as String,
       otherRiverdevicePathStorage: map['otherRiverdevicePathStorage'] as String,
       otherRiversurfaceVelocity: map['otherRiversurfaceVelocity'] as double,
-      otherRiveraverageVelocyty: map['otherRiveraverageVelocyty'] as double,
+      otherRiveraverageVelocity: map['otherRiveraverageVelocity'] as double,
       otherRiverflowrate: map['otherRiverflowrate'] as double,
       otherRiverflagStatus: map['otherRiverflagStatus'] as int,
     );

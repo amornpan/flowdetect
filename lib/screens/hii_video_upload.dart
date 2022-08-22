@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_print, prefer_const_constructors
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flowdetect/models/sqlite_model.dart';
@@ -10,10 +9,6 @@ import 'package:flowdetect/screens/show_video_player.dart';
 
 late String videoPath;
 //List<Measurement> measurements = getInfo();
-
-class Measurement {
-  late final String user;
-}
 
 class VideoUpload extends StatefulWidget {
   final String? videoPath;

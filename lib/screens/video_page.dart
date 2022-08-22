@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:external_path/external_path.dart';
 import 'package:flowdetect/screens/hii_video_upload.dart';
@@ -20,6 +19,7 @@ class VideoPage extends StatefulWidget {
 }
 
 class _VideoPageState extends State<VideoPage> {
+  
   late VideoPlayerController _videoPlayerController;
   String? pathStorage;
 
