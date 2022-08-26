@@ -51,7 +51,7 @@ class _OtherRiverVideoPageState extends State<OtherRiverVideoPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Text(
-          'แสดงผลการบันทึกไฟล์วีดีโอ',
+          'ผลการบันทึกไฟล์วีดีโอ ลำน้ำใดๆ',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),

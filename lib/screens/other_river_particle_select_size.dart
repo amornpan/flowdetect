@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
-import 'package:flowdetect/screens/camera_page.dart';
 import 'package:flowdetect/utility/dialog.dart';
 import 'package:flutter/material.dart';
+import 'other_river_camera_page.dart';
 
 class OtherRiverParticleSelectSize extends StatefulWidget {
   const OtherRiverParticleSelectSize({Key? key}) : super(key: key);
@@ -183,7 +183,7 @@ class _OtherRiverParticleSelectSizeState
               context, "ยังไม่ได้เลือกขนาดวัตถุ", "กรุณาเลือกเลือกขนาดวัตถุ");
         } else {
           await availableCameras().then((value) => Navigator.push(context,
-              MaterialPageRoute(builder: (_) => CameraPage(cameras: value))));
+              MaterialPageRoute(builder: (_) => OtherRiverCameraPage(cameras: value))));
 
           // await availableCameras().then((value) => Navigator.push(context,
           //         MaterialPageRoute(builder: (_) {

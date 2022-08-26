@@ -87,7 +87,7 @@ class _OtherRiverVideoUploadState extends State<OtherRiverVideoUpload> {
             icon: const Icon(Icons.delete_forever),
           ),
         ],
-        title: const Text('Video Upload'),
+        title: const Text('Video Upload Other River'),
       ),
       body: load
           ? MainStyle().showProgressBar()

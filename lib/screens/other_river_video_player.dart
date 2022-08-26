@@ -59,7 +59,7 @@ class _OtherRiverShowVideoPlayerState extends State<OtherRiverShowVideoPlayer> {
                 },
                 icon: const Icon(Icons.home))
           ],
-          title: const Text('Display Output'),
+          title: const Text('Display Output Other River'),
         ),
         body: LayoutBuilder(
           builder: (context, constraints) => SizedBox(

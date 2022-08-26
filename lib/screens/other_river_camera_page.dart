@@ -81,7 +81,7 @@ class _OtherRiverCameraPageState extends State<OtherRiverCameraPage> {
                   icon: const Icon(Icons.home))
             ],
             title: const Text(
-              'บันทึกวีดีโอขณะวัตถุเคลื่อนผ่าน',
+              'บันทึกวีดีโอลำน้ำใดๆ',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 //fontSize: 13,
