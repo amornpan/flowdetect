@@ -57,11 +57,11 @@ class _OtherRiverVideoUploadState extends State<OtherRiverVideoUpload> {
       otherRiverModels.clear();
     }
 
-    await SQLiteManagement().readOtherRiver().then((value) {
-      otherRiverModels = value;
-      load = false;
-      setState(() {});
-    });
+    // await SQLiteManagement().readOtherRiver().then((value) {
+    //   otherRiverModels = value;
+    //   load = false;
+    //   setState(() {});
+    // });
   }
 
   @override

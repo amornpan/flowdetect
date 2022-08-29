@@ -12,7 +12,9 @@
         android:usesCleartextTraffic="true"
         android:label="Water FlowDetect"
         android:name="${applicationName}"
+        android:theme="@style/Theme.NoTitle"
         android:icon="@mipmap/launcher_icon">
+        
 
     <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDajlyTxCsCQb9_k3tpLwD7akaxHZopRJw" />
 

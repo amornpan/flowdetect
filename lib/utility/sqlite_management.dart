@@ -61,7 +61,15 @@ class SQLiteManagement {
   }
 
   // Select
-  Future<List<HiiStationModel>> readHiiStation() async {
+
+  Future readHiiStation() async {
+    Database database = await connectedDatabase();
+    final res = await database
+        .rawQuery("SELECT * FROM tbHiiStation ORDER BY idHii DESC LIMIT 1;");
+    return res;
+  }
+
+  Future<List<HiiStationModel>> readHiiStationAll() async {
     Database database = await connectedDatabase();
     var hiiStationModels = <HiiStationModel>[];
 
@@ -75,7 +83,7 @@ class SQLiteManagement {
     return hiiStationModels;
   }
 
-  Future<List<OtherRiverModel>> readOtherRiver() async {
+  Future<List<OtherRiverModel>> readOtherRiverAll() async {
     Database database = await connectedDatabase();
     var otherRiverModels = <OtherRiverModel>[];
 
@@ -90,7 +98,8 @@ class SQLiteManagement {
   }
 
   // Insert
-  Future<void> insertHiiStation(HiiStationModel hiiStationModel) async {
+  Future<void> insertHiiStation(
+      {required HiiStationModel hiiStationModel}) async {
     Database database = await connectedDatabase();
     print('insertHiiStation work');
     try {
