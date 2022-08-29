@@ -3,9 +3,14 @@ import 'package:flowdetect/screens/video_page.dart';
 import 'package:flutter/material.dart';
 
 class CameraPage extends StatefulWidget {
-  const CameraPage({Key? key, required this.cameras}) : super(key: key);
+  const CameraPage({
+    Key? key,
+    required this.cameras,
+    required this.postgresids,
+  }) : super(key: key);
 
   final List<CameraDescription>? cameras;
+  final int? postgresids;
 
   @override
   _CameraPageState createState() => _CameraPageState();
@@ -18,9 +23,14 @@ class _CameraPageState extends State<CameraPage> {
   late double screenWidth;
   late double screenHigh;
 
+  int? postgresIntid;
+
   @override
   void initState() {
     _initCamera(widget.cameras![0]);
+    postgresIntid = widget.postgresids;
+
+    print('postgresid = $postgresIntid');
     super.initState();
   }
 

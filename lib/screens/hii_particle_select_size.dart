@@ -32,6 +32,8 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
   bool particleSelect = false;
   double particleSize = 0.0;
 
+  int? postgresid;
+
   var clicks = <bool>[
     false,
     false,
@@ -326,19 +328,61 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
             path,
             data: formData,
           )
-              .then((value) {
-            print('##13july value from api ==> $value');
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => ShowVideoPlayer(
-            //       urlVideo: value.toString(),
-            //     ),
-            //   ),
-            // );
-          }).catchError((error) {
-            print('##13july error from api ==> $error');
-          });
+              .then(
+            (value1) {
+              postgresid = int.tryParse(value1.toString());
+              print('##13july value from api ==> $postgresid');
+
+              //1. showdialog
+              // normalDialog(context, "บันทึกข้อมูลเรียบร้อย",
+              //     "ถัดไปคือการบันทึกไฟล์วีดีโอ");
+
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("บันทึกข้อมูลเรียบร้อย"),
+                      actions: <Widget>[
+                        OutlinedButton(
+                          child: const Text("ถัดไป"),
+                          onPressed: () async {
+                            print('### $postgresid');
+                            await availableCameras().then(
+                              (value) => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) {
+                                    return CameraPage(
+                                      cameras: value,
+                                      postgresids: postgresid,
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  });
+
+              //2. save return id to local storage
+
+              //3. navigator to camera
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => ShowVideoPlayer(
+              //       urlVideo: value.toString(),
+              //     ),
+              //   ),
+              // );
+            },
+          ).catchError(
+            (error) {
+              print('##13july error from api ==> $error');
+            },
+          );
 
           //Save Value to SQLiteDB
           // idHii: stationCode,
