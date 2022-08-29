@@ -91,20 +91,20 @@ class _VideoPageState extends State<VideoPage> {
                       aspectRatio: _videoPlayerController.value.aspectRatio,
                     ),
                     const SizedBox(height: 20),
-                    Text(
-                      'Video Path:' + videoPath.toString(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 10.0,
-                      ),
-                    ),
+                    // Text(
+                    //   'Video Path:' + videoPath.toString(),
+                    //   style: const TextStyle(
+                    //     color: Colors.white,
+                    //     fontSize: 10.0,
+                    //   ),
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Align(
                           alignment: Alignment.bottomLeft,
                           child: FloatingActionButton.extended(
-                            heroTag: "btnUndo",
+                            heroTag: "Undo Button",
                             onPressed: () {
                               Navigator.pop(context);
                             },
@@ -116,7 +116,7 @@ class _VideoPageState extends State<VideoPage> {
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: FloatingActionButton.extended(
-                            heroTag: "btnSave",
+                            heroTag: "Save Button",
                             onPressed: () async {
                               debugPrint('##10aug save Video at $videoPath');
                               await GallerySaver.saveVideo(videoPath.toString())
@@ -152,7 +152,7 @@ class _VideoPageState extends State<VideoPage> {
                         Align(
                           alignment: Alignment.bottomRight,
                           child: FloatingActionButton.extended(
-                            heroTag: "btnCloud",
+                            heroTag: "Cloud Button",
                             onPressed: () async {
                               print('##10aug Click Cloud');
                               _videoPlayerController.pause();
@@ -165,24 +165,29 @@ class _VideoPageState extends State<VideoPage> {
                               map['file'] = await MultipartFile.fromFile(
                                   file.path,
                                   filename: nameVideo);
-                              map['particle_diamiter'] = 1;
+                              map['updateid'] = postgresIntid;
+                              map['devicePathStorage'] = file.path + nameVideo;
                               FormData formData = FormData.fromMap(map);
                               String path =
-                                  'http://113.53.253.55:5001/upload_test_api';
-                              await Dio()
-                                  .post(path, data: formData)
-                                  .then((value) {
-                                print('##10aug value from api =.=> $value');
+                                  'http://113.53.253.55:5001/hiistations_api';
+                              await Dio().post(path, data: formData).then(
+                                (value) {
+                                  print('##10aug value from api =.=> $value');
 
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ShowVideoPlayer(
-                                          urlVideo: value.toString()),
-                                    ));
-                              }).catchError((error) {
-                                print('##10aug error $error');
-                              });
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => ShowVideoPlayer(
+                                  //       urlVideo: value.toString(),
+                                  //     ),
+                                  //   ),
+                                  // );
+                                },
+                              ).catchError(
+                                (error) {
+                                  print('##10aug error $error');
+                                },
+                              );
                             },
                             icon: const Icon(Icons.cloud),
                             label: const Text('Cloud'),

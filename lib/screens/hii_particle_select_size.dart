@@ -6,6 +6,7 @@ import 'package:flowdetect/utility/main_style.dart';
 import 'package:flowdetect/utility/sqlite_management.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 
 class ParticleSizeSelect extends StatefulWidget {
   const ParticleSizeSelect({Key? key}) : super(key: key);
@@ -56,38 +57,38 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
     });
   }
 
-  Future<void> processSaveSqlite() async {
-    DateTime dateTime = DateTime.now();
+  // Future<void> processSaveSqlite() async {
+    
 
-    HiiStationModel hiiStationModel = HiiStationModel(
-      idHii: stationCode,
-      name: name.toString(),
-      date: date.toString(),
-      time: time.toString(),
-      water: double.parse(water.toString()),
-      leftBank: double.parse(left_bank.toString()),
-      rightBank: double.parse(right_bank.toString()),
-      groundBevel: double.parse(ground_level.toString()),
-      lat: double.parse(lat.toString()),
-      lng: double.parse(lng.toString()),
-      particleSize: particleSize,
-      recordDataTime: dateTime.toString(),
-      devicePathStorage: '',
-      surfaceVelocity: 0.0,
-      averageVelocyty: 0.0,
-      flowrate: 0.0,
-      flagStatus: 0,
-      // chanel: 'chanel',
-      // pathStorage: pathRecordVideo!,
-    );
+  //   HiiStationModel hiiStationModel = HiiStationModel(
+  //     idHii: stationCode,
+  //     name: name.toString(),
+  //     date: date.toString(),
+  //     time: time.toString(),
+  //     water: double.parse(water.toString()),
+  //     leftBank: double.parse(left_bank.toString()),
+  //     rightBank: double.parse(right_bank.toString()),
+  //     groundBevel: double.parse(ground_level.toString()),
+  //     lat: double.parse(lat.toString()),
+  //     lng: double.parse(lng.toString()),
+  //     particleSize: particleSize,
+  //     //recordDataTime: dateTime.toString(),
+  //     devicePathStorage: '',
+  //     surfaceVelocity: 0.0,
+  //     averageVelocyty: 0.0,
+  //     flowrate: 0.0,
+  //     flagStatus: 0,
+  //     // chanel: 'chanel',
+  //     // pathStorage: pathRecordVideo!,
+  //   );
 
-    await SQLiteManagement()
-        .insertHiiStation(hiiStationModel: hiiStationModel)
-        .then((value) {
-      print('##13july processSaveSqlite Success');
-      print(processReadData());
-    });
-  }
+  //   await SQLiteManagement()
+  //       .insertHiiStation(hiiStationModel: hiiStationModel)
+  //       .then((value) {
+  //     print('##13july processSaveSqlite Success');
+  //     print(processReadData());
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -116,109 +117,112 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'กรุณาเลือกขนาดของวัตถุที่ใช้ลอย',
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Color(0xff0064b7),
-                fontWeight: FontWeight.bold,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'กรุณาเลือกขนาดของวัตถุที่ใช้ลอย',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Color(0xff0064b7),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            // Particle Image
-            Column(
-              children: [
-                particle100(),
-                const SizedBox(height: 10),
-                particle50(),
-                const SizedBox(height: 10),
-                particle20(),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    stationCode == null
-                        ? MainStyle().showProgressBar()
-                        : Text('รหัสสถานี: $stationCode'),
-                    const SizedBox(width: 5),
-                    name == null
-                        ? MainStyle().showProgressBar()
-                        : Text('ชื่อสถานี: $name'),
-                    const SizedBox(height: 10),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    date == null
-                        ? MainStyle().showProgressBar()
-                        : Text('วันที่: $date'),
-                    const SizedBox(width: 5),
-                    time == null
-                        ? MainStyle().showProgressBar()
-                        : Text('เวลา: $time'),
-                    const SizedBox(height: 10),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    lat == null
-                        ? MainStyle().showProgressBar()
-                        : Text('Lat: $lat'),
-                    const SizedBox(width: 5),
-                    lng == null
-                        ? MainStyle().showProgressBar()
-                        : Text('Lng: $lng'),
-                    const SizedBox(height: 10),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    left_bank == null
-                        ? MainStyle().showProgressBar()
-                        : Text('ตลิ่งซ้าย: $left_bank'),
-                    const SizedBox(width: 5),
-                    right_bank == null
-                        ? MainStyle().showProgressBar()
-                        : Text('ตลิ่งขวา: $right_bank'),
-                    const SizedBox(height: 10),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ground_level == null
-                        ? MainStyle().showProgressBar()
-                        : Text('ท้องน้ำ: $ground_level'),
-                    const SizedBox(width: 5),
-                    water == null
-                        ? MainStyle().showProgressBar()
-                        : Text('ระดับน้ำ: $water'),
-                    const SizedBox(height: 10),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Text(
-              'ขนาด Particle ที่เลือก = ' + particleSize.toString(),
-              style: const TextStyle(
-                fontSize: 20.0,
-                color: Color(0xff0064b7),
-                fontWeight: FontWeight.bold,
+              const SizedBox(height: 20),
+              // Particle Image
+              Column(
+               
+                children: [
+                  particle100(),
+                  const SizedBox(height: 10),
+                  particle50(),
+                  const SizedBox(height: 10),
+                  particle20(),
+                  // const SizedBox(height: 10),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     stationCode == null
+                  //         ? MainStyle().showProgressBar()
+                  //         : Text('รหัสสถานี: $stationCode'),
+                  //     const SizedBox(width: 5),
+                  //     name == null
+                  //         ? MainStyle().showProgressBar()
+                  //         : Text('ชื่อสถานี: $name'),
+                  //     const SizedBox(height: 10),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     date == null
+                  //         ? MainStyle().showProgressBar()
+                  //         : Text('วันที่: $date'),
+                  //     const SizedBox(width: 5),
+                  //     time == null
+                  //         ? MainStyle().showProgressBar()
+                  //         : Text('เวลา: $time'),
+                  //     const SizedBox(height: 10),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     lat == null
+                  //         ? MainStyle().showProgressBar()
+                  //         : Text('Lat: $lat'),
+                  //     const SizedBox(width: 5),
+                  //     lng == null
+                  //         ? MainStyle().showProgressBar()
+                  //         : Text('Lng: $lng'),
+                  //     const SizedBox(height: 10),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     left_bank == null
+                  //         ? MainStyle().showProgressBar()
+                  //         : Text('ตลิ่งซ้าย: $left_bank'),
+                  //     const SizedBox(width: 5),
+                  //     right_bank == null
+                  //         ? MainStyle().showProgressBar()
+                  //         : Text('ตลิ่งขวา: $right_bank'),
+                  //     const SizedBox(height: 10),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     ground_level == null
+                  //         ? MainStyle().showProgressBar()
+                  //         : Text('ท้องน้ำ: $ground_level'),
+                  //     const SizedBox(width: 5),
+                  //     water == null
+                  //         ? MainStyle().showProgressBar()
+                  //         : Text('ระดับน้ำ: $water'),
+                  //     const SizedBox(height: 10),
+                  //   ],
+                  // ),
+                ],
               ),
-            ),
-            const SizedBox(height: 15),
-            nextButton(),
-            const SizedBox(height: 10),
-            const Text('* เลือกขนาดตามความกว้างของลำน้ำ'),
-          ],
+              const SizedBox(height: 10),
+              Text(
+                'ขนาด Particle ที่เลือก = ' + particleSize.toString(),
+                style: const TextStyle(
+                  fontSize: 20.0,
+                  color: Color(0xff0064b7),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 15),
+              nextButton(),
+              const SizedBox(height: 10),
+              const Text('* เลือกขนาดตามความกว้างของลำน้ำ'),
+            ],
+          ),
         ),
       ),
     );
@@ -299,6 +303,8 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
     return ElevatedButton(
       onPressed: () async {
         DateTime dateTime = DateTime.now();
+        String formattedDate =
+            DateFormat('yyyy-MM-dd – kk:mm').format(dateTime);
         if (particleSize == 0.0) {
           normalDialog(
               context, "ยังไม่ได้เลือกขนาดวัตถุ", "กรุณาเลือกเลือกขนาดวัตถุ");
@@ -315,7 +321,7 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
           map['lat'] = lat;
           map['lng'] = lng;
           map['particleSize'] = particleSize;
-          map['recordDataTime'] = dateTime.toString();
+          map['recordDataTime'] = formattedDate;
           map['devicePathStorage'] = '-';
 
           FormData formData = FormData.fromMap(map);
