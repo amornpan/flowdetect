@@ -13,11 +13,13 @@ late String videoPath;
 class VideoUpload extends StatefulWidget {
   final String? videoPath;
   final String? pathStorage;
+  final int? postgresids;
 
   const VideoUpload({
     Key? key,
     this.videoPath,
     this.pathStorage,
+    this.postgresids,
   }) : super(key: key);
 
   @override
@@ -30,10 +32,14 @@ class _VideoUploadState extends State<VideoUpload> {
   var sqliteModels = <SQLiteModel>[];
 
   String? videoPath, pathStroage;
+  int? postgresIntid;
 
   @override
   void initState() {
     super.initState();
+    postgresIntid = widget.postgresids;
+    print('## postgresid Video Upload Page= $postgresIntid');
+
     videoPath = widget.videoPath;
     pathStroage = widget.pathStorage;
     var strings = videoPath!.split('/');

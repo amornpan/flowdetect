@@ -11,17 +11,31 @@ String? videoPath;
 
 class VideoPage extends StatefulWidget {
   final String filePath;
+  final int? postgresids;
 
-  const VideoPage({Key? key, required this.filePath}) : super(key: key);
+  const VideoPage({
+    Key? key,
+    required this.filePath,
+    required this.postgresids,
+  }) : super(key: key);
 
   @override
   _VideoPageState createState() => _VideoPageState();
 }
 
 class _VideoPageState extends State<VideoPage> {
-  
   late VideoPlayerController _videoPlayerController;
+
   String? pathStorage;
+
+  int? postgresIntid;
+
+  @override
+  void initState() {
+    postgresIntid = widget.postgresids;
+    print('## postgresid Video Page= $postgresIntid');
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -126,6 +140,7 @@ class _VideoPageState extends State<VideoPage> {
                                     builder: (context) => VideoUpload(
                                       videoPath: videoPath,
                                       pathStorage: pathStorage,
+                                      postgresids: postgresIntid,
                                     ),
                                   ));
                             },

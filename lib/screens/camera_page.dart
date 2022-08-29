@@ -30,7 +30,7 @@ class _CameraPageState extends State<CameraPage> {
     _initCamera(widget.cameras![0]);
     postgresIntid = widget.postgresids;
 
-    print('postgresid = $postgresIntid');
+    print('## postgresid CameraPage= $postgresIntid');
     super.initState();
   }
 
@@ -59,7 +59,10 @@ class _CameraPageState extends State<CameraPage> {
 
       final route = MaterialPageRoute(
         fullscreenDialog: true,
-        builder: (_) => VideoPage(filePath: file.path),
+        builder: (_) => VideoPage(
+          filePath: file.path,
+          postgresids: postgresIntid,
+        ),
       );
       Navigator.push(context, route);
     } else {
