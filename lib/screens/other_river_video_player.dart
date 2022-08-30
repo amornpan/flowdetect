@@ -55,7 +55,10 @@ class _OtherRiverShowVideoPlayerState extends State<OtherRiverShowVideoPlayer> {
             IconButton(
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
-                      context, '/userService', (route) => false);
+                    context,
+                    '/userService',
+                    (route) => false,
+                  );
                 },
                 icon: const Icon(Icons.home))
           ],

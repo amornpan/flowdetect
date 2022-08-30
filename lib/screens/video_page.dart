@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:video_player/video_player.dart';
 
+import '../utility/main_style.dart';
 import 'hii_station_result.dart';
 
 String? videoPath;
@@ -16,6 +17,8 @@ class VideoPage extends StatefulWidget {
   final int? postgresids;
   final double? y1Greens;
   final double? y2Reds;
+  final double? x1Lefts;
+  final double? x2Rights;
 
   const VideoPage({
     Key? key,
@@ -23,6 +26,8 @@ class VideoPage extends StatefulWidget {
     required this.postgresids,
     required this.y1Greens,
     required this.y2Reds,
+    required this.x1Lefts,
+    required this.x2Rights,
   }) : super(key: key);
 
   @override
@@ -37,6 +42,8 @@ class _VideoPageState extends State<VideoPage> {
   int? postgresIntid;
   double? y1Green;
   double? y2Red;
+  double? x1Left;
+  double? x2Right;
 
   @override
   void initState() {
@@ -44,6 +51,8 @@ class _VideoPageState extends State<VideoPage> {
 
     y1Green = widget.y1Greens;
     y2Red = widget.y2Reds;
+    x1Left = widget.x1Lefts;
+    x2Right = widget.x2Rights;
 
     print('## postgresid Video Page= $postgresIntid');
     super.initState();
@@ -183,6 +192,8 @@ class _VideoPageState extends State<VideoPage> {
                                   pathStorage! + "/" + nameVideo;
                               map['y1greens'] = y1Green;
                               map['y2reds'] = y2Red;
+                              map['x1lefts'] = x1Left;
+                              map['x2rights'] = x2Right;
 
                               FormData formData = FormData.fromMap(map);
                               String path =
@@ -201,23 +212,25 @@ class _VideoPageState extends State<VideoPage> {
                                             OutlinedButton(
                                               child: const Text("ถัดไป"),
                                               onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        HiiStationResult(
-                                                      postgresids:
-                                                          postgresIntid,
+                                                Navigator.pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HiiStationResult(
+                                                        postgresids:
+                                                            postgresIntid,
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
+                                                    (route) => false);
                                               },
                                             ),
                                           ],
                                         );
                                       },
                                     );
-                                  } else {}
+                                  } else {
+                                    MainStyle().showProgressBar();
+                                  }
                                 },
                               ).catchError(
                                 (error) {
