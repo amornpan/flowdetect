@@ -4,12 +4,12 @@ import 'dart:convert';
 class SQLiteModel {
   final int? id;
   final String recordDataTime;
-  final String chanel;
+  final String station;
   final String pathStorage;
   SQLiteModel({
     this.id,
     required this.recordDataTime,
-    required this.chanel,
+    required this.station,
     required this.pathStorage,
   });
 
@@ -17,7 +17,7 @@ class SQLiteModel {
     return <String, dynamic>{
       'id': id,
       'recordDataTime': recordDataTime,
-      'chanel': chanel,
+      'station': station,
       'pathStorage': pathStorage,
     };
   }
@@ -26,7 +26,7 @@ class SQLiteModel {
     return SQLiteModel(
       id: (map['id'] ?? 0) as int,
       recordDataTime: (map['recordDataTime'] ?? '') as String,
-      chanel: (map['chanel'] ?? '') as String,
+      station: (map['station'] ?? '') as String,
       pathStorage: (map['pathStorage'] ?? '') as String,
     );
   }

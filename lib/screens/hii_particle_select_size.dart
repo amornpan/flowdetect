@@ -58,7 +58,6 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
   }
 
   // Future<void> processSaveSqlite() async {
-    
 
   //   HiiStationModel hiiStationModel = HiiStationModel(
   //     idHii: stationCode,
@@ -133,79 +132,12 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
               const SizedBox(height: 20),
               // Particle Image
               Column(
-               
                 children: [
                   particle100(),
                   const SizedBox(height: 10),
                   particle50(),
                   const SizedBox(height: 10),
                   particle20(),
-                  // const SizedBox(height: 10),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     stationCode == null
-                  //         ? MainStyle().showProgressBar()
-                  //         : Text('รหัสสถานี: $stationCode'),
-                  //     const SizedBox(width: 5),
-                  //     name == null
-                  //         ? MainStyle().showProgressBar()
-                  //         : Text('ชื่อสถานี: $name'),
-                  //     const SizedBox(height: 10),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     date == null
-                  //         ? MainStyle().showProgressBar()
-                  //         : Text('วันที่: $date'),
-                  //     const SizedBox(width: 5),
-                  //     time == null
-                  //         ? MainStyle().showProgressBar()
-                  //         : Text('เวลา: $time'),
-                  //     const SizedBox(height: 10),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     lat == null
-                  //         ? MainStyle().showProgressBar()
-                  //         : Text('Lat: $lat'),
-                  //     const SizedBox(width: 5),
-                  //     lng == null
-                  //         ? MainStyle().showProgressBar()
-                  //         : Text('Lng: $lng'),
-                  //     const SizedBox(height: 10),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     left_bank == null
-                  //         ? MainStyle().showProgressBar()
-                  //         : Text('ตลิ่งซ้าย: $left_bank'),
-                  //     const SizedBox(width: 5),
-                  //     right_bank == null
-                  //         ? MainStyle().showProgressBar()
-                  //         : Text('ตลิ่งขวา: $right_bank'),
-                  //     const SizedBox(height: 10),
-                  //   ],
-                  // ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     ground_level == null
-                  //         ? MainStyle().showProgressBar()
-                  //         : Text('ท้องน้ำ: $ground_level'),
-                  //     const SizedBox(width: 5),
-                  //     water == null
-                  //         ? MainStyle().showProgressBar()
-                  //         : Text('ระดับน้ำ: $water'),
-                  //     const SizedBox(height: 10),
-                  //   ],
-                  // ),
                 ],
               ),
               const SizedBox(height: 10),
@@ -303,8 +235,7 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
     return ElevatedButton(
       onPressed: () async {
         DateTime dateTime = DateTime.now();
-        String formattedDate =
-            DateFormat('yyyy-MM-dd – kk:mm').format(dateTime);
+        String formattedDate = DateFormat('yyyy-MM-dd kk:mm').format(dateTime);
         if (particleSize == 0.0) {
           normalDialog(
               context, "ยังไม่ได้เลือกขนาดวัตถุ", "กรุณาเลือกเลือกขนาดวัตถุ");
@@ -344,33 +275,34 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
               //     "ถัดไปคือการบันทึกไฟล์วีดีโอ");
 
               showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text("บันทึกข้อมูลเรียบร้อย"),
-                      actions: <Widget>[
-                        OutlinedButton(
-                          child: const Text("ถัดไป"),
-                          onPressed: () async {
-                            print('### $postgresid');
-                            await availableCameras().then(
-                              (value) => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) {
-                                    return CameraPage(
-                                      cameras: value,
-                                      postgresids: postgresid,
-                                    );
-                                  },
-                                ),
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text("บันทึกข้อมูลเรียบร้อย"),
+                    actions: <Widget>[
+                      OutlinedButton(
+                        child: const Text("ถัดไป"),
+                        onPressed: () async {
+                          print('### $postgresid');
+                          await availableCameras().then(
+                            (value) => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) {
+                                  return CameraPage(
+                                    cameras: value,
+                                    postgresids: postgresid,
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ],
-                    );
-                  });
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
 
               //2. save return id to local storage
 

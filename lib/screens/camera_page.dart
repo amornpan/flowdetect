@@ -2,6 +2,9 @@ import 'package:camera/camera.dart';
 import 'package:flowdetect/screens/video_page.dart';
 import 'package:flutter/material.dart';
 
+late double? y2Reds;
+late double? y1Greens;
+
 class CameraPage extends StatefulWidget {
   const CameraPage({
     Key? key,
@@ -22,6 +25,10 @@ class _CameraPageState extends State<CameraPage> {
   late CameraController _cameraController;
   late double screenWidth;
   late double screenHigh;
+
+  late double? videoHigh;
+  late double? videoWidth;
+  late double? videoaspectRatio;
 
   int? postgresIntid;
 
@@ -46,10 +53,19 @@ class _CameraPageState extends State<CameraPage> {
     //final back = cameras.firstWhere((camera) => camera.lensDirection == CameraLensDirection.back);
     _cameraController = CameraController(
       cameraDescription,
-      ResolutionPreset.medium,
+      ResolutionPreset.high,
     );
+
     await _cameraController.initialize();
     setState(() => _isLoading = false);
+
+    _cameraController.value.isInitialized;
+    videoWidth = _cameraController.value.previewSize!.height;
+    videoHigh = _cameraController.value.previewSize!.width;
+    videoaspectRatio = videoHigh! / videoWidth!;
+
+    // print('## videoHigh = > $videoHigh screenHigh = $screenHigh');
+    // print('## videoWidth = > $videoWidth screenWidth = $screenWidth');
   }
 
   _recordVideo() async {
@@ -58,10 +74,12 @@ class _CameraPageState extends State<CameraPage> {
       setState(() => _isRecording = false);
 
       final route = MaterialPageRoute(
-        fullscreenDialog: true,
+        fullscreenDialog: false,
         builder: (_) => VideoPage(
           filePath: file.path,
           postgresids: postgresIntid,
+          y1Greens: y1Greens,
+          y2Reds: y2Reds,
         ),
       );
       Navigator.push(context, route);
@@ -74,8 +92,8 @@ class _CameraPageState extends State<CameraPage> {
 
   @override
   Widget build(BuildContext context) {
-    screenWidth = MediaQuery.of(context).size.width;
-    screenHigh = MediaQuery.of(context).size.height;
+    // screenWidth = MediaQuery.of(context).size.width;
+    // screenHigh = MediaQuery.of(context).size.height;
     if (_isLoading) {
       return Container(
         color: Colors.white,
@@ -128,7 +146,7 @@ class _CameraPageState extends State<CameraPage> {
                   CameraPreview(_cameraController),
 
                   CustomPaint(
-                    size: Size(screenWidth, screenHigh),
+                    size: Size(videoWidth!, videoHigh!),
                     painter: Line(),
                   ),
 
@@ -182,61 +200,66 @@ class CustomClipPath extends CustomClipper<Path> {
   }
 }
 
-class Rectangle extends CustomPainter {
-  bool? isFilled;
-  Rectangle({this.isFilled});
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint();
-    paint.color = Colors.blue;
-    if (isFilled != null) {
-      paint.style = PaintingStyle.fill;
-    } else {
-      paint.style = PaintingStyle.stroke;
-    }
-    paint.strokeCap = StrokeCap.round;
-    paint.strokeJoin = StrokeJoin.round;
-    paint.strokeWidth = 5;
-    Offset offset = Offset(size.width * 0.5, size.height);
-
-    Rect rect = Rect.fromCenter(center: offset, width: 50, height: 50);
-    canvas.drawRect(rect, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant Rectangle oldDelegate) {
-    return false;
-  }
-}
-
 class Line extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
+    print('##size = $size');
+
+    y1Greens = size.height * 0.55 * 0.985 * 0.985;
+    y2Reds = size.height * 0.75 * 0.985 * 0.985;
+  
+    // print('## y2Reds = $y2Reds');
+    // print('## y11Greens = $y1Greens');
+
     // Red Reference
     Paint paint = Paint();
     paint.color = const Color.fromARGB(255, 226, 19, 64);
     paint.strokeWidth = 5;
     paint.strokeCap = StrokeCap.round;
-    Offset startingOffset = Offset(size.width * 0.20, size.height * 0.75);
-    Offset endingOffset = Offset(size.width * 0.80, size.height * 0.75);
+    Offset startingOffset =
+        Offset(size.width * 0.2, size.height * 0.75 * 0.985);
+    Offset endingOffset = Offset(size.width * 0.80, size.height * 0.75 * 0.985);
     canvas.drawLine(startingOffset, endingOffset, paint);
+
+    Paint paint11 = Paint();
+    paint.color = const Color.fromARGB(255, 226, 19, 64);
+    paint.strokeWidth = 1;
+    paint.strokeCap = StrokeCap.round;
+    Offset startingOffset11 =
+        Offset(size.width * 0.2, size.height * 0.75 * 0.985 * 0.985);
+    Offset endingOffset11 =
+        Offset(size.width * 0.80, size.height * 0.75 * 0.985 * 0.985);
+    canvas.drawLine(startingOffset11, endingOffset11, paint11);
 
     // Green Reference
     Paint paint2 = Paint();
     paint2.color = const Color.fromARGB(255, 13, 132, 29);
     paint2.strokeWidth = 5;
     paint2.strokeCap = StrokeCap.round;
-    Offset startingOffset2 = Offset(size.width * 0.30, size.height * 0.55);
-    Offset endingOffset2 = Offset(size.width * 0.70, size.height * 0.55);
+    Offset startingOffset2 =
+        Offset(size.width * 0.3, size.height * 0.55 * 0.985);
+    Offset endingOffset2 =
+        Offset(size.width * 0.70, size.height * 0.55 * 0.985);
     canvas.drawLine(startingOffset2, endingOffset2, paint2);
+
+    Paint paint21 = Paint();
+    paint2.color = const Color.fromARGB(255, 13, 132, 29);
+    paint2.strokeWidth = 1;
+    paint2.strokeCap = StrokeCap.round;
+    Offset startingOffset21 =
+        Offset(size.width * 0.3, size.height * 0.55 * 0.985 * 0.985);
+    Offset endingOffset21 =
+        Offset(size.width * 0.70, size.height * 0.55 * 0.985 * 0.985);
+    canvas.drawLine(startingOffset21, endingOffset21, paint21);
 
     // Yellow_left Reference
     Paint paint3 = Paint();
     paint3.color = const Color.fromARGB(255, 223, 194, 7);
     paint3.strokeWidth = 5;
     paint3.strokeCap = StrokeCap.round;
-    Offset startingOffset3 = Offset(size.width * 0.30, size.height * 0.55);
-    Offset endingOffset3 = Offset(size.width * 0.20, size.height * 0.75);
+    Offset startingOffset3 =
+        Offset(size.width * 0.3, size.height * 0.55 * 0.985);
+    Offset endingOffset3 = Offset(size.width * 0.2, size.height * 0.75 * 0.985);
     canvas.drawLine(startingOffset3, endingOffset3, paint3);
 
     // Yellow_Right Reference
@@ -244,8 +267,10 @@ class Line extends CustomPainter {
     paint4.color = const Color.fromARGB(255, 223, 194, 7);
     paint4.strokeWidth = 5;
     paint4.strokeCap = StrokeCap.round;
-    Offset startingOffset4 = Offset(size.width * 0.70, size.height * 0.55);
-    Offset endingOffset4 = Offset(size.width * 0.80, size.height * 0.75);
+    Offset startingOffset4 =
+        Offset(size.width * 0.70, size.height * 0.55 * 0.985);
+    Offset endingOffset4 =
+        Offset(size.width * 0.80, size.height * 0.75 * 0.985);
     canvas.drawLine(startingOffset4, endingOffset4, paint4);
   }
 

@@ -123,6 +123,7 @@ flutter:
     - images/hii.png
     - images/other_river.png
     - images/other_river_measurement.png
+    - images/underconstruction.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

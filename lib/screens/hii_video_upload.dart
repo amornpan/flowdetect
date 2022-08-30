@@ -6,6 +6,7 @@ import 'package:flowdetect/models/sqlite_model.dart';
 import 'package:flowdetect/utility/main_style.dart';
 import 'package:flowdetect/utility/sqlite_helper.dart';
 import 'package:flowdetect/screens/show_video_player.dart';
+import 'package:intl/intl.dart';
 
 late String videoPath;
 //List<Measurement> measurements = getInfo();
@@ -31,7 +32,8 @@ class _VideoUploadState extends State<VideoUpload> {
   bool load = true;
   var sqliteModels = <SQLiteModel>[];
 
-  String? videoPath, pathStroage;
+  String? videoPath;
+  String? pathStorage;
   int? postgresIntid;
 
   @override
@@ -41,9 +43,9 @@ class _VideoUploadState extends State<VideoUpload> {
     print('## postgresid Video Upload Page= $postgresIntid');
 
     videoPath = widget.videoPath;
-    pathStroage = widget.pathStorage;
+    pathStorage = widget.pathStorage;
     var strings = videoPath!.split('/');
-    pathRecordVideo = '$pathStroage/${strings.last}';
+    pathRecordVideo = '$pathStorage/${strings.last}';
     processSaveSqlite();
   }
 
@@ -96,7 +98,7 @@ class _VideoUploadState extends State<VideoUpload> {
                         Expanded(
                           flex: 3,
                           child: Text(
-                            'Chanel',
+                            'Station',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
@@ -127,7 +129,7 @@ class _VideoUploadState extends State<VideoUpload> {
                           ),
                           Expanded(
                             flex: 1,
-                            child: Text(sqliteModels[index].chanel),
+                            child: Text(sqliteModels[index].station),
                           ),
                           Expanded(
                             flex: 1,
@@ -141,18 +143,20 @@ class _VideoUploadState extends State<VideoUpload> {
 
                                 File file = File(pathVideoUpload);
                                 var strings = file.path.split('/');
-                                String nameImage = strings.last;
+                                String nameVideo = strings.last;
 
                                 Map<String, dynamic> map = {};
                                 map['file'] = await MultipartFile.fromFile(
                                   file.path,
-                                  filename: nameImage,
+                                  filename: nameVideo,
                                 );
-                                map['particle_diamiter'] = 1;
+                                map['updateid'] = postgresIntid;
+                                map['devicePathStorage'] =
+                                    pathStorage! + "/" + nameVideo;
 
                                 FormData formData = FormData.fromMap(map);
                                 String path =
-                                    'http://113.53.253.55:5001/upload_test_api';
+                                    'http://113.53.253.55:5001/hiistations_api';
                                 await Dio()
                                     .post(
                                   path,
@@ -165,7 +169,6 @@ class _VideoUploadState extends State<VideoUpload> {
                                       MaterialPageRoute(
                                         builder: (context) => ShowVideoPlayer(
                                             urlVideo: value.toString()),
-                                            
                                       ));
                                 }).catchError((error) {
                                   print('##13july error from api ==> $error');
@@ -200,10 +203,11 @@ class _VideoUploadState extends State<VideoUpload> {
 
   Future<void> processSaveSqlite() async {
     DateTime dateTime = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd kk:mm').format(dateTime);
 
     SQLiteModel sqLiteModel = SQLiteModel(
-        recordDataTime: dateTime.toString(),
-        chanel: 'chanel',
+        recordDataTime: formattedDate,
+        station: 'station',
         pathStorage: pathRecordVideo!);
 
     await SQLiteHelper().insertData(sqLiteModel: sqLiteModel).then((value) {
