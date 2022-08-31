@@ -53,11 +53,21 @@ class _ShowVideoPlayerState extends State<ShowVideoPlayer> {
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/userService', (route) => false);
-                },
-                icon: const Icon(Icons.home))
+              onPressed: () {
+                Navigator.pop(
+                  context,
+                  '/hiiStationResult',
+                );
+              },
+              icon: const Icon(Icons.reset_tv_outlined),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/userService', (route) => false);
+              },
+              icon: const Icon(Icons.home),
+            ),
           ],
           title: const Text('Show Video Output'),
         ),

@@ -36,9 +36,7 @@ class VideoPage extends StatefulWidget {
 
 class _VideoPageState extends State<VideoPage> {
   late VideoPlayerController _videoPlayerController;
-
   String? pathStorage;
-
   int? postgresIntid;
   double? y1Green;
   double? y2Red;
@@ -194,10 +192,12 @@ class _VideoPageState extends State<VideoPage> {
                               map['y2reds'] = y2Red;
                               map['x1lefts'] = x1Left;
                               map['x2rights'] = x2Right;
+                              map['outputpath'] = nameVideo;
 
                               FormData formData = FormData.fromMap(map);
                               String path =
                                   'http://113.53.253.55:5001/hiistations_api';
+
                               await Dio().post(path, data: formData).then(
                                 (value) {
                                   //print('##10aug value from api =.=> $value');
