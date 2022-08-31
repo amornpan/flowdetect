@@ -238,7 +238,7 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
         String formattedDate = DateFormat('yyyy-MM-dd kk:mm').format(dateTime);
         if (particleSize == 0.0) {
           normalDialog(
-              context, "ยังไม่ได้เลือกขนาดวัตถุ", "กรุณาเลือกเลือกขนาดวัตถุ");
+              context, "ยังไม่ได้เลือกขนาดวัตถุ", "กรุณาเลือกขนาดวัตถุ");
         } else {
           Map<String, dynamic> map = {};
           map['idHii'] = stationCode;

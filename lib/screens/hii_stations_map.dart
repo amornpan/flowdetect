@@ -10,13 +10,17 @@ import 'dart:convert';
 // import 'package:flowdetect/screens/camera_page.dart';
 
 class HiiStationMap extends StatefulWidget {
-  const HiiStationMap({Key? key}) : super(key: key);
+  final String StationCodes;
+
+  const HiiStationMap({Key? key, required this.StationCodes}) : super(key: key);
 
   @override
   State<HiiStationMap> createState() => _HiiStationMapState();
 }
 
 class _HiiStationMapState extends State<HiiStationMap> {
+  String? StationCode;
+
   late double screenWidth;
   late double screenHigh;
 
@@ -58,10 +62,12 @@ class _HiiStationMapState extends State<HiiStationMap> {
         encoding: Encoding.getByName("utf-8"));
 
     if (response.statusCode == 200) {
-      setState(() {
-        jsonData = response.body;
-        parsedJson = jsonDecode(jsonData);
-      });
+      setState(
+        () {
+          jsonData = response.body;
+          parsedJson = jsonDecode(jsonData);
+        },
+      );
 
       for (var i = 0; i < parsedJson['data'].length; i++) {
         var obj = parsedJson['data'][i];
@@ -94,9 +100,11 @@ class _HiiStationMapState extends State<HiiStationMap> {
 
   @override
   void initState() {
+    StationCode = widget.StationCodes;
     super.initState();
+    getDataWLNortheastLasted(
+        'WLNortheast', 'ce0301505244265d13b8d53eb63126e1', StationCode!);
     checkPermissionEnable();
-    // getDataWLNortheastLasted('WLNortheast', 'ce0301505244265d13b8d53eb63126e1');
   }
 
   Future<void> checkPermissionEnable() async {

@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../utility/dialog.dart';
+import '../utility/main_style.dart';
 import 'show_video_player.dart';
+
+double? distance;
+double? surfaceVelocity;
+double? averageVelocity;
+double? flowrate;
 
 class HiiStationResult extends StatefulWidget {
   final int? postgresids;
@@ -57,77 +64,136 @@ class _HiiStationResultState extends State<HiiStationResult> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     returnStationCode == null
-                //         ? MainStyle().showProgressBar()
-                //         : Text('รหัสสถานี: $returnStationCode'),
-                //     const SizedBox(width: 5),
-                //     name == null
-                //         ? MainStyle().showProgressBar()
-                //         : Text('ชื่อสถานี: $name'),
-                //     const SizedBox(height: 10),
-                //   ],
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     date == null
-                //         ? MainStyle().showProgressBar()
-                //         : Text('วันที่: $date'),
-                //     const SizedBox(width: 5),
-                //     time == null
-                //         ? MainStyle().showProgressBar()
-                //         : Text('เวลา: $time'),
-                //     const SizedBox(height: 10),
-                //   ],
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     lat == null
-                //         ? MainStyle().showProgressBar()
-                //         : Text('Lat: $lat'),
-                //     const SizedBox(width: 5),
-                //     lng == null
-                //         ? MainStyle().showProgressBar()
-                //         : Text('Lng: $lng'),
-                //     const SizedBox(height: 10),
-                //   ],
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     left_bank == null
-                //         ? MainStyle().showProgressBar()
-                //         : Text('ตลิ่งซ้าย: $left_bank'),
-                //     const SizedBox(width: 5),
-                //     right_bank == null
-                //         ? MainStyle().showProgressBar()
-                //         : Text('ตลิ่งขวา: $right_bank'),
-                //     const SizedBox(height: 10),
-                //   ],
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     ground_level == null
-                //         ? MainStyle().showProgressBar()
-                //         : Text('ท้องน้ำ: $ground_level'),
-                //     const SizedBox(width: 5),
-                //     water == null
-                //         ? MainStyle().showProgressBar()
-                //         : Text('ระดับน้ำ: $water'),
-                //     const SizedBox(height: 10),
-                //   ],
-                // ),
+              
+                const SizedBox(height: 20),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'ระยะทาง : ',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Color(0xff0064b7),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        distance == null
+                            ? MainStyle().showProgressBar()
+                            : Text(
+                                '$distance',
+                                style: const TextStyle(
+                                  fontSize: 20.0,
+                                  color: Color(0xff0064b7),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                      ],
+                    )
+                  ],
+                ),
+
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      distance = 120;
+                    });
+                  },
+                  child: const Text('คำนวณค่าระยะทาง'),
+                ),
+                const SizedBox(height: 20),
+
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'ความเร็วบนผิวน้ำ : ',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Color(0xff0064b7),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        distance == null
+                            ? MainStyle().showProgressBar()
+                            : Text(
+                                '$surfaceVelocity',
+                                style: const TextStyle(
+                                  fontSize: 20.0,
+                                  color: Color(0xff0064b7),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'ความเร็วหน้าตัด : ',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Color(0xff0064b7),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        distance == null
+                            ? MainStyle().showProgressBar()
+                            : Text(
+                                '$averageVelocity',
+                                style: const TextStyle(
+                                  fontSize: 20.0,
+                                  color: Color(0xff0064b7),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'อัตราการไหล : ',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            color: Color(0xff0064b7),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        distance == null
+                            ? MainStyle().showProgressBar()
+                            : Text(
+                                '$flowrate',
+                                style: const TextStyle(
+                                  fontSize: 20.0,
+                                  color: Color(0xff0064b7),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                      ],
+                    )
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (distance == null) {
+                      normalDialog(context, "ยังไม่ได้คำนวณระยะทาง",
+                          "กรุณากดคำนวณระยะทางก่อน!!");
+                    } else {}
+                  },
+                  child: const Text('คำนวณค่าความเร็วและอัตราการไหล'),
+                ),
+
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () async {
                     Map<String, dynamic> map = {};
                     map['id'] = postgresIntid;
-
                     FormData formData = FormData.fromMap(map);
                     String path =
                         'http://113.53.253.55:5001/hiistations_api_calculate';

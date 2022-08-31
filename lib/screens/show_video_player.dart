@@ -5,6 +5,7 @@ import 'package:video_player/video_player.dart';
 
 class ShowVideoPlayer extends StatefulWidget {
   final String urlVideo;
+  
   const ShowVideoPlayer({
     Key? key,
     required this.urlVideo,
