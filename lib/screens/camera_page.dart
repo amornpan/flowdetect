@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flowdetect/screens/video_page.dart';
+import 'package:flowdetect/utility/dialog.dart';
 import 'package:flutter/material.dart';
 
 late double? y2Reds;
@@ -35,6 +36,34 @@ class _CameraPageState extends State<CameraPage> {
 
   int? postgresIntid;
 
+  _showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("ยอมรับ"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("คำแนะนำ"),
+      content: const Text(
+          "1.ถือกล้องให้นิ่ง\n2.อย่าให้มีสิ่งกีดขวางในกรวยการวัด\n3.ให้วัตถุเคลื่อนที่ผ่านในกรวยการวัด"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   void initState() {
     _initCamera(widget.cameras![0]);
@@ -65,6 +94,8 @@ class _CameraPageState extends State<CameraPage> {
     _cameraController.value.isInitialized;
     videoWidth = _cameraController.value.previewSize!.height;
     videoHigh = _cameraController.value.previewSize!.width;
+
+    _showAlertDialog(context);
   }
 
   _recordVideo() async {
@@ -99,8 +130,13 @@ class _CameraPageState extends State<CameraPage> {
     if (_isLoading) {
       return Container(
         color: Colors.white,
-        child: const Center(
-          child: CircularProgressIndicator(),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: const [
+              CircularProgressIndicator(),
+            ],
+          ),
         ),
       );
     } else {
@@ -211,12 +247,12 @@ class Line extends CustomPainter {
     print('## videoWidth = > $videoWidth screenWidth = $screenWidth');
 
     double y1GreensVideoBoderSize = (size.height * 0.135);
-    double y2RedsVideoBoderSize = (size.height * 0.8636);
     double x1LeftsVideoBoderSize = (size.width * 0.015);
     double x2RightsVideoBoderSize = (size.width * 0.985);
+    double y2RedsVideoBoderSize = (size.height * 0.8636);
 
-    y2Reds = y2RedsVideoBoderSize * 0.85;
-    y1Greens = y2Reds! - 100;
+    y2Reds = y2RedsVideoBoderSize * 0.9;
+    y1Greens = y2Reds! - 150;
     x1Lefts = size.width * 0.2;
     x2Rights = size.width * 0.8;
 
@@ -229,10 +265,9 @@ class Line extends CustomPainter {
     paint.strokeWidth = 5;
     paint.strokeCap = StrokeCap.round;
 
-    Offset startingOffset =
-        Offset(size.width * 0.2, y2RedsVideoBoderSize * 0.85);
+    Offset startingOffset = Offset(size.width * 0.2, y2Reds!);
 
-    Offset endingOffset = Offset(size.width * 0.8, y2RedsVideoBoderSize * 0.85);
+    Offset endingOffset = Offset(size.width * 0.8, y2Reds!);
 
     canvas.drawLine(startingOffset, endingOffset, paint);
 
@@ -273,8 +308,7 @@ class Line extends CustomPainter {
     paint3.strokeWidth = 5;
     paint3.strokeCap = StrokeCap.round;
     Offset startingOffset3 = Offset(size.width * 0.3, y1Greens!);
-    Offset endingOffset3 =
-        Offset(size.width * 0.2, y2RedsVideoBoderSize * 0.85);
+    Offset endingOffset3 = Offset(size.width * 0.2, y2Reds!);
     canvas.drawLine(startingOffset3, endingOffset3, paint3);
 
     // Yellow_Right Reference
@@ -283,8 +317,7 @@ class Line extends CustomPainter {
     paint4.strokeWidth = 5;
     paint4.strokeCap = StrokeCap.round;
     Offset startingOffset4 = Offset(size.width * 0.7, y1Greens!);
-    Offset endingOffset4 =
-        Offset(size.width * 0.8, y2RedsVideoBoderSize * 0.85);
+    Offset endingOffset4 = Offset(size.width * 0.8, y2Reds!);
     canvas.drawLine(startingOffset4, endingOffset4, paint4);
   }
 
