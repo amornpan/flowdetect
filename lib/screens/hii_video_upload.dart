@@ -162,17 +162,22 @@ class _VideoUploadState extends State<VideoUpload> {
                                   path,
                                   data: formData,
                                 )
-                                    .then((value) {
-                                  print('##13july value from api ==> $value');
-                                  Navigator.push(
+                                    .then(
+                                  (value) {
+                                    print('##13july value from api ==> $value');
+                                    Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => ShowVideoPlayer(
                                             urlVideo: value.toString()),
-                                      ));
-                                }).catchError((error) {
-                                  print('##13july error from api ==> $error');
-                                });
+                                      ),
+                                    );
+                                  },
+                                ).catchError(
+                                  (error) {
+                                    print('##13july error from api ==> $error');
+                                  },
+                                );
                               },
                               icon: const Icon(Icons.cloud_upload),
                             ),

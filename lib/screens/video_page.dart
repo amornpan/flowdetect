@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:external_path/external_path.dart';
+import 'package:flowdetect/screens/hii_station_first_preview.dart';
 import 'package:flowdetect/screens/hii_video_upload.dart';
 import 'package:flowdetect/screens/show_video_player.dart';
 import 'package:flutter/material.dart';
@@ -212,16 +213,16 @@ class _VideoPageState extends State<VideoPage> {
                                             OutlinedButton(
                                               child: const Text("ถัดไป"),
                                               onPressed: () {
-                                                Navigator.pushAndRemoveUntil(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          HiiStationResult(
-                                                        postgresids:
-                                                            postgresIntid,
-                                                      ),
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        HiiStationFirstPreview(
+                                                      postgresids:
+                                                          postgresIntid,
                                                     ),
-                                                    (route) => false);
+                                                  ),
+                                                );
                                               },
                                             ),
                                           ],
