@@ -3,8 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-
-
 class HiiStationFirstPreview extends StatefulWidget {
   final int? postgresids;
 
@@ -19,7 +17,7 @@ class _HiiStationFirstPreviewState extends State<HiiStationFirstPreview> {
   ChewieController? chewieController;
   int? postgresIntid;
 
-String urlVideo = "";
+  String urlVideo = "";
   Future<void> getUrlResult(int postgresIntid) async {
     Map<String, dynamic> map = {};
 
@@ -58,6 +56,7 @@ String urlVideo = "";
       videoPlayerController: videoPlayerController!,
       autoPlay: true,
       aspectRatio: 2 / 3,
+      // aspectRatio: 9 / 16,
       // looping: true,
     );
     super.initState();

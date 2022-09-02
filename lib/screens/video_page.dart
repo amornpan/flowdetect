@@ -213,16 +213,16 @@ class _VideoPageState extends State<VideoPage> {
                                             OutlinedButton(
                                               child: const Text("ถัดไป"),
                                               onPressed: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        HiiStationFirstPreview(
-                                                      postgresids:
-                                                          postgresIntid,
+                                                Navigator.pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HiiStationFirstPreview(
+                                                        postgresids:
+                                                            postgresIntid,
+                                                      ),
                                                     ),
-                                                  ),
-                                                );
+                                                    (route) => false);
                                               },
                                             ),
                                           ],
