@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:external_path/external_path.dart';
 import 'package:flowdetect/screens/hii_station_first_preview.dart';
+import 'package:flowdetect/screens/hii_station_webview.dart';
 import 'package:flowdetect/screens/hii_video_upload.dart';
 import 'package:flowdetect/screens/show_video_player.dart';
 import 'package:flutter/material.dart';
@@ -217,7 +218,7 @@ class _VideoPageState extends State<VideoPage> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          HiiStationFirstPreview(
+                                                          HiiStationWebview(
                                                         postgresids:
                                                             postgresIntid,
                                                       ),
