@@ -204,7 +204,7 @@ class _VideoPageState extends State<VideoPage> {
                                 (value) {
                                   //print('##10aug value from api =.=> $value');
                                   if (value != null) {
-                                    var urlVideo = value.toString();
+                                    var videoName = value.toString();
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -222,7 +222,12 @@ class _VideoPageState extends State<VideoPage> {
                                                           HiiStationFirstPreview(
                                                         postgresids:
                                                             postgresIntid,
-                                                        urlVideos: urlVideo,
+                                                        videoNames: videoName,
+                                                        y1Green: y1Green!.toInt(),
+                                                        y2Red:  y2Red!.toInt(),
+                                                        x1Left: x1Left!.toInt(),
+                                                        x2Right: x2Right!.toInt(),
+
                                                       ),
                                                     ),
                                                     (route) => false);
@@ -242,7 +247,7 @@ class _VideoPageState extends State<VideoPage> {
                                 },
                               );
                             },
-                            icon: const Icon(Icons.cloud),
+                            icon: const Icon(Icons.cloud_upload),
                             label: const Text('Cloud'),
                           ),
                         ),

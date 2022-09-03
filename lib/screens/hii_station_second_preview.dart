@@ -1,9 +1,8 @@
 import 'package:chewie/chewie.dart';
-import 'package:flowdetect/screens/hii_station_video_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class HiiStationFirstPreview extends StatefulWidget {
+class HiiStationSecondPreview extends StatefulWidget {
   final int? postgresids;
   final String? videoNames;
   final int? y1Green;
@@ -11,7 +10,7 @@ class HiiStationFirstPreview extends StatefulWidget {
   final int? x1Left;
   final int? x2Right;
 
-  const HiiStationFirstPreview({
+  const HiiStationSecondPreview({
     Key? key,
     this.postgresids,
     this.videoNames,
@@ -22,18 +21,19 @@ class HiiStationFirstPreview extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<HiiStationFirstPreview> createState() => _HiiStationFirstPreviewState();
+  State<HiiStationSecondPreview> createState() =>
+      _HiiStationSecondPreviewState();
 }
 
-class _HiiStationFirstPreviewState extends State<HiiStationFirstPreview> {
+class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
   VideoPlayerController? videoPlayerController;
   ChewieController? chewieController;
   int? postgresIntid;
+  String videoName = "";
   int? y1Green;
   int? y2Red;
   int? x1Left;
   int? x2Right;
-  String videoName = "";
 
   @override
   void initState() {
@@ -44,15 +44,19 @@ class _HiiStationFirstPreviewState extends State<HiiStationFirstPreview> {
     x1Left = widget.x1Left;
     x2Right = widget.x2Right;
 
-    debugPrint('### $postgresIntid');
-    debugPrint('###urlVideo  $videoName');
+    print('#### videoName = $videoName');
+    print('#### postgresIntid = $postgresIntid');
+    print('#### y1Green = $y1Green');
+    print('#### y2Red = $y2Red');
+    print('#### x1Left = $x1Left');
+    print('#### x2Right = $x2Right');
 
-    //getUrlResult(postgresIntid!);
+    var vid_url =
+        'http://113.53.253.55:5001/static/data/hiistations/$videoName.mp4';
 
-    videoPlayerController = VideoPlayerController.network(
-        'http://113.53.253.55:5001/static/data/hiistations/output_' +
-            videoName +
-            '.mp4')
+    print('#### vid_url = $vid_url');
+
+    videoPlayerController = VideoPlayerController.network(vid_url)
       ..initialize();
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController!,
@@ -78,24 +82,8 @@ class _HiiStationFirstPreviewState extends State<HiiStationFirstPreview> {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HiiStationVideoSetting(
-                            imgPreviews:
-                                'http://113.53.253.55:5001/static/data/hiistations/output_' +
-                                    videoName +
-                                    '.jpg',
-                            videoNames: videoName,
-                            y1Green: y1Green!.toInt(),
-                            y2Red: y2Red!.toInt(),
-                            x1Left: x1Left!.toInt(),
-                            x2Right: x2Right!.toInt(),
-                            postgresids: postgresIntid,
-                          )));
-            },
-            icon: const Icon(Icons.settings),
+            onPressed: () {},
+            icon: const Icon(Icons.cloud_upload_rounded),
           ),
           IconButton(
             onPressed: () {
@@ -105,7 +93,7 @@ class _HiiStationFirstPreviewState extends State<HiiStationFirstPreview> {
             icon: const Icon(Icons.home),
           ),
         ],
-        title: const Text('First Preview'),
+        title: const Text('Final Result'),
       ),
       body: FutureBuilder(
         builder: (context, state) => SizedBox(
