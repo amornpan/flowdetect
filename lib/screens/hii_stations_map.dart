@@ -51,7 +51,7 @@ class _HiiStationMapState extends State<HiiStationMap> {
     late var parsedJson;
     late String jsonData;
     Map<dynamic, dynamic> body = {'user': user, 'pass': pass};
-    var intLastIndex;
+    var intLastIndex=0;
 
     final response = await http.post(uri,
         body: body,
@@ -62,6 +62,8 @@ class _HiiStationMapState extends State<HiiStationMap> {
         encoding: Encoding.getByName("utf-8"));
 
     if (response.statusCode == 200) {
+      // jsonData = response.body;
+      // parsedJson = jsonDecode(jsonData);
       setState(
         () {
           jsonData = response.body;

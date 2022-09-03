@@ -190,20 +190,21 @@ class _VideoPageState extends State<VideoPage> {
                               map['updateid'] = postgresIntid;
                               map['devicePathStorage'] =
                                   pathStorage! + "/" + nameVideo;
-                              map['y1greens'] = y1Green;
-                              map['y2reds'] = y2Red;
-                              map['x1lefts'] = x1Left;
-                              map['x2rights'] = x2Right;
+                              map['y1greens'] = y1Green!.toInt();
+                              map['y2reds'] = y2Red!.toInt();
+                              map['x1lefts'] = x1Left!.toInt();
+                              map['x2rights'] = x2Right!.toInt();
                               map['outputpath'] = nameVideo;
 
                               FormData formData = FormData.fromMap(map);
                               String path =
-                                  'http://113.53.253.55:5001/hiistations_api';
+                                  'http://113.53.253.55:5001/hiistations_api2';
 
                               await Dio().post(path, data: formData).then(
                                 (value) {
                                   //print('##10aug value from api =.=> $value');
                                   if (value != null) {
+                                    var urlVideo = value.toString();
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
@@ -218,9 +219,10 @@ class _VideoPageState extends State<VideoPage> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder: (context) =>
-                                                          HiiStationWebview(
+                                                          HiiStationFirstPreview(
                                                         postgresids:
                                                             postgresIntid,
+                                                        urlVideos: urlVideo,
                                                       ),
                                                     ),
                                                     (route) => false);

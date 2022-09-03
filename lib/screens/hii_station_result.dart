@@ -51,7 +51,6 @@ class _HiiStationResultState extends State<HiiStationResult> {
       body: Container(
         color: Colors.white,
         child: Center(
-          //child:Image.asset('images/underconstruction.png'),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

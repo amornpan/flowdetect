@@ -1,12 +1,15 @@
 import 'package:chewie/chewie.dart';
 import 'package:dio/dio.dart';
+import 'package:flowdetect/screens/hii_station_video_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class HiiStationFirstPreview extends StatefulWidget {
   final int? postgresids;
+  final String? urlVideos;
 
-  const HiiStationFirstPreview({Key? key, this.postgresids}) : super(key: key);
+  const HiiStationFirstPreview({Key? key, this.postgresids, this.urlVideos})
+      : super(key: key);
 
   @override
   State<HiiStationFirstPreview> createState() => _HiiStationFirstPreviewState();
@@ -18,6 +21,7 @@ class _HiiStationFirstPreviewState extends State<HiiStationFirstPreview> {
   int? postgresIntid;
 
   String urlVideo = "";
+
   Future<void> getUrlResult(int postgresIntid) async {
     Map<String, dynamic> map = {};
 
@@ -46,9 +50,10 @@ class _HiiStationFirstPreviewState extends State<HiiStationFirstPreview> {
   @override
   void initState() {
     postgresIntid = widget.postgresids;
+    urlVideo = widget.urlVideos!;
     debugPrint('### $postgresIntid');
 
-    getUrlResult(postgresIntid!);
+    //getUrlResult(postgresIntid!);
 
     videoPlayerController = VideoPlayerController.network(urlVideo)
       ..initialize();
@@ -73,6 +78,29 @@ class _HiiStationFirstPreviewState extends State<HiiStationFirstPreview> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.looks_one_rounded),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const HiiStationVideoSetting()));
+            },
+            icon: const Icon(Icons.settings),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/userService', (route) => false);
+            },
+            icon: const Icon(Icons.home),
+          ),
+        ],
         title: const Text('First Preview'),
       ),
       body: FutureBuilder(
