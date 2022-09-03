@@ -1,5 +1,6 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:video_player/video_player.dart';
 
 class HiiStationSecondPreview extends StatefulWidget {
@@ -35,6 +36,8 @@ class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
   int? x1Left;
   int? x2Right;
 
+  String? vidUrl;
+
   @override
   void initState() {
     postgresIntid = widget.postgresids;
@@ -51,12 +54,15 @@ class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
     print('#### x1Left = $x1Left');
     print('#### x2Right = $x2Right');
 
-    var vid_url =
-        'http://113.53.253.55:5001/static/data/hiistations/$videoName.mp4';
+    setState(() {
+      vidUrl =
+          'http://113.53.253.55:5001/static/data/hiistations/$videoName.mp4';
+    });
+    
 
-    print('#### vid_url = $vid_url');
+    print('#### vid_url = $vidUrl');
 
-    videoPlayerController = VideoPlayerController.network(vid_url)
+    videoPlayerController = VideoPlayerController.network(vidUrl!)
       ..initialize();
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController!,
@@ -77,12 +83,15 @@ class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
 
   @override
   Widget build(BuildContext context) {
+    final ProgressDialog pr = ProgressDialog(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              await pr.show();
+            },
             icon: const Icon(Icons.cloud_upload_rounded),
           ),
           IconButton(

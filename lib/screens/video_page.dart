@@ -7,6 +7,7 @@ import 'package:flowdetect/screens/hii_video_upload.dart';
 import 'package:flowdetect/screens/show_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:video_player/video_player.dart';
 
 import '../utility/main_style.dart';
@@ -81,6 +82,8 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   Widget build(BuildContext context) {
+    final ProgressDialog pr = ProgressDialog(context);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -201,45 +204,31 @@ class _VideoPageState extends State<VideoPage> {
                                   'http://113.53.253.55:5001/hiistations_api2';
 
                               await Dio().post(path, data: formData).then(
-                                (value) {
-                                  //print('##10aug value from api =.=> $value');
-                                  if (value != null) {
-                                    var videoName = value.toString();
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text(
-                                              "บันทึกข้อมูลเรียบร้อย"),
-                                          actions: <Widget>[
-                                            OutlinedButton(
-                                              child: const Text("ถัดไป"),
-                                              onPressed: () {
-                                                Navigator.pushAndRemoveUntil(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          HiiStationFirstPreview(
-                                                        postgresids:
-                                                            postgresIntid,
-                                                        videoNames: videoName,
-                                                        y1Green: y1Green!.toInt(),
-                                                        y2Red:  y2Red!.toInt(),
-                                                        x1Left: x1Left!.toInt(),
-                                                        x2Right: x2Right!.toInt(),
+                                (value) async {
+                                  await pr.show();
 
-                                                      ),
-                                                    ),
-                                                    (route) => false);
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  } else {
-                                    MainStyle().showProgressBar();
-                                  }
+                                  //print('##10aug value from api =.=> $value');
+                                 
+                                    var videoName = value.toString();
+
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              HiiStationFirstPreview(
+                                            postgresids: postgresIntid,
+                                            videoNames: videoName,
+                                            y1Green: y1Green!.toInt(),
+                                            y2Red: y2Red!.toInt(),
+                                            x1Left: x1Left!.toInt(),
+                                            x2Right: x2Right!.toInt(),
+                                          ),
+                                        ),
+                                        (route) => false);
+
+                                    Future.delayed(const Duration(seconds: 3))
+                                        .then((value) async => await pr.hide());
+                                 
                                 },
                               ).catchError(
                                 (error) {

@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flowdetect/screens/hii_station_video_setting.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:video_player/video_player.dart';
 
 class HiiStationFirstPreview extends StatefulWidget {
@@ -35,6 +36,8 @@ class _HiiStationFirstPreviewState extends State<HiiStationFirstPreview> {
   int? x2Right;
   String videoName = "";
 
+  String? vidUrl;
+
   @override
   void initState() {
     postgresIntid = widget.postgresids;
@@ -49,11 +52,13 @@ class _HiiStationFirstPreviewState extends State<HiiStationFirstPreview> {
 
     //getUrlResult(postgresIntid!);
 
-    videoPlayerController = VideoPlayerController.network(
-        'http://113.53.253.55:5001/static/data/hiistations/output_' +
-            videoName +
-            '.mp4')
-      ..initialize();
+    setState(() {
+      vidUrl = 'http://113.53.253.55:5001/static/data/hiistations/output_' +
+          videoName +
+          '.mp4';
+    });
+
+    videoPlayerController = VideoPlayerController.network(vidUrl!)..initialize();
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController!,
       autoPlay: true,
@@ -73,27 +78,35 @@ class _HiiStationFirstPreviewState extends State<HiiStationFirstPreview> {
 
   @override
   Widget build(BuildContext context) {
+    final ProgressDialog pr = ProgressDialog(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
+             
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HiiStationVideoSetting(
-                            imgPreviews:
-                                'http://113.53.253.55:5001/static/data/hiistations/output_' +
-                                    videoName +
-                                    '.jpg',
-                            videoNames: videoName,
-                            y1Green: y1Green!.toInt(),
-                            y2Red: y2Red!.toInt(),
-                            x1Left: x1Left!.toInt(),
-                            x2Right: x2Right!.toInt(),
-                            postgresids: postgresIntid,
-                          )));
+                context,
+                MaterialPageRoute(
+                  
+                  builder: (context) => HiiStationVideoSetting(
+                    imgPreviews:
+                        'http://113.53.253.55:5001/static/data/hiistations/output_' +
+                            videoName +
+                            '.jpg',
+                    videoNames: videoName,
+                    y1Green: y1Green!.toInt(),
+                    y2Red: y2Red!.toInt(),
+                    x1Left: x1Left!.toInt(),
+                    x2Right: x2Right!.toInt(),
+                    postgresids: postgresIntid,
+                  ),
+                ),
+              );
+
+               
+
             },
             icon: const Icon(Icons.settings),
           ),

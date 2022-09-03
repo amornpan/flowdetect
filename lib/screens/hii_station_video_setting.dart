@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 
 import 'hii_station_second_preview.dart';
 
@@ -59,6 +60,7 @@ class _HiiStationVideoSettingState extends State<HiiStationVideoSetting> {
 
   @override
   Widget build(BuildContext context) {
+    final ProgressDialog pr = ProgressDialog(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -219,29 +221,31 @@ class _HiiStationVideoSettingState extends State<HiiStationVideoSetting> {
                         String path =
                             'http://113.53.253.55:5001/hiistations_api3';
                         await Dio().post(path, data: formData).then(
-                          (value) {
-                            if (value != null) {
-                              videoName = value.toString();
-                              Navigator.push(
+                          (value) async {
+                            await pr.show();
+
+                            Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
                                     return HiiStationSecondPreview(
-                                      videoNames: videoName,
-                                      y1Green: y1GreenController.text == ''
-                                          ? y1Green
-                                          : int.parse(y1GreenController.text),
-                                      y2Red: y2RedController.text == ''
-                                          ? y2Red
-                                          : int.parse(y2RedController.text),
-                                      x1Left: x1Left!.toInt(),
-                                      x2Right: x2Right!.toInt(),
-                                      postgresids: postgresIntid,
-                                    );
+                                    videoNames: videoName,
+                                    y1Green: y1GreenController.text == ''
+                                        ? y1Green
+                                        : int.parse(y1GreenController.text),
+                                    y2Red: y2RedController.text == ''
+                                        ? y2Red
+                                        : int.parse(y2RedController.text),
+                                    x1Left: x1Left!.toInt(),
+                                    x2Right: x2Right!.toInt(),
+                                    postgresids: postgresIntid,
+                                  );
                                   },
                                 ),
-                              );
-                            }
+                                (route) => false);
+
+                            Future.delayed(const Duration(seconds: 3))
+                                .then((value) async => await pr.hide());
                           },
                         ).catchError(
                           (error) {
