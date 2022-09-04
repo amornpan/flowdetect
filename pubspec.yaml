@@ -83,6 +83,8 @@ dependencies:
 
   progress_dialog_null_safe: ^1.0.7
 
+  better_player: ^0.0.83
+
 flutter_icons:
   android: "launcher_icon"
   ios: true

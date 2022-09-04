@@ -208,27 +208,26 @@ class _VideoPageState extends State<VideoPage> {
                                   await pr.show();
 
                                   //print('##10aug value from api =.=> $value');
-                                 
-                                    var videoName = value.toString();
 
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              HiiStationFirstPreview(
-                                            postgresids: postgresIntid,
-                                            videoNames: videoName,
-                                            y1Green: y1Green!.toInt(),
-                                            y2Red: y2Red!.toInt(),
-                                            x1Left: x1Left!.toInt(),
-                                            x2Right: x2Right!.toInt(),
-                                          ),
+                                  var videoName = value.toString();
+
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            HiiStationFirstPreview(
+                                          postgresids: postgresIntid,
+                                          videoNames: videoName,
+                                          y1Green: y1Green!.toInt(),
+                                          y2Red: y2Red!.toInt(),
+                                          x1Left: x1Left!.toInt(),
+                                          x2Right: x2Right!.toInt(),
                                         ),
-                                        (route) => false);
+                                      ),
+                                      (route) => false);
 
-                                    Future.delayed(const Duration(seconds: 3))
-                                        .then((value) async => await pr.hide());
-                                 
+                                  Future.delayed(const Duration(seconds: 4))
+                                      .then((value) async => await pr.hide());
                                 },
                               ).catchError(
                                 (error) {

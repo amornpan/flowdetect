@@ -2,6 +2,7 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:video_player/video_player.dart';
+import 'package:better_player/better_player.dart';
 
 class HiiStationSecondPreview extends StatefulWidget {
   final int? postgresids;
@@ -30,13 +31,13 @@ class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
   VideoPlayerController? videoPlayerController;
   ChewieController? chewieController;
   int? postgresIntid;
-  String videoName = "";
+  String? videoName;
   int? y1Green;
   int? y2Red;
   int? x1Left;
   int? x2Right;
 
-  String? vidUrl;
+  String vidUrl = '';
 
   @override
   void initState() {
@@ -46,31 +47,26 @@ class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
     y2Red = widget.y2Red;
     x1Left = widget.x1Left;
     x2Right = widget.x2Right;
+    vidUrl =
+        'http://113.53.253.55:5001/static/data/hiistations/output_output_$videoName.mp4';
 
-    print('#### videoName = $videoName');
-    print('#### postgresIntid = $postgresIntid');
-    print('#### y1Green = $y1Green');
-    print('#### y2Red = $y2Red');
-    print('#### x1Left = $x1Left');
-    print('#### x2Right = $x2Right');
+    // print('#### videoName = $videoName');
+    // print('#### postgresIntid = $postgresIntid');
+    // print('#### y1Green = $y1Green');
+    // print('#### y2Red = $y2Red');
+    // print('#### x1Left = $x1Left');
+    // print('#### x2Right = $x2Right');
+    // print('#### vid_url = $vidUrl');
 
-    setState(() {
-      vidUrl =
-          'http://113.53.253.55:5001/static/data/hiistations/$videoName.mp4';
-    });
-    
-
-    print('#### vid_url = $vidUrl');
-
-    videoPlayerController = VideoPlayerController.network(vidUrl!)
-      ..initialize();
-    chewieController = ChewieController(
-      videoPlayerController: videoPlayerController!,
-      autoPlay: true,
-      aspectRatio: 2 / 3,
-      // aspectRatio: 9 / 16,
-      // looping: true,
-    );
+    // videoPlayerController = VideoPlayerController.network(vidUrl!)
+    //   ..initialize();
+    // chewieController = ChewieController(
+    //   videoPlayerController: videoPlayerController!,
+    //   autoPlay: true,
+    //   aspectRatio: 2 / 3,
+    //   // aspectRatio: 9 / 16,
+    //   // looping: true,
+    // );
     super.initState();
   }
 
@@ -102,11 +98,22 @@ class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
             icon: const Icon(Icons.home),
           ),
         ],
-        title: const Text('Final Result'),
+        title: const Text('Final Preview'),
       ),
-      body: FutureBuilder(
-        builder: (context, state) => SizedBox(
-          child: Chewie(controller: chewieController!),
+      // body: FutureBuilder(
+      //   builder: (context, state) => SizedBox(
+      //     child: Chewie(controller: chewieController!),
+      //   ),
+      // ),
+      body: Center(
+        child: AspectRatio(
+          aspectRatio: 2 / 3,
+          child: BetterPlayer.network(
+            vidUrl,
+            betterPlayerConfiguration: const BetterPlayerConfiguration(
+              aspectRatio: 2 / 3,
+            ),
+          ),
         ),
       ),
     );

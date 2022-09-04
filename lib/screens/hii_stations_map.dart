@@ -51,7 +51,7 @@ class _HiiStationMapState extends State<HiiStationMap> {
     late var parsedJson;
     late String jsonData;
     Map<dynamic, dynamic> body = {'user': user, 'pass': pass};
-    var intLastIndex=0;
+    var intLastIndex = 0;
 
     final response = await http.post(uri,
         body: body,
