@@ -14,6 +14,7 @@ class HiiStationVideoSetting extends StatefulWidget {
   final int? y2Red;
   final int? x1Left;
   final int? x2Right;
+  final double? particleSizes;
 
   const HiiStationVideoSetting({
     Key? key,
@@ -24,6 +25,7 @@ class HiiStationVideoSetting extends StatefulWidget {
     this.y2Red,
     this.x1Left,
     this.x2Right,
+    this.particleSizes,
   }) : super(key: key);
 
   @override
@@ -38,6 +40,7 @@ class _HiiStationVideoSettingState extends State<HiiStationVideoSetting> {
   int? x1Left;
   int? x2Right;
   String videoName = "";
+  double? particleSize;
 
   String dropdownValue = list.first;
 
@@ -54,6 +57,7 @@ class _HiiStationVideoSettingState extends State<HiiStationVideoSetting> {
     y2Red = widget.y2Red;
     x1Left = widget.x1Left;
     x2Right = widget.x2Right;
+    particleSize = widget.particleSizes;
 
     //print('###imgPreview $imgPreview');
   }
@@ -192,7 +196,7 @@ class _HiiStationVideoSettingState extends State<HiiStationVideoSetting> {
                     //     )
                     //   ],
                     // ),
-                    
+
                     ElevatedButton(
                       onPressed: () async {
                         Map<String, dynamic> map = {};
@@ -241,6 +245,7 @@ class _HiiStationVideoSettingState extends State<HiiStationVideoSetting> {
                                   thresholdvalues: dropdownValue == '50'
                                       ? int.parse('50')
                                       : int.parse(dropdownValue),
+                                      particleSizes: particleSize
                                 );
                               },
                             ), (route) => false);
@@ -254,7 +259,7 @@ class _HiiStationVideoSettingState extends State<HiiStationVideoSetting> {
                           },
                         );
                       },
-                      child: const Text('เล่นไฟล์วีดีโอ'),
+                      child: const Text('ยืนยันการตั้งค่า'),
                     ),
                   ],
                 ),

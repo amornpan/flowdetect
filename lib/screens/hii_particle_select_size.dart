@@ -292,6 +292,7 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
                                   return CameraPage(
                                     cameras: value,
                                     postgresids: postgresid,
+                                    particleSizes : particleSize,
                                   );
                                 },
                               ),

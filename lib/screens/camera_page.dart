@@ -18,10 +18,12 @@ class CameraPage extends StatefulWidget {
     Key? key,
     required this.cameras,
     required this.postgresids,
+    this.particleSizes,
   }) : super(key: key);
 
   final List<CameraDescription>? cameras;
   final int? postgresids;
+  final double? particleSizes;
 
   @override
   _CameraPageState createState() => _CameraPageState();
@@ -35,6 +37,8 @@ class _CameraPageState extends State<CameraPage> {
   late double? videoaspectRatio;
 
   int? postgresIntid;
+
+  double? particleSize;
 
   _showAlertDialog(BuildContext context) {
     // set up the button
@@ -68,6 +72,7 @@ class _CameraPageState extends State<CameraPage> {
   void initState() {
     _initCamera(widget.cameras![0]);
     postgresIntid = widget.postgresids;
+    particleSize = widget.particleSizes;
 
     print('## postgresid CameraPage= $postgresIntid');
     super.initState();
@@ -112,6 +117,8 @@ class _CameraPageState extends State<CameraPage> {
           y2Reds: y2Reds,
           x1Lefts: x1Lefts,
           x2Rights: x2Rights,
+          particleSizes : particleSize,
+
         ),
       );
       Navigator.push(context, route);

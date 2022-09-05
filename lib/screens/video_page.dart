@@ -22,6 +22,7 @@ class VideoPage extends StatefulWidget {
   final double? y2Reds;
   final double? x1Lefts;
   final double? x2Rights;
+  final double? particleSizes;
 
   const VideoPage({
     Key? key,
@@ -31,6 +32,7 @@ class VideoPage extends StatefulWidget {
     required this.y2Reds,
     required this.x1Lefts,
     required this.x2Rights,
+    this.particleSizes,
   }) : super(key: key);
 
   @override
@@ -45,6 +47,7 @@ class _VideoPageState extends State<VideoPage> {
   double? y2Red;
   double? x1Left;
   double? x2Right;
+  double? particleSize;
 
   @override
   void initState() {
@@ -54,6 +57,7 @@ class _VideoPageState extends State<VideoPage> {
     y2Red = widget.y2Reds;
     x1Left = widget.x1Lefts;
     x2Right = widget.x2Rights;
+    particleSize = widget.particleSizes;
 
     print('## postgresid Video Page= $postgresIntid');
     super.initState();
@@ -222,6 +226,7 @@ class _VideoPageState extends State<VideoPage> {
                                           y2Red: y2Red!.toInt(),
                                           x1Left: x1Left!.toInt(),
                                           x2Right: x2Right!.toInt(),
+                                          particleSizes : particleSize,
                                         ),
                                       ),
                                       (route) => false);

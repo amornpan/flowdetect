@@ -1,4 +1,6 @@
 import 'package:chewie/chewie.dart';
+import 'package:dio/dio.dart';
+import 'package:flowdetect/screens/hii_station_result.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:video_player/video_player.dart';
@@ -12,6 +14,7 @@ class HiiStationSecondPreview extends StatefulWidget {
   final int? x1Left;
   final int? x2Right;
   final int? thresholdvalues;
+  final double? particleSizes;
 
   const HiiStationSecondPreview({
     Key? key,
@@ -22,6 +25,7 @@ class HiiStationSecondPreview extends StatefulWidget {
     this.x1Left,
     this.x2Right,
     this.thresholdvalues,
+    this.particleSizes,
   }) : super(key: key);
 
   @override
@@ -39,6 +43,10 @@ class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
   int? x1Left;
   int? x2Right;
   String vidUrl = '';
+  double? particleSize;
+  int? thresholdvalue;
+
+  double? surfaceVelocity;
 
   @override
   void initState() {
@@ -48,6 +56,8 @@ class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
     y2Red = widget.y2Red;
     x1Left = widget.x1Left;
     x2Right = widget.x2Right;
+    particleSize = widget.particleSizes;
+    thresholdvalue = widget.thresholdvalues;
     vidUrl =
         'http://113.53.253.55:5001/static/data/hiistations/output_output_$videoName.mp4';
 
@@ -89,7 +99,30 @@ class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
             onPressed: () async {
               await pr.show();
 
-              //call api
+              Map<String, dynamic> map = {};
+              map['id'] = postgresIntid;
+              map['thresholdvalue'] = thresholdvalue;
+              map['y1Greens'] = y1Green;
+              map['y2Reds'] = y2Red;
+              map['videoName'] = videoName;
+              map['x1Lefts'] = x1Left;
+              map['x2Rights'] = x2Right;
+              map['particleSize'] = particleSize;
+
+              FormData formData = FormData.fromMap(map);
+
+              String path =
+                  'http://113.53.253.55:5001/surface_velocity_calcutated';
+
+              await Dio().post(path, data: formData).then((value) async {
+                Navigator.pushAndRemoveUntil(context,
+                    MaterialPageRoute(builder: (context) {
+                  return HiiStationResult(
+                    surfaceVelocitys: double.parse(value.toString()),
+                    postgresids: postgresIntid,
+                  );
+                }), (route) => false);
+              });
 
               Future.delayed(const Duration(seconds: 4))
                   .then((value) async => await pr.hide());
