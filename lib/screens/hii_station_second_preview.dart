@@ -11,6 +11,7 @@ class HiiStationSecondPreview extends StatefulWidget {
   final int? y2Red;
   final int? x1Left;
   final int? x2Right;
+  final int? thresholdvalues;
 
   const HiiStationSecondPreview({
     Key? key,
@@ -20,6 +21,7 @@ class HiiStationSecondPreview extends StatefulWidget {
     this.y2Red,
     this.x1Left,
     this.x2Right,
+    this.thresholdvalues,
   }) : super(key: key);
 
   @override
@@ -36,7 +38,6 @@ class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
   int? y2Red;
   int? x1Left;
   int? x2Right;
-
   String vidUrl = '';
 
   @override
@@ -87,6 +88,11 @@ class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
           IconButton(
             onPressed: () async {
               await pr.show();
+
+              //call api
+
+              Future.delayed(const Duration(seconds: 4))
+                  .then((value) async => await pr.hide());
             },
             icon: const Icon(Icons.cloud_upload_rounded),
           ),

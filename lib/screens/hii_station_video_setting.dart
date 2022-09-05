@@ -139,60 +139,60 @@ class _HiiStationVideoSettingState extends State<HiiStationVideoSetting> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'เส้นอ้างอิงบน : ',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        SizedBox(
-                          width: 200,
-                          height: 50,
-                          child: TextField(
-                            controller: y1GreenController,
-                            obscureText: false,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'เส้นอ้างอิงบน',
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'เส้นอ้างอิงล่าง : ',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        SizedBox(
-                          width: 200,
-                          height: 50,
-                          child: TextField(
-                            controller: y2RedController,
-                            obscureText: false,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'เส้นอ้างล่าง',
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 20),
+                    // Column(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     const Text(
+                    //       'เส้นอ้างอิงบน : ',
+                    //       style: TextStyle(
+                    //         fontSize: 20.0,
+                    //         color: Colors.green,
+                    //         fontWeight: FontWeight.bold,
+                    //       ),
+                    //     ),
+                    //     const SizedBox(height: 10),
+                    //     SizedBox(
+                    //       width: 200,
+                    //       height: 50,
+                    //       child: TextField(
+                    //         controller: y1GreenController,
+                    //         obscureText: false,
+                    //         decoration: const InputDecoration(
+                    //           border: OutlineInputBorder(),
+                    //           labelText: 'เส้นอ้างอิงบน',
+                    //         ),
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
+                    // const SizedBox(height: 20),
+                    // Column(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     const Text(
+                    //       'เส้นอ้างอิงล่าง : ',
+                    //       style: TextStyle(
+                    //         fontSize: 20.0,
+                    //         color: Colors.red,
+                    //         fontWeight: FontWeight.bold,
+                    //       ),
+                    //     ),
+                    //     const SizedBox(height: 10),
+                    //     SizedBox(
+                    //       width: 200,
+                    //       height: 50,
+                    //       child: TextField(
+                    //         controller: y2RedController,
+                    //         obscureText: false,
+                    //         decoration: const InputDecoration(
+                    //           border: OutlineInputBorder(),
+                    //           labelText: 'เส้นอ้างล่าง',
+                    //         ),
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
+                    
                     ElevatedButton(
                       onPressed: () async {
                         Map<String, dynamic> map = {};
@@ -224,25 +224,26 @@ class _HiiStationVideoSettingState extends State<HiiStationVideoSetting> {
                           (value) async {
                             await pr.show();
 
-                            Navigator.pushAndRemoveUntil(
-                                context,
+                            Navigator.pushAndRemoveUntil(context,
                                 MaterialPageRoute(
-                                  builder: (context) {
-                                    return HiiStationSecondPreview(
-                                    videoNames: videoName,
-                                    y1Green: y1GreenController.text == ''
-                                        ? y1Green
-                                        : int.parse(y1GreenController.text),
-                                    y2Red: y2RedController.text == ''
-                                        ? y2Red
-                                        : int.parse(y2RedController.text),
-                                    x1Left: x1Left!.toInt(),
-                                    x2Right: x2Right!.toInt(),
-                                    postgresids: postgresIntid,
-                                  );
-                                  },
-                                ),
-                                (route) => false);
+                              builder: (context) {
+                                return HiiStationSecondPreview(
+                                  videoNames: videoName,
+                                  y1Green: y1GreenController.text == ''
+                                      ? y1Green
+                                      : int.parse(y1GreenController.text),
+                                  y2Red: y2RedController.text == ''
+                                      ? y2Red
+                                      : int.parse(y2RedController.text),
+                                  x1Left: x1Left!.toInt(),
+                                  x2Right: x2Right!.toInt(),
+                                  postgresids: postgresIntid,
+                                  thresholdvalues: dropdownValue == '50'
+                                      ? int.parse('50')
+                                      : int.parse(dropdownValue),
+                                );
+                              },
+                            ), (route) => false);
 
                             Future.delayed(const Duration(seconds: 3))
                                 .then((value) async => await pr.hide());
