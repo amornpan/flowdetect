@@ -3,9 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flowdetect/screens/other_river_video_page.dart';
 
 class OtherRiverCameraPage extends StatefulWidget {
-  const OtherRiverCameraPage({Key? key, required this.cameras}) : super(key: key);
+  const OtherRiverCameraPage({
+    Key? key,
+    required this.cameras,
+    this.names,
+    this.bValues,
+    this.yValues,
+    this.aValues,
+  }) : super(key: key);
 
   final List<CameraDescription>? cameras;
+  final String? names;
+  final double? bValues;
+  final double? yValues;
+  final double? aValues;
 
   @override
   State<OtherRiverCameraPage> createState() => _OtherRiverCameraPageState();
@@ -17,11 +28,19 @@ class _OtherRiverCameraPageState extends State<OtherRiverCameraPage> {
   late CameraController _cameraController;
   late double screenWidth;
   late double screenHigh;
+  String? name;
+  double? bValue;
+  double? yValue;
+  double? aValue;
 
   @override
   void initState() {
     _initCamera(widget.cameras![0]);
     super.initState();
+    name = widget.names;
+    bValue = widget.bValues;
+    yValue = widget.yValues;
+    aValue = widget.aValues;
   }
 
   _initCamera(CameraDescription cameraDescription) async {
@@ -52,7 +71,7 @@ class _OtherRiverCameraPageState extends State<OtherRiverCameraPage> {
       setState(() => _isRecording = true);
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;

@@ -4,7 +4,17 @@ import 'package:flutter/material.dart';
 import 'other_river_camera_page.dart';
 
 class OtherRiverParticleSelectSize extends StatefulWidget {
-  const OtherRiverParticleSelectSize({Key? key}) : super(key: key);
+  const OtherRiverParticleSelectSize({Key? key,
+    this.names,
+    this.bValues,
+    this.yValues,
+    this.aValues,
+  }) : super(key: key);
+
+  final String? names;
+  final double? bValues;
+  final double? yValues;
+  final double? aValues;
 
   @override
   State<OtherRiverParticleSelectSize> createState() =>
@@ -25,6 +35,20 @@ class _OtherRiverParticleSelectSizeState
     false,
   ];
   Color colorClick = const Color.fromARGB(255, 7, 72, 125);
+
+  String? name;
+  double? bValue;
+  double? yValue;
+  double? aValue;
+
+  @override
+  void initState() {
+    super.initState();
+    name = widget.names;
+    bValue = widget.bValues;
+    yValue = widget.yValues;
+    aValue = widget.aValues;
+  }
 
   @override
   Widget build(BuildContext context) {

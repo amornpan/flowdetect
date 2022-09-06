@@ -1,6 +1,5 @@
 import 'package:camera/camera.dart';
 import 'package:flowdetect/screens/video_page.dart';
-import 'package:flowdetect/utility/dialog.dart';
 import 'package:flutter/material.dart';
 
 late double? y2Reds;

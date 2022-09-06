@@ -15,9 +15,47 @@ class _OtherRiverState extends State<OtherRiver> {
   late double screenWidth;
   late double screenHigh;
 
-  String strBValue = "";
-  String strYValue = "";
-  String strAValue = "";
+  String? names;
+  double? bValues;
+  double? yValues;
+  double? aValues;
+
+  Widget txtName() {
+    return SizedBox(
+      width: screenWidth * 0.8,
+      child: TextFormField(
+        keyboardType: TextInputType.name,
+        style:
+            const TextStyle(color: Color.fromRGBO(0, 0, 0, 1), fontSize: 16.0),
+        decoration: InputDecoration(
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 14.0, horizontal: 10.0),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(color: Colors.blue.shade400, width: 4.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(color: Colors.blue.shade400, width: 4.0),
+          ),
+          prefixIcon: const Icon(
+            // Icons.height,
+            Icons.broadcast_on_home_sharp,
+            color: Color.fromARGB(255, 69, 68, 68),
+            size: 20.0,
+          ),
+          labelText: 'ชื่อสถานที่ที่ทำการวัดค่า:',
+          labelStyle: const TextStyle(
+              color: Color.fromARGB(255, 156, 146, 146),
+              fontSize: 14.0,
+              fontWeight: FontWeight.normal),
+        ),
+        onChanged: (value) {
+          names = value.trim();
+        },
+      ),
+    );
+  }
 
   Widget txtBValue() {
     return SizedBox(
@@ -50,7 +88,7 @@ class _OtherRiverState extends State<OtherRiver> {
               fontWeight: FontWeight.normal),
         ),
         onChanged: (value) {
-          strBValue = value.trim();
+          bValues = double.parse(value.trim());
         },
       ),
     );
@@ -87,7 +125,7 @@ class _OtherRiverState extends State<OtherRiver> {
               fontWeight: FontWeight.normal),
         ),
         onChanged: (value) {
-          strYValue = value.trim();
+          yValues = double.parse(value.trim());
         },
       ),
     );
@@ -96,7 +134,7 @@ class _OtherRiverState extends State<OtherRiver> {
   Widget calculateAreaButton() {
     return ElevatedButton(
       onPressed: () async {
-        if ((strBValue.isEmpty) || (strYValue.isEmpty)) {
+        if ((bValues == null) || (yValues == null)) {
           normalDialog(context, "พบค่าว่าง", "กรุณากรอกข้อมูลให้ครบ");
         } else {
           // add strBValue, strYValue, other river tag, datetime to sqlite
@@ -104,18 +142,18 @@ class _OtherRiverState extends State<OtherRiver> {
           // debugPrint('##17aug strYValue= $strYValue');
 
           setState(() {
-            strAValue = areaCaluclate(strBValue, strYValue);
+            aValues = areaCaluclate(bValues, yValues);
           });
         }
       },
       child: const Text("คำนวณพื้นที่รูปตัด"),
       style: ElevatedButton.styleFrom(
           fixedSize: const Size(250, 50),
+          backgroundColor: Colors.blue.shade500,
           shadowColor: Colors.black,
           elevation: 10,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          primary: Colors.blue.shade500,
           textStyle: const TextStyle(
             fontStyle: FontStyle.normal,
             fontSize: 19.0,
@@ -127,14 +165,14 @@ class _OtherRiverState extends State<OtherRiver> {
   Widget submitButton() {
     return ElevatedButton(
       onPressed: () async {
-        if ((strBValue.isEmpty) || (strYValue.isEmpty) || (strAValue.isEmpty)) {
+        if ((bValues == null) || (yValues == null) || (aValues == null)) {
           normalDialog(context, "พบค่าว่าง", "กรุณากรอกข้อมูลให้ครบ");
         } else {
           Navigator.pushNamed(context, '/otherRiverParticleSelectSize',
               arguments: <String, dynamic>{
-                'strBValue': strBValue,
-                'strYValue': strYValue,
-                'strAValue': strAValue,
+                'bValues': bValues,
+                'yValues': yValues,
+                'aValues': aValues,
               });
         }
       },
@@ -154,15 +192,13 @@ class _OtherRiverState extends State<OtherRiver> {
     );
   }
 
-  String areaCaluclate(var bval, var yval) {
-    var dblBvalue = double.parse(bval);
-    var dblYvalue = double.parse(yval);
-    debugPrint('##17aug dblBvalue = $dblBvalue dblYvalue= $dblYvalue');
+  double areaCaluclate(var dblBvalue, var dblYvalue) {
+    //debugPrint('##17aug dblBvalue = $dblBvalue dblYvalue= $dblYvalue');
     if (dblBvalue < 0 || dblYvalue < 0) {
-      return "0.0";
+      return 0.0;
     } else {
       var Aval = (((dblBvalue * 2) + (dblYvalue * 6)) / 2 * dblYvalue);
-      return Aval.toString();
+      return Aval;
     }
   }
 
@@ -212,8 +248,10 @@ class _OtherRiverState extends State<OtherRiver> {
                     const SizedBox(height: 10),
                     MainStyle().showOtherRiverMeasurementImage(),
                     const SizedBox(height: 10),
-                    Text('ขนาดของพื้นที่หน้าตัด (A) = ' + strAValue),
+                    Text('ขนาดของพื้นที่หน้าตัด (A) = ' + aValues.toString()),
                     const SizedBox(height: 20),
+                    txtName(),
+                    const SizedBox(height: 15),
                     txtBValue(),
                     const SizedBox(height: 15),
                     txtYValue(),
