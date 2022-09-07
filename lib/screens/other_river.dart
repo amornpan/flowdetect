@@ -165,11 +165,17 @@ class _OtherRiverState extends State<OtherRiver> {
   Widget submitButton() {
     return ElevatedButton(
       onPressed: () async {
+        debugPrint('names = $names');
+        debugPrint('bValues = $bValues');
+        debugPrint('yValues = $yValues');
+        debugPrint('aValues = $aValues');
+
         if ((bValues == null) || (yValues == null) || (aValues == null)) {
           normalDialog(context, "พบค่าว่าง", "กรุณากรอกข้อมูลให้ครบ");
         } else {
           Navigator.pushNamed(context, '/otherRiverParticleSelectSize',
               arguments: <String, dynamic>{
+                'names': names,
                 'bValues': bValues,
                 'yValues': yValues,
                 'aValues': aValues,
@@ -178,12 +184,11 @@ class _OtherRiverState extends State<OtherRiver> {
       },
       child: const Text("ถัดไป"),
       style: ElevatedButton.styleFrom(
-          fixedSize: const Size(250, 50),
+          fixedSize: const Size(250, 50), backgroundColor: Colors.blue.shade500,
           shadowColor: Colors.black,
           elevation: 10,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          primary: Colors.blue.shade500,
           textStyle: const TextStyle(
             fontStyle: FontStyle.normal,
             fontSize: 21.0,

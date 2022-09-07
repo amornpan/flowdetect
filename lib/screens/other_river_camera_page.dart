@@ -2,21 +2,32 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flowdetect/screens/other_river_video_page.dart';
 
+late double screenWidth;
+late double screenHigh;
+late double? y2Reds;
+late double? y1Greens;
+late double? x1Lefts;
+late double? x2Rights;
+
 class OtherRiverCameraPage extends StatefulWidget {
   const OtherRiverCameraPage({
     Key? key,
     required this.cameras,
+    this.postgresids,
     this.names,
     this.bValues,
     this.yValues,
     this.aValues,
+    this.particleSizes,
   }) : super(key: key);
 
   final List<CameraDescription>? cameras;
+  final int? postgresids;
   final String? names;
   final double? bValues;
   final double? yValues;
   final double? aValues;
+  final double? particleSizes;
 
   @override
   State<OtherRiverCameraPage> createState() => _OtherRiverCameraPageState();
@@ -28,19 +39,57 @@ class _OtherRiverCameraPageState extends State<OtherRiverCameraPage> {
   late CameraController _cameraController;
   late double screenWidth;
   late double screenHigh;
+  int? postgresid;
   String? name;
   double? bValue;
   double? yValue;
   double? aValue;
+  double? particleSize;
+
+  _showAlertDialog(BuildContext context) {
+    // set up the button
+    Widget okButton = TextButton(
+      child: const Text("ยอมรับ"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: const Text("คำแนะนำ"),
+      content: const Text(
+          "1.ถือกล้องให้นิ่ง\n2.อย่าให้มีสิ่งกีดขวางในกรวยการวัด\n3.ให้วัตถุเคลื่อนที่ผ่านในกรวยการวัด"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   void initState() {
     _initCamera(widget.cameras![0]);
     super.initState();
     name = widget.names;
+    postgresid = widget.postgresids;
+    particleSize = widget.particleSizes;
     bValue = widget.bValues;
     yValue = widget.yValues;
     aValue = widget.aValues;
+  }
+
+  @override
+  void dispose() {
+    _cameraController.dispose();
+    super.dispose();
   }
 
   _initCamera(CameraDescription cameraDescription) async {
@@ -53,6 +102,8 @@ class _OtherRiverCameraPageState extends State<OtherRiverCameraPage> {
     );
     await _cameraController.initialize();
     setState(() => _isLoading = false);
+
+    _showAlertDialog(context);
   }
 
   _recordVideo() async {
@@ -61,10 +112,20 @@ class _OtherRiverCameraPageState extends State<OtherRiverCameraPage> {
       setState(() => _isRecording = false);
 
       final route = MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (_) => OtherRiverVideoPage(filePath: file.path),
+        fullscreenDialog: false,
+        builder: (_) => OtherRiverVideoPage(
+          filePath: file.path,
+          postgresids: postgresid,
+          y1Greens: y1Greens,
+          y2Reds: y2Reds,
+          x1Lefts: x1Lefts,
+          x2Rights: x2Rights,
+          particleSizes: particleSize,
+        ),
       );
+
       Navigator.push(context, route);
+
     } else {
       await _cameraController.prepareForVideoRecording();
       await _cameraController.startVideoRecording();
@@ -212,31 +273,68 @@ class Rectangle extends CustomPainter {
 class Line extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
+    print('##size = $size');
+
+    double y1GreensVideoBoderSize = (size.height * 0.135);
+    double x1LeftsVideoBoderSize = (size.width * 0.015);
+    double x2RightsVideoBoderSize = (size.width * 0.985);
+    double y2RedsVideoBoderSize = (size.height * 0.8636);
+
+    y2Reds = y2RedsVideoBoderSize * 0.9;
+    y1Greens = y2Reds! - 150;
+    x1Lefts = size.width * 0.2;
+    x2Rights = size.width * 0.8;
+
     // Red Reference
     Paint paint = Paint();
     paint.color = const Color.fromARGB(255, 226, 19, 64);
     paint.strokeWidth = 5;
     paint.strokeCap = StrokeCap.round;
-    Offset startingOffset = Offset(size.width * 0.20, size.height * 0.75);
-    Offset endingOffset = Offset(size.width * 0.80, size.height * 0.75);
+
+    Offset startingOffset = Offset(size.width * 0.2, y2Reds!);
+
+    Offset endingOffset = Offset(size.width * 0.8, y2Reds!);
+
     canvas.drawLine(startingOffset, endingOffset, paint);
+
+    // Paint paint11 = Paint();
+    // paint.color = const Color.fromARGB(255, 226, 19, 64);
+    // paint.strokeWidth = 1;
+    // paint.strokeCap = StrokeCap.round;
+    // Offset startingOffset11 =
+    //     Offset(size.width * 0.2, size.height * 0.75 * 0.985 * 0.985);
+    // Offset endingOffset11 =
+    //     Offset(size.width * 0.80, size.height * 0.75 * 0.985 * 0.985);
+    // canvas.drawLine(startingOffset11, endingOffset11, paint11);
 
     // Green Reference
     Paint paint2 = Paint();
     paint2.color = const Color.fromARGB(255, 13, 132, 29);
     paint2.strokeWidth = 5;
     paint2.strokeCap = StrokeCap.round;
-    Offset startingOffset2 = Offset(size.width * 0.30, size.height * 0.55);
-    Offset endingOffset2 = Offset(size.width * 0.70, size.height * 0.55);
+
+    Offset startingOffset2 = Offset(size.width * 0.3, y1Greens!);
+
+    Offset endingOffset2 = Offset(size.width * 0.7, y1Greens!);
     canvas.drawLine(startingOffset2, endingOffset2, paint2);
+
+    // Paint paint21 = Paint();
+    // paint2.color = const Color.fromARGB(255, 13, 132, 29);
+    // paint2.strokeWidth = 1;
+    // paint2.strokeCap = StrokeCap.round;
+    // Offset startingOffset21 =
+    //     Offset(size.width * 0.3, size.height * 0.55 * 0.985 * 0.985);
+    // Offset endingOffset21 =
+    //     Offset(size.width * 0.70, size.height * 0.55 * 0.985 * 0.985);
+    // canvas.drawLine(startingOffset21, endingOffset21, paint21);
 
     // Yellow_left Reference
     Paint paint3 = Paint();
     paint3.color = const Color.fromARGB(255, 223, 194, 7);
     paint3.strokeWidth = 5;
     paint3.strokeCap = StrokeCap.round;
-    Offset startingOffset3 = Offset(size.width * 0.30, size.height * 0.55);
-    Offset endingOffset3 = Offset(size.width * 0.20, size.height * 0.75);
+    Offset startingOffset3 = Offset(size.width * 0.3, y1Greens!);
+    Offset endingOffset3 = Offset(size.width * 0.2, y2Reds!);
     canvas.drawLine(startingOffset3, endingOffset3, paint3);
 
     // Yellow_Right Reference
@@ -244,8 +342,8 @@ class Line extends CustomPainter {
     paint4.color = const Color.fromARGB(255, 223, 194, 7);
     paint4.strokeWidth = 5;
     paint4.strokeCap = StrokeCap.round;
-    Offset startingOffset4 = Offset(size.width * 0.70, size.height * 0.55);
-    Offset endingOffset4 = Offset(size.width * 0.80, size.height * 0.75);
+    Offset startingOffset4 = Offset(size.width * 0.7, y1Greens!);
+    Offset endingOffset4 = Offset(size.width * 0.8, y2Reds!);
     canvas.drawLine(startingOffset4, endingOffset4, paint4);
   }
 

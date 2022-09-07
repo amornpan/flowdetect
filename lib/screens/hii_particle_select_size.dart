@@ -2,7 +2,6 @@ import 'package:camera/camera.dart';
 import 'package:flowdetect/models/hii_station_model.dart';
 import 'package:flowdetect/screens/camera_page.dart';
 import 'package:flowdetect/utility/dialog.dart';
-import 'package:flowdetect/utility/main_style.dart';
 import 'package:flowdetect/utility/sqlite_management.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -182,7 +181,7 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
         });
       },
       style: ElevatedButton.styleFrom(
-        primary: clicks[0] ? colorClick : Color.fromARGB(255, 71, 163, 239),
+        backgroundColor: clicks[0] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(120, 120),
         shape: const CircleBorder(),
       ),
@@ -203,7 +202,7 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
         });
       },
       style: ElevatedButton.styleFrom(
-        primary: clicks[1] ? colorClick : Color.fromARGB(255, 71, 163, 239),
+        backgroundColor: clicks[1] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(100, 100),
         shape: const CircleBorder(),
       ),
@@ -224,7 +223,7 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
         });
       },
       style: ElevatedButton.styleFrom(
-        primary: clicks[2] ? colorClick : Color.fromARGB(255, 71, 163, 239),
+        backgroundColor: clicks[2] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(80, 80),
         shape: const CircleBorder(),
       ),

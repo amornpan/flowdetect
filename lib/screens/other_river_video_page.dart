@@ -11,15 +11,39 @@ String? videoPath;
 
 class OtherRiverVideoPage extends StatefulWidget {
   final String filePath;
-  const OtherRiverVideoPage({Key? key, required this.filePath})
-      : super(key: key);
+  const OtherRiverVideoPage({
+    Key? key,
+    required this.filePath,
+    this.postgresids,
+    this.y1Greens,
+    this.y2Reds,
+    this.x1Lefts,
+    this.x2Rights,
+    this.particleSizes,
+    this.aValues,
+    this.bValues,
+    this.yValues,
+    this.names,
+  }) : super(key: key);
+
+  final int? postgresids;
+  final String? names;
+  final double? bValues;
+  final double? yValues;
+  final double? aValues;
+  final double? particleSizes;
+
+  final double? y1Greens;
+  final double? y2Reds;
+  final double? x1Lefts;
+  final double? x2Rights;
+
 
   @override
   State<OtherRiverVideoPage> createState() => _OtherRiverVideoPageState();
 }
 
 class _OtherRiverVideoPageState extends State<OtherRiverVideoPage> {
-  
   late VideoPlayerController _videoPlayerController;
   String? pathStorage;
 
@@ -43,8 +67,7 @@ class _OtherRiverVideoPageState extends State<OtherRiverVideoPage> {
         ExternalPath.DIRECTORY_MOVIES);
     debugPrint('###11aug $pathStorage');
   }
-  
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,41 +122,8 @@ class _OtherRiverVideoPageState extends State<OtherRiverVideoPage> {
                             label: const Text('Undo'),
                           ),
                         ),
-                        const SizedBox(width: 10),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: FloatingActionButton.extended(
-                            heroTag: "btnSave",
-                            onPressed: () async {
-                              debugPrint('##10aug save Video at $videoPath');
-                              await GallerySaver.saveVideo(videoPath.toString())
-                                  .then((value) {
-                                debugPrint(
-                                    '##10aug value.tostring ${value.toString()}');
-                                dispose();
-                              });
-                              File(videoPath.toString()).deleteSync();
-                              // Navigator.pushNamed(
-                              //   context,
-                              //   '/videoUpload',
-                              //   arguments: <String, dynamic>{
-                              //     'videoPath': videoPath,
-                              //     'pathStorage' : pathStorage,
-                              //   },
-                              // );
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => OtherRiverVideoUpload(
-                                      videoPath: videoPath,
-                                      pathStorage: pathStorage,
-                                    ),
-                                  ));
-                            },
-                            icon: const Icon(Icons.save),
-                            label: const Text('Save'),
-                          ),
-                        ),
+                        
+                        
                         const SizedBox(width: 10),
                         Align(
                           alignment: Alignment.bottomRight,
@@ -163,14 +153,15 @@ class _OtherRiverVideoPageState extends State<OtherRiverVideoPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => OtherRiverShowVideoPlayer(
-                                          urlVideo: value.toString()),
+                                      builder: (context) =>
+                                          OtherRiverShowVideoPlayer(
+                                              urlVideo: value.toString()),
                                     ));
                               }).catchError((error) {
                                 print('##10aug error $error');
                               });
                             },
-                            icon: const Icon(Icons.cloud),
+                            icon: const Icon(Icons.cloud_upload),
                             label: const Text('Cloud'),
                           ),
                         ),

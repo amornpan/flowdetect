@@ -1,20 +1,24 @@
 import 'package:camera/camera.dart';
+import 'package:dio/dio.dart';
 import 'package:flowdetect/utility/dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'other_river_camera_page.dart';
+import 'package:intl/intl.dart';
 
 class OtherRiverParticleSelectSize extends StatefulWidget {
-  const OtherRiverParticleSelectSize({Key? key,
-    this.names,
-    this.bValues,
-    this.yValues,
-    this.aValues,
+  const OtherRiverParticleSelectSize({
+    Key? key,
+    // this.names,
+    // this.bValues,
+    // this.yValues,
+    // this.aValues,
   }) : super(key: key);
 
-  final String? names;
-  final double? bValues;
-  final double? yValues;
-  final double? aValues;
+  // final String? names;
+  // final double? bValues;
+  // final double? yValues;
+  // final double? aValues;
 
   @override
   State<OtherRiverParticleSelectSize> createState() =>
@@ -27,7 +31,7 @@ class _OtherRiverParticleSelectSizeState
   late double screenHigh;
 
   bool particleSelect = false;
-  double particleSize = 0.0;
+  double? particleSize = 0.0;
 
   var clicks = <bool>[
     false,
@@ -44,16 +48,29 @@ class _OtherRiverParticleSelectSizeState
   @override
   void initState() {
     super.initState();
-    name = widget.names;
-    bValue = widget.bValues;
-    yValue = widget.yValues;
-    aValue = widget.aValues;
+
+    // name = widget.names;
+    // bValue = widget.bValues;
+    // yValue = widget.yValues;
+    // aValue = widget.aValues;
   }
 
   @override
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHigh = MediaQuery.of(context).size.height;
+
+    final routeData =
+        ModalRoute.of(context)?.settings.arguments as Map<dynamic, dynamic>;
+    name = routeData['names'];
+    bValue = routeData['bValues'];
+    yValue = routeData['yValues'];
+    aValue = routeData['aValues'];
+
+    debugPrint('names = $name');
+    debugPrint('bValues = $bValue');
+    debugPrint('yValues = $yValue');
+    debugPrint('aValues = $aValue');
 
     // Get value from other_river
     // final routeData =
@@ -150,7 +167,8 @@ class _OtherRiverParticleSelectSizeState
         });
       },
       style: ElevatedButton.styleFrom(
-         primary: clicks[0] ? colorClick : Color.fromARGB(255, 71, 163, 239),
+        backgroundColor:
+            clicks[0] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(120, 120),
         shape: const CircleBorder(),
       ),
@@ -171,7 +189,8 @@ class _OtherRiverParticleSelectSizeState
         });
       },
       style: ElevatedButton.styleFrom(
-        primary: clicks[1] ? colorClick : Color.fromARGB(255, 71, 163, 239),
+        backgroundColor:
+            clicks[1] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(100, 100),
         shape: const CircleBorder(),
       ),
@@ -192,7 +211,8 @@ class _OtherRiverParticleSelectSizeState
         });
       },
       style: ElevatedButton.styleFrom(
-        primary: clicks[2] ? colorClick : Color.fromARGB(255, 71, 163, 239),
+        backgroundColor:
+            clicks[2] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(80, 80),
         shape: const CircleBorder(),
       ),
@@ -200,14 +220,17 @@ class _OtherRiverParticleSelectSizeState
   }
 
   Widget nextButton() {
+    final ProgressDialog pr = ProgressDialog(context);
     return ElevatedButton(
       onPressed: () async {
+        DateTime dateTime = DateTime.now();
+        String formattedDate = DateFormat('yyyy-MM-dd kk:mm').format(dateTime);
         if (particleSize == 0.0) {
           normalDialog(
               context, "ยังไม่ได้เลือกขนาดวัตถุ", "กรุณาเลือกเลือกขนาดวัตถุ");
         } else {
-          await availableCameras().then((value) => Navigator.push(context,
-              MaterialPageRoute(builder: (_) => OtherRiverCameraPage(cameras: value))));
+          // await availableCameras().then((value) => Navigator.push(context,
+          //     MaterialPageRoute(builder: (_) => OtherRiverCameraPage(cameras: value))));
 
           // await availableCameras().then((value) => Navigator.push(context,
           //         MaterialPageRoute(builder: (_) {
@@ -215,16 +238,58 @@ class _OtherRiverParticleSelectSizeState
           //         cameras: value,
           //       );
           //     })));
+
+          Map<String, dynamic> map = {};
+
+          map['name'] = name;
+          map['particleSize'] = particleSize;
+          map['recordDataTime'] = formattedDate;
+          map['Bvalue'] = bValue;
+          map['Yvalue'] = yValue;
+          map['Avalue'] = aValue;
+
+          FormData formData = FormData.fromMap(map);
+
+          String path =
+              'http://113.53.253.55:5001/otherriver_api_first_record_data';
+
+          await Dio()
+              .post(
+            path,
+            data: formData,
+          )
+              .then((valueAPI) async {
+            await availableCameras().then(
+              (value) => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) {
+                    return OtherRiverCameraPage(
+                      cameras: value,
+                      postgresids: int.parse(valueAPI.toString()),
+                      names: name,
+                      bValues: bValue,
+                      yValues: yValue,
+                      aValues: aValue,
+                    );
+                  },
+                ),
+              ),
+            );
+          });
+          await pr.show();
+          Future.delayed(const Duration(seconds: 4))
+              .then((value) async => await pr.hide());
         }
       },
       child: const Text("ต่อไป"),
       style: ElevatedButton.styleFrom(
           fixedSize: const Size(250, 50),
+          backgroundColor: const Color.fromRGBO(41, 168, 223, 1),
           shadowColor: Colors.black,
           elevation: 10,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          primary: const Color.fromRGBO(41, 168, 223, 1),
           textStyle: const TextStyle(
             fontStyle: FontStyle.normal,
             fontSize: 20.0,

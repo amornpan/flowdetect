@@ -120,6 +120,8 @@ class _CameraPageState extends State<CameraPage> {
 
         ),
       );
+
+      
       Navigator.push(context, route);
     } else {
       await _cameraController.prepareForVideoRecording();
