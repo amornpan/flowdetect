@@ -8,6 +8,10 @@ late double? y2Reds;
 late double? y1Greens;
 late double? x1Lefts;
 late double? x2Rights;
+late String? name;
+late double? bValue;
+late double? yValue;
+late double? aValue;
 
 class OtherRiverCameraPage extends StatefulWidget {
   const OtherRiverCameraPage({
@@ -121,11 +125,14 @@ class _OtherRiverCameraPageState extends State<OtherRiverCameraPage> {
           x1Lefts: x1Lefts,
           x2Rights: x2Rights,
           particleSizes: particleSize,
+          names: name,
+          bValues: bValue,
+          yValues: yValue,
+          aValues: aValue,
         ),
       );
 
       Navigator.push(context, route);
-
     } else {
       await _cameraController.prepareForVideoRecording();
       await _cameraController.startVideoRecording();
