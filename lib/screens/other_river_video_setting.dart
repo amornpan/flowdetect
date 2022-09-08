@@ -33,7 +33,6 @@ class OtherRiverVideoSetting extends StatefulWidget {
 }
 
 class _OtherRiverVideoSettingState extends State<OtherRiverVideoSetting> {
-  
   int? postgresIntid;
   String? imgPreview;
   int? y1Green;
@@ -44,10 +43,6 @@ class _OtherRiverVideoSettingState extends State<OtherRiverVideoSetting> {
   double? particleSize;
 
   String dropdownValue = list.first;
-
-  TextEditingController y1GreenController = TextEditingController();
-  TextEditingController y2RedController = TextEditingController();
-  
 
   @override
   void initState() {
@@ -61,10 +56,9 @@ class _OtherRiverVideoSettingState extends State<OtherRiverVideoSetting> {
     x2Right = widget.x2Right;
     particleSize = widget.particleSizes;
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    
     final ProgressDialog pr = ProgressDialog(context);
     return Scaffold(
       appBar: AppBar(
@@ -144,31 +138,27 @@ class _OtherRiverVideoSettingState extends State<OtherRiverVideoSetting> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    
-
                     ElevatedButton(
                       onPressed: () async {
                         Map<String, dynamic> map = {};
                         map['id'] = postgresIntid;
                         map['thresholdvalue'] =
                             dropdownValue == '50' ? '50' : dropdownValue;
-                        map['y1Greens'] = y1GreenController.text == ''
-                            ? y1Green
-                            : y1GreenController.text;
-                        map['y2Reds'] = y2RedController.text == ''
-                            ? y2Red
-                            : y2RedController.text;
+                        map['y1Greens'] = y1Green;
+                        map['y2Reds'] = y2Red;
                         map['videoName'] = 'output_' + videoName + '.mp4';
                         map['x1Lefts'] = x1Left;
                         map['x2Rights'] = x2Right;
 
-                        // print("## map['id']= ${map['id']}");
-                        // print("## map['thresholdvalue']= ${map['thresholdvalue']}");
-                        // print("## map['y1Greens']= ${map['y1Greens']}");
-                        // print("## map['y2Reds']= ${map['y2Reds']}");
-                        // print("## map['x1Lefts']= ${map['x1Lefts']}");
-                        // print("## map['x2Rights']= ${map['x2Rights']}");
-                        // print("## map['videoName']= ${map['videoName']}");
+                        // debugPrint("## map['id']= ${map['id']}");
+                        // debugPrint(
+                        //     "## map['thresholdvalue']= ${map['thresholdvalue']}");
+                        // debugPrint("## map['y1Greens']= ${map['y1Greens']}");
+                        // debugPrint("## map['y2Reds']= ${map['y2Reds']}");
+                        // debugPrint("## map['x1Lefts']= ${map['x1Lefts']}");
+                        // debugPrint("## map['x2Rights']= ${map['x2Rights']}");
+                        // debugPrint("## map['videoName']= ${map['videoName']}");
+                        
 
                         FormData formData = FormData.fromMap(map);
                         String path =
@@ -177,17 +167,16 @@ class _OtherRiverVideoSettingState extends State<OtherRiverVideoSetting> {
                           (value) async {
                             await pr.show();
 
+                            debugPrint(
+                                "## map['videoName']= ${map['videoName']}");
+
                             Navigator.pushAndRemoveUntil(context,
                                 MaterialPageRoute(
                               builder: (context) {
                                 return OtherRiverSecondPreview(
                                     videoNames: videoName,
-                                    y1Green: y1GreenController.text == ''
-                                        ? y1Green
-                                        : int.parse(y1GreenController.text),
-                                    y2Red: y2RedController.text == ''
-                                        ? y2Red
-                                        : int.parse(y2RedController.text),
+                                   y1Green: y1Green,
+                                    y2Red: y2Red,
                                     x1Left: x1Left!.toInt(),
                                     x2Right: x2Right!.toInt(),
                                     postgresids: postgresIntid,

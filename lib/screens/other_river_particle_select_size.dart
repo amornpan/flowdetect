@@ -271,6 +271,7 @@ class _OtherRiverParticleSelectSizeState
                       bValues: bValue,
                       yValues: yValue,
                       aValues: aValue,
+                      particleSizes: particleSize,
                     );
                   },
                 ),

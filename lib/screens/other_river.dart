@@ -40,7 +40,7 @@ class _OtherRiverState extends State<OtherRiver> {
           ),
           prefixIcon: const Icon(
             // Icons.height,
-            Icons.broadcast_on_home_sharp,
+            Icons.water,
             color: Color.fromARGB(255, 69, 68, 68),
             size: 20.0,
           ),

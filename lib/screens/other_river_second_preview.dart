@@ -2,7 +2,6 @@ import 'package:better_player/better_player.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
-
 import 'other_result.dart';
 
 class OtherRiverSecondPreview extends StatefulWidget {
@@ -28,11 +27,11 @@ class OtherRiverSecondPreview extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<OtherRiverSecondPreview> createState() => _OtherRiverSecondPreviewState();
+  State<OtherRiverSecondPreview> createState() =>
+      _OtherRiverSecondPreviewState();
 }
 
 class _OtherRiverSecondPreviewState extends State<OtherRiverSecondPreview> {
-  
   int? postgresIntid;
   String? videoName;
   int? y1Green;
@@ -44,9 +43,7 @@ class _OtherRiverSecondPreviewState extends State<OtherRiverSecondPreview> {
   int? thresholdvalue;
 
   double? surfaceVelocity;
-  
-  var BetterPlayer;
-  
+
   @override
   void initState() {
     super.initState();
@@ -61,13 +58,13 @@ class _OtherRiverSecondPreviewState extends State<OtherRiverSecondPreview> {
     vidUrl =
         'http://113.53.253.55:5001/static/data/otherriver/output_output_$videoName.mp4';
 
+    debugPrint('### particleSize $particleSize');
   }
 
   @override
   void dispose() {
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +90,7 @@ class _OtherRiverSecondPreviewState extends State<OtherRiverSecondPreview> {
               FormData formData = FormData.fromMap(map);
 
               String path =
-                  'http://113.53.253.55:5001/surface_velocity_calcutated';
+                  'http://113.53.253.55:5001/otherriver_surface_velocity_calcutated';
 
               await Dio().post(path, data: formData).then((value) async {
                 Navigator.pushAndRemoveUntil(context,
