@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:video_player/video_player.dart';
 
+import 'other_river_first_preview.dart';
+
 String? videoPath;
 
 class OtherRiverVideoPage extends StatefulWidget {
@@ -189,12 +191,21 @@ class _OtherRiverVideoPageState extends State<OtherRiverVideoPage> {
                                   .then((value) {
                                 print('##10aug value from api =.=> $value');
 
+                                var videoName = value.toString();
+
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                          OtherRiverShowVideoPlayer(
-                                              urlVideo: value.toString()),
+                                          OtherRiverFirstPreview(
+                                        postgresids: postgresIntid,
+                                        videoNames: videoName,
+                                        y1Green: y1Green!.toInt(),
+                                        y2Red: y2Red!.toInt(),
+                                        x1Left: x1Left!.toInt(),
+                                        x2Right: x2Right!.toInt(),
+                                        particleSizes: particleSize,
+                                      ),
                                     ));
                               }).catchError((error) {
                                 print('##10aug error $error');

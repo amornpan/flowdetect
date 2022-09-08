@@ -1,25 +1,23 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import '../utility/dialog.dart';
+
 import '../utility/main_style.dart';
-import 'show_video_player.dart';
 
 double? distance;
 double? averageVelocity;
 double? flowrate;
 
-class HiiStationResult extends StatefulWidget {
+class OtherResult extends StatefulWidget {
   final int? postgresids;
   final double? surfaceVelocitys;
-
-  const HiiStationResult({Key? key, this.postgresids, this.surfaceVelocitys})
+ const OtherResult({Key? key, this.postgresids, this.surfaceVelocitys})
       : super(key: key);
 
   @override
-  State<HiiStationResult> createState() => _HiiStationResultState();
+  State<OtherResult> createState() => _OtherResultState();
 }
 
-class _HiiStationResultState extends State<HiiStationResult> {
+class _OtherResultState extends State<OtherResult> {
+
   int? postgresIntid;
   String? urlVideo;
   double? surfaceVelocity;
@@ -32,7 +30,7 @@ class _HiiStationResultState extends State<HiiStationResult> {
   @override
   void initState() {
     super.initState();
-    postgresIntid = widget.postgresids;
+     postgresIntid = widget.postgresids;
     surfaceVelocity = widget.surfaceVelocitys;
   }
 
@@ -147,7 +145,7 @@ class _HiiStationResultState extends State<HiiStationResult> {
 
                 ElevatedButton(
                   onPressed: () {
-                   Navigator.pushNamedAndRemoveUntil(
+                    Navigator.pushNamedAndRemoveUntil(
                         context, '/userService', (route) => false);
                   },
                   child: const Text(
@@ -158,47 +156,7 @@ class _HiiStationResultState extends State<HiiStationResult> {
                   ),
                 ),
 
-                // ElevatedButton(
-                //   onPressed: () {
-                //     if (distance == null) {
-                //       normalDialog(context, "ยังไม่ได้คำนวณระยะทาง",
-                //           "กรุณากดคำนวณระยะทางก่อน!!");
-                //     } else {}
-                //   },
-                //   child: const Text('คำนวณค่าความเร็วและอัตราการไหล'),
-                // ),
-
-                // ElevatedButton(
-                //   onPressed: () async {
-                //     Map<String, dynamic> map = {};
-                //     map['id'] = postgresIntid;
-                //     FormData formData = FormData.fromMap(map);
-                //     String path =
-                //         'http://113.53.253.55:5001/hiistations_api_calculate';
-                //     await Dio().post(path, data: formData).then(
-                //       (value) {
-                //         if (value != null) {
-                //           urlVideo = value.toString();
-                //           Navigator.push(
-                //             context,
-                //             MaterialPageRoute(
-                //               builder: (context) {
-                //                 return ShowVideoPlayer(
-                //                   urlVideo: urlVideo!,
-                //                 );
-                //               },
-                //             ),
-                //           );
-                //         }
-                //       },
-                //     ).catchError(
-                //       (error) {
-                //         print('##10aug error $error');
-                //       },
-                //     );
-                //   },
-                //   child: const Text('คำนวณอัตการไหล'),
-                // ),
+         
               ],
             ),
           ),
