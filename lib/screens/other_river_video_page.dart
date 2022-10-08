@@ -205,6 +205,7 @@ class _OtherRiverVideoPageState extends State<OtherRiverVideoPage> {
                                         x1Left: x1Left!.toInt(),
                                         x2Right: x2Right!.toInt(),
                                         particleSizes: particleSize,
+                                        aValues: aValue,
                                       ),
                                     ));
                               }).catchError((error) {

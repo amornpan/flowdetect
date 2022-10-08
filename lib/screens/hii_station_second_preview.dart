@@ -6,6 +6,8 @@ import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:video_player/video_player.dart';
 import 'package:better_player/better_player.dart';
 
+List<dynamic> resultsList = [];
+
 class HiiStationSecondPreview extends StatefulWidget {
   final int? postgresids;
   final String? videoNames;

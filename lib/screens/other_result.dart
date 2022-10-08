@@ -9,15 +9,19 @@ double? flowrate;
 class OtherResult extends StatefulWidget {
   final int? postgresids;
   final double? surfaceVelocitys;
- const OtherResult({Key? key, this.postgresids, this.surfaceVelocitys})
-      : super(key: key);
+  final double? aValues;
+  const OtherResult({
+    Key? key,
+    this.postgresids,
+    this.surfaceVelocitys,
+    this.aValues,
+  }) : super(key: key);
 
   @override
   State<OtherResult> createState() => _OtherResultState();
 }
 
 class _OtherResultState extends State<OtherResult> {
-
   int? postgresIntid;
   String? urlVideo;
   double? surfaceVelocity;
@@ -27,11 +31,16 @@ class _OtherResultState extends State<OtherResult> {
         '$input'.substring(0, '$input'.indexOf('.') + precision + 1));
   }
 
+  double? aValue;
+
   @override
   void initState() {
     super.initState();
-     postgresIntid = widget.postgresids;
+    postgresIntid = widget.postgresids;
     surfaceVelocity = widget.surfaceVelocitys;
+    aValue = widget.aValues;
+    averageVelocity = surfaceVelocity! * 0.8;
+    flowrate = averageVelocity! * aValue!;
   }
 
   @override
@@ -106,7 +115,7 @@ class _OtherResultState extends State<OtherResult> {
                         averageVelocity == null
                             ? MainStyle().showProgressBar()
                             : Text(
-                                '$averageVelocity m/s',
+                                '$averageVelocity  m/s',
                                 style: const TextStyle(
                                   fontSize: 20.0,
                                   color: Color(0xff0064b7),
@@ -142,7 +151,6 @@ class _OtherResultState extends State<OtherResult> {
                   ],
                 ),
                 const SizedBox(height: 20),
-
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamedAndRemoveUntil(
@@ -155,8 +163,6 @@ class _OtherResultState extends State<OtherResult> {
                     ),
                   ),
                 ),
-
-         
               ],
             ),
           ),

@@ -15,6 +15,7 @@ class OtherRiverVideoSetting extends StatefulWidget {
   final int? x1Left;
   final int? x2Right;
   final double? particleSizes;
+  final double? aValues;
 
   const OtherRiverVideoSetting({
     Key? key,
@@ -26,6 +27,7 @@ class OtherRiverVideoSetting extends StatefulWidget {
     this.x1Left,
     this.x2Right,
     this.particleSizes,
+    this.aValues,
   }) : super(key: key);
 
   @override
@@ -43,6 +45,7 @@ class _OtherRiverVideoSettingState extends State<OtherRiverVideoSetting> {
   double? particleSize;
 
   String dropdownValue = list.first;
+  double? aValue;
 
   @override
   void initState() {
@@ -158,7 +161,6 @@ class _OtherRiverVideoSettingState extends State<OtherRiverVideoSetting> {
                         // debugPrint("## map['x1Lefts']= ${map['x1Lefts']}");
                         // debugPrint("## map['x2Rights']= ${map['x2Rights']}");
                         // debugPrint("## map['videoName']= ${map['videoName']}");
-                        
 
                         FormData formData = FormData.fromMap(map);
                         String path =
@@ -175,7 +177,7 @@ class _OtherRiverVideoSettingState extends State<OtherRiverVideoSetting> {
                               builder: (context) {
                                 return OtherRiverSecondPreview(
                                     videoNames: videoName,
-                                   y1Green: y1Green,
+                                    y1Green: y1Green,
                                     y2Red: y2Red,
                                     x1Left: x1Left!.toInt(),
                                     x2Right: x2Right!.toInt(),
@@ -183,7 +185,8 @@ class _OtherRiverVideoSettingState extends State<OtherRiverVideoSetting> {
                                     thresholdvalues: dropdownValue == '50'
                                         ? int.parse('50')
                                         : int.parse(dropdownValue),
-                                    particleSizes: particleSize);
+                                    particleSizes: particleSize,
+                                    aValues: aValue);
                               },
                             ), (route) => false);
 

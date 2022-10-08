@@ -13,6 +13,8 @@ class OtherRiverFirstPreview extends StatefulWidget {
   final int? x2Right;
   final double? particleSizes;
 
+  final double? aValues;
+
   const OtherRiverFirstPreview({
     Key? key,
     this.postgresids,
@@ -22,13 +24,13 @@ class OtherRiverFirstPreview extends StatefulWidget {
     this.x1Left,
     this.x2Right,
     this.particleSizes,
+    this.aValues,
   }) : super(key: key);
   @override
   State<OtherRiverFirstPreview> createState() => _OtherRiverFirstPreviewState();
 }
 
 class _OtherRiverFirstPreviewState extends State<OtherRiverFirstPreview> {
-  
   int? postgresIntid;
   int? y1Green;
   int? y2Red;
@@ -37,6 +39,7 @@ class _OtherRiverFirstPreviewState extends State<OtherRiverFirstPreview> {
   String? videoName;
   double? particleSize;
   String vidUrl = '';
+  double? aValue;
 
   @override
   void initState() {
@@ -50,7 +53,7 @@ class _OtherRiverFirstPreviewState extends State<OtherRiverFirstPreview> {
     particleSize = widget.particleSizes;
     vidUrl =
         'http://113.53.253.55:5001/static/data/otherriver/output_$videoName.mp4';
-
+    aValue = widget.aValues;
   }
 
   @override
@@ -84,6 +87,7 @@ class _OtherRiverFirstPreviewState extends State<OtherRiverFirstPreview> {
                       x2Right: x2Right!.toInt(),
                       postgresids: postgresIntid,
                       particleSizes: particleSize,
+                      aValues : aValue,
                     ),
                   ),
                   (route) => false);

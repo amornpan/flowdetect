@@ -13,17 +13,22 @@ Future<void> main() async {
   HttpOverrides.global = MyHttpOverides();
 
   WidgetsFlutterBinding.ensureInitialized();
+  
 
-  await Firebase.initializeApp().then((value) async {
-    FirebaseAuth.instance.authStateChanges().listen((event) async {
-      if (event != null) {
-        initRoute = '/userService';
-        runApp(const MainApp());
-      } else {
-        runApp(const MainApp());
-      }
-    });
-  });
+  await Firebase.initializeApp().then(
+    (value) async {
+      FirebaseAuth.instance.authStateChanges().listen(
+        (event) async {
+          if (event != null) {
+            initRoute = '/userService';
+            runApp(const MainApp());
+          } else {
+            runApp(const MainApp());
+          }
+        },
+      );
+    },
+  );
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

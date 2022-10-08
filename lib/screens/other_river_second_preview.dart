@@ -13,6 +13,7 @@ class OtherRiverSecondPreview extends StatefulWidget {
   final int? x2Right;
   final int? thresholdvalues;
   final double? particleSizes;
+  final double? aValues;
 
   const OtherRiverSecondPreview({
     Key? key,
@@ -24,6 +25,7 @@ class OtherRiverSecondPreview extends StatefulWidget {
     this.x2Right,
     this.thresholdvalues,
     this.particleSizes,
+    this.aValues,
   }) : super(key: key);
 
   @override
@@ -43,6 +45,7 @@ class _OtherRiverSecondPreviewState extends State<OtherRiverSecondPreview> {
   int? thresholdvalue;
 
   double? surfaceVelocity;
+  double? aValue;
 
   @override
   void initState() {
@@ -57,6 +60,7 @@ class _OtherRiverSecondPreviewState extends State<OtherRiverSecondPreview> {
     thresholdvalue = widget.thresholdvalues;
     vidUrl =
         'http://113.53.253.55:5001/static/data/otherriver/output_output_$videoName.mp4';
+    aValue = widget.aValues;
 
     debugPrint('### particleSize $particleSize');
   }
@@ -98,6 +102,7 @@ class _OtherRiverSecondPreviewState extends State<OtherRiverSecondPreview> {
                   return OtherResult(
                     surfaceVelocitys: double.parse(value.toString()),
                     postgresids: postgresIntid,
+                    aValues: aValue,
                   );
                 }), (route) => false);
               });
