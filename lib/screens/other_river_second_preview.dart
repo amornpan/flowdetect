@@ -100,7 +100,8 @@ class _OtherRiverSecondPreviewState extends State<OtherRiverSecondPreview> {
                 Navigator.pushAndRemoveUntil(context,
                     MaterialPageRoute(builder: (context) {
                   return OtherResult(
-                    surfaceVelocitys: double.parse(value.toString()),
+                    // surfaceVelocitys: double.parse(value.toString()),
+                    
                     postgresids: postgresIntid,
                     aValues: aValue,
                   );
