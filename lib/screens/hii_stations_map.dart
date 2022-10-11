@@ -307,11 +307,11 @@ class _HiiStationMapState extends State<HiiStationMap> {
                     children: [
                       left_bank == null
                           ? MainStyle().showProgressBar()
-                          : Text('ตลิ่งซ้าย: $left_bank'),
+                          : Text('ตลิ่งซ้าย: $left_bank ม.รทก'),
                       const SizedBox(width: 5),
                       right_bank == null
                           ? MainStyle().showProgressBar()
-                          : Text('ตลิ่งขวา: $right_bank'),
+                          : Text('ตลิ่งขวา: $right_bank ม.รทก'),
                       const SizedBox(height: 10),
                     ],
                   ),
@@ -320,11 +320,11 @@ class _HiiStationMapState extends State<HiiStationMap> {
                     children: [
                       ground_level == null
                           ? MainStyle().showProgressBar()
-                          : Text('ท้องน้ำ: $ground_level'),
+                          : Text('ท้องน้ำ: $ground_level ม.รทก'),
                       const SizedBox(width: 5),
                       water == null
                           ? MainStyle().showProgressBar()
-                          : Text('ระดับน้ำ: $water'),
+                          : Text('ระดับน้ำ: $water ม.รทก'),
                       const SizedBox(height: 10),
                     ],
                   ),

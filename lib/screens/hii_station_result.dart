@@ -81,7 +81,7 @@ class _HiiStationResultState extends State<HiiStationResult> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        surfaceVelocity == null
+                        surfaceVelocity == null || surfaceVelocity == 0.0
                             ? MainStyle().showProgressBar()
                             : Text(
                                 '${getNumber(surfaceVelocity!)} m/s',
@@ -105,7 +105,7 @@ class _HiiStationResultState extends State<HiiStationResult> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        averageVelocity == null
+                        averageVelocity == null || averageVelocity == 0.0
                             ? MainStyle().showProgressBar()
                             : Text(
                                 '$averageVelocity m/s',
@@ -129,7 +129,7 @@ class _HiiStationResultState extends State<HiiStationResult> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        flowrate == null
+                        flowrate == null || flowrate == 0.0
                             ? MainStyle().showProgressBar()
                             : Text(
                                 '$flowrate m^3/s',
@@ -147,7 +147,7 @@ class _HiiStationResultState extends State<HiiStationResult> {
 
                 ElevatedButton(
                   onPressed: () {
-                   Navigator.pushNamedAndRemoveUntil(
+                    Navigator.pushNamedAndRemoveUntil(
                         context, '/userService', (route) => false);
                   },
                   child: const Text(
