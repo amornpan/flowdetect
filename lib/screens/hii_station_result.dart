@@ -4,16 +4,23 @@ import '../utility/dialog.dart';
 import '../utility/main_style.dart';
 import 'show_video_player.dart';
 
-double? distance;
-double? averageVelocity;
-double? flowrate;
+//double? distance;
+// double? averageVelocity;
+// double? flowrate;
 
 class HiiStationResult extends StatefulWidget {
   final int? postgresids;
   final double? surfaceVelocitys;
+  final double? averageVelocitys;
+  final double? flowrates;
 
-  const HiiStationResult({Key? key, this.postgresids, this.surfaceVelocitys})
-      : super(key: key);
+  const HiiStationResult({
+    Key? key,
+    this.postgresids,
+    this.surfaceVelocitys,
+    this.averageVelocitys,
+    this.flowrates,
+  }) : super(key: key);
 
   @override
   State<HiiStationResult> createState() => _HiiStationResultState();
@@ -23,6 +30,8 @@ class _HiiStationResultState extends State<HiiStationResult> {
   int? postgresIntid;
   String? urlVideo;
   double? surfaceVelocity;
+  double? averageVelocity;
+  double? flowrate;
 
   double getNumber(double input, {int precision = 2}) {
     return double.parse(
@@ -34,6 +43,8 @@ class _HiiStationResultState extends State<HiiStationResult> {
     super.initState();
     postgresIntid = widget.postgresids;
     surfaceVelocity = widget.surfaceVelocitys;
+    averageVelocity = widget.averageVelocitys;
+    flowrate = widget.flowrates;
   }
 
   @override

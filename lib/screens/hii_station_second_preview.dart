@@ -117,10 +117,17 @@ class _HiiStationSecondPreviewState extends State<HiiStationSecondPreview> {
                   'http://113.53.253.55:5001/surface_velocity_calcutated';
 
               await Dio().post(path, data: formData).then((value) async {
+                //print(value.data);
+                //resultsList = value.data;
+                Map responseBody = value.data;
+                //print(responseBody["surfaceVelocity"]);
+
                 Navigator.pushAndRemoveUntil(context,
                     MaterialPageRoute(builder: (context) {
                   return HiiStationResult(
-                    surfaceVelocitys: double.parse(value.toString()),
+                    surfaceVelocitys: responseBody["surfaceVelocity"],
+                    averageVelocitys: responseBody["averageVelocyty"],
+                    flowrates: responseBody["flowrate"],
                     postgresids: postgresIntid,
                   );
                 }), (route) => false);
