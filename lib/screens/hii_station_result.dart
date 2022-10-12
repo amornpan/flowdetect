@@ -119,7 +119,7 @@ class _HiiStationResultState extends State<HiiStationResult> {
                         averageVelocity == null || averageVelocity == 0.0
                             ? MainStyle().showProgressBar()
                             : Text(
-                                '$averageVelocity m/s',
+                                '${getNumber(averageVelocity!)} m/s',
                                 style: const TextStyle(
                                   fontSize: 20.0,
                                   color: Color(0xff0064b7),
@@ -143,7 +143,7 @@ class _HiiStationResultState extends State<HiiStationResult> {
                         flowrate == null || flowrate == 0.0
                             ? MainStyle().showProgressBar()
                             : Text(
-                                '$flowrate m^3/s',
+                                '${getNumber(flowrate!)} cms',
                                 style: const TextStyle(
                                   fontSize: 20.0,
                                   color: Color(0xff0064b7),
