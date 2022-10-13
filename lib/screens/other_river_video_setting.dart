@@ -58,6 +58,7 @@ class _OtherRiverVideoSettingState extends State<OtherRiverVideoSetting> {
     x1Left = widget.x1Left;
     x2Right = widget.x2Right;
     particleSize = widget.particleSizes;
+    aValue = widget.aValues;
   }
 
   @override
@@ -81,7 +82,7 @@ class _OtherRiverVideoSettingState extends State<OtherRiverVideoSetting> {
             icon: const Icon(Icons.home),
           ),
         ],
-        title: const Text('Setting'),
+        title: Text('Setting $aValue'),
       ),
       body: Container(
         color: Colors.white,

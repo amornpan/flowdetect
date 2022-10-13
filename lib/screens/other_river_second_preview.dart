@@ -90,6 +90,7 @@ class _OtherRiverSecondPreviewState extends State<OtherRiverSecondPreview> {
               map['x1Lefts'] = x1Left;
               map['x2Rights'] = x2Right;
               map['particleSize'] = particleSize;
+              map['aValues'] = aValue;
 
               FormData formData = FormData.fromMap(map);
 
@@ -97,13 +98,17 @@ class _OtherRiverSecondPreviewState extends State<OtherRiverSecondPreview> {
                   'http://113.53.253.55:5001/otherriver_surface_velocity_calcutated';
 
               await Dio().post(path, data: formData).then((value) async {
+                Map responseBody = value.data;
+
                 Navigator.pushAndRemoveUntil(context,
                     MaterialPageRoute(builder: (context) {
                   return OtherResult(
                     // surfaceVelocitys: double.parse(value.toString()),
-                    
+
                     postgresids: postgresIntid,
-                    aValues: aValue,
+                    surfaceVelocitys: responseBody["surfaceVelocity"],
+                    averageVelocitys: responseBody["averageVelocyty"],
+                    flowrates: responseBody["flowrate"],
                   );
                 }), (route) => false);
               });
@@ -121,7 +126,7 @@ class _OtherRiverSecondPreviewState extends State<OtherRiverSecondPreview> {
             icon: const Icon(Icons.home),
           ),
         ],
-        title: const Text('Final Preview'),
+        title: Text('Final Preview $aValue'),
       ),
       // body: FutureBuilder(
       //   builder: (context, state) => SizedBox(

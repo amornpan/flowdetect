@@ -105,7 +105,7 @@ class _OtherRiverFirstPreviewState extends State<OtherRiverFirstPreview> {
             icon: const Icon(Icons.home),
           ),
         ],
-        title: const Text('First Preview'),
+        title:  Text('First Preview $aValue'),
       ),
       // body: FutureBuilder(
       //   builder: (context, state) => SizedBox(

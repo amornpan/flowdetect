@@ -99,6 +99,7 @@ class _UserServiceState extends State<UserService> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        const Text('Release 1.8.1.21'),
         const Text(
           'กรุณาเลือกเมนูที่ต้องการทำรายการ',
           style: TextStyle(

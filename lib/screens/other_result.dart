@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 
 import '../utility/main_style.dart';
 
-double? distance;
-double? averageVelocity;
-double? flowrate;
+// double? distance;
+// double? averageVelocity;
+// double? flowrate;
 
 class OtherResult extends StatefulWidget {
   final int? postgresids;
   final double? surfaceVelocitys;
+  final double? averageVelocitys;
+  final double? flowrates;
   final double? aValues;
   const OtherResult({
     Key? key,
     this.postgresids,
     this.surfaceVelocitys,
+    this.averageVelocitys,
+    this.flowrates,
     this.aValues,
   }) : super(key: key);
 
@@ -25,6 +29,8 @@ class _OtherResultState extends State<OtherResult> {
   int? postgresIntid;
   String? urlVideo;
   double? surfaceVelocity;
+  double? averageVelocity;
+  double? flowrate;
 
   double getNumber(double input, {int precision = 2}) {
     return double.parse(
@@ -38,9 +44,9 @@ class _OtherResultState extends State<OtherResult> {
     super.initState();
     postgresIntid = widget.postgresids;
     surfaceVelocity = widget.surfaceVelocitys;
+    averageVelocity = widget.averageVelocitys;
+    flowrate = widget.flowrates;
     aValue = widget.aValues;
-    averageVelocity = surfaceVelocity! * 0.8;
-    flowrate = averageVelocity! * aValue!;
   }
 
   @override
@@ -88,7 +94,7 @@ class _OtherResultState extends State<OtherResult> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        surfaceVelocity == null
+                        surfaceVelocity == null || surfaceVelocity == 0.0
                             ? MainStyle().showProgressBar()
                             : Text(
                                 '${getNumber(surfaceVelocity!)} m/s',
@@ -112,10 +118,10 @@ class _OtherResultState extends State<OtherResult> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        averageVelocity == null
+                        averageVelocity == null || averageVelocity == 0.0
                             ? MainStyle().showProgressBar()
                             : Text(
-                                '$averageVelocity  m/s',
+                                '${getNumber(averageVelocity!)} m/s',
                                 style: const TextStyle(
                                   fontSize: 20.0,
                                   color: Color(0xff0064b7),
@@ -136,10 +142,10 @@ class _OtherResultState extends State<OtherResult> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        flowrate == null
+                        flowrate == null || flowrate == 0.0
                             ? MainStyle().showProgressBar()
                             : Text(
-                                '$flowrate m^3/s',
+                                '${getNumber(flowrate!)} cms',
                                 style: const TextStyle(
                                   fontSize: 20.0,
                                   color: Color(0xff0064b7),
