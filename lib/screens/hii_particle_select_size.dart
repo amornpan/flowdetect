@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 
 class ParticleSizeSelect extends StatefulWidget {
-  const ParticleSizeSelect({Key? key}) : super(key: key);
+  const ParticleSizeSelect({Key? key}) : super(key: key,);
 
   @override
   State<ParticleSizeSelect> createState() => _ParticleSizeSelectState();
@@ -17,6 +17,9 @@ class ParticleSizeSelect extends StatefulWidget {
 class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
   late double screenWidth;
   late double screenHigh;
+
+  String? initCamera;
+  List<CameraDescription>? cameras;
 
   String? name;
   String? date;
@@ -87,6 +90,12 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
   //     print(processReadData());
   //   });
   // }
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +190,8 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
         });
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: clicks[0] ? colorClick : Color.fromARGB(255, 71, 163, 239),
+        backgroundColor:
+            clicks[0] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(120, 120),
         shape: const CircleBorder(),
       ),
@@ -202,7 +212,8 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
         });
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: clicks[1] ? colorClick : Color.fromARGB(255, 71, 163, 239),
+        backgroundColor:
+            clicks[1] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(100, 100),
         shape: const CircleBorder(),
       ),
@@ -223,7 +234,8 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
         });
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: clicks[2] ? colorClick : Color.fromARGB(255, 71, 163, 239),
+        backgroundColor:
+            clicks[2] ? colorClick : Color.fromARGB(255, 71, 163, 239),
         fixedSize: const Size(80, 80),
         shape: const CircleBorder(),
       ),
@@ -283,15 +295,17 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
                         child: const Text("ถัดไป"),
                         onPressed: () async {
                           print('### $postgresid');
+
                           await availableCameras().then(
                             (value) => Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (_) {
                                   return CameraPage(
+                                    //cameras: value == null ? value = 0 : value,
                                     cameras: value,
                                     postgresids: postgresid,
-                                    particleSizes : particleSize,
+                                    particleSizes: particleSize,
                                   );
                                 },
                               ),

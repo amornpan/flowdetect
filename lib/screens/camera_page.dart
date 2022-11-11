@@ -69,7 +69,12 @@ class _CameraPageState extends State<CameraPage> {
 
   @override
   void initState() {
-    _initCamera(widget.cameras![0]);
+    setState(() {
+      print(
+          ' ############# widget.cameras![0]' + widget.cameras![0].toString());
+      _initCamera(widget.cameras![0]);
+    });
+
     postgresIntid = widget.postgresids;
     particleSize = widget.particleSizes;
 
@@ -116,12 +121,10 @@ class _CameraPageState extends State<CameraPage> {
           y2Reds: y2Reds,
           x1Lefts: x1Lefts,
           x2Rights: x2Rights,
-          particleSizes : particleSize,
-
+          particleSizes: particleSize,
         ),
       );
 
-      
       Navigator.push(context, route);
     } else {
       await _cameraController.prepareForVideoRecording();
