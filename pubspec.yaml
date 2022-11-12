@@ -88,6 +88,8 @@ dependencies:
 
   shared_preferences: ^2.0.15
 
+  rename: ^2.0.1
+
 flutter_icons:
   android: "launcher_icon"
   ios: true
