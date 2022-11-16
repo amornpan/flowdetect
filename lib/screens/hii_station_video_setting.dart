@@ -217,7 +217,13 @@ class _HiiStationVideoSettingState extends State<HiiStationVideoSetting> {
                         FormData formData = FormData.fromMap(map);
                         String path =
                             'http://113.53.253.55:5001/hiistations_api3';
-                        await Dio().post(path, data: formData).then(
+                        await Dio().post(path, data: formData,
+                          options: Options(
+                            followRedirects: false,
+                            // will not throw errors
+                            validateStatus: (status) => true,
+                          ),
+                        ).then(
                           (value) async {
                             await pr.show();
 

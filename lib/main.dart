@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 String initRoute = '/authen';
 
 String? initCamera;
@@ -19,7 +18,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
   SharedPreferences pre = await SharedPreferences.getInstance();
-  await pre.setString("cameraSelected","back");
+  await pre.setString("cameraSelected", "back");
   initCamera = (await pre.getString("cameraSelected"));
   print('initCamera ${initCamera}');
 
@@ -56,7 +55,7 @@ class MainApp extends StatelessWidget {
       //home: Authen(),
       routes: map,
       initialRoute: initRoute,
-      //debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

@@ -207,7 +207,17 @@ class _VideoPageState extends State<VideoPage> {
                               String path =
                                   'http://113.53.253.55:5001/hiistations_api2';
 
-                              await Dio().post(path, data: formData).then(
+                              await Dio()
+                                  .post(
+                                path,
+                                data: formData,
+                                options: Options(
+                                  followRedirects: false,
+                                  // will not throw errors
+                                  validateStatus: (status) => true,
+                                ),
+                              )
+                                  .then(
                                 (value) async {
                                   await pr.show();
 
@@ -226,7 +236,7 @@ class _VideoPageState extends State<VideoPage> {
                                           y2Red: y2Red!.toInt(),
                                           x1Left: x1Left!.toInt(),
                                           x2Right: x2Right!.toInt(),
-                                          particleSizes : particleSize,
+                                          particleSizes: particleSize,
                                         ),
                                       ),
                                       (route) => false);

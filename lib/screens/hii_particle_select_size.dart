@@ -8,7 +8,10 @@ import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 
 class ParticleSizeSelect extends StatefulWidget {
-  const ParticleSizeSelect({Key? key}) : super(key: key,);
+  const ParticleSizeSelect({Key? key})
+      : super(
+          key: key,
+        );
 
   @override
   State<ParticleSizeSelect> createState() => _ParticleSizeSelectState();
@@ -93,7 +96,6 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -275,6 +277,11 @@ class _ParticleSizeSelectState extends State<ParticleSizeSelect> {
               .post(
             path,
             data: formData,
+            options: Options(
+              followRedirects: false,
+              // will not throw errors
+              validateStatus: (status) => true,
+            ),
           )
               .then(
             (value1) {
