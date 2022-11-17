@@ -903,7 +903,7 @@ SPEC CHECKSUMS:
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
   google_maps_flutter: c59fc576c0d0c7f4dc4bd63832c862d22d5a7c6d
-  google_sign_in_ios: 90eec6616c4c2105b9f9fe5c774773d13565b504
+  google_sign_in_ios: 4f85eb9f937450765c8573bb85fd8cd6a5af675c
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
   GoogleMaps: bc56ffb0324e345a2d91bac1a64a920f9c8f1b20
   GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a

@@ -95,6 +95,7 @@ class _CameraPageState extends State<CameraPage> {
     _cameraController = CameraController(
       cameraDescription,
       ResolutionPreset.medium,
+      imageFormatGroup: ImageFormatGroup.yuv420,
     );
 
     await _cameraController.initialize();
@@ -110,6 +111,7 @@ class _CameraPageState extends State<CameraPage> {
   _recordVideo() async {
     if (_isRecording) {
       final file = await _cameraController.stopVideoRecording();
+      print("#### camera_page: file = $file");
       setState(() => _isRecording = false);
 
       final route = MaterialPageRoute(
@@ -253,9 +255,9 @@ class CustomClipPath extends CustomClipper<Path> {
 class Line extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    print('##size = $size');
-    print('## videoHigh = > $videoHigh screenHigh = $screenHigh');
-    print('## videoWidth = > $videoWidth screenWidth = $screenWidth');
+    // print('##size = $size');
+    // print('## videoHigh = > $videoHigh screenHigh = $screenHigh');
+    // print('## videoWidth = > $videoWidth screenWidth = $screenWidth');
 
     double y1GreensVideoBoderSize = (size.height * 0.135);
     double x1LeftsVideoBoderSize = (size.width * 0.015);
